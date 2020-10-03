@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 03, 2020 at 09:20 AM
+-- Generation Time: Oct 03, 2020 at 07:43 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `systemppdb`
+-- Database: `systempp`
 --
 
 -- --------------------------------------------------------
@@ -241,7 +240,8 @@ CREATE TABLE `subject` (
 -- Indexes for table `answer_script`
 --
 ALTER TABLE `answer_script`
-  ADD PRIMARY KEY (`answer_id`);
+  ADD PRIMARY KEY (`answer_id`),
+  ADD KEY `paper_id` (`paper_id`);
 
 --
 -- Indexes for table `available_day`
@@ -253,13 +253,23 @@ ALTER TABLE `available_day`
 -- Indexes for table `discussion`
 --
 ALTER TABLE `discussion`
-  ADD PRIMARY KEY (`discussion_id`);
+  ADD PRIMARY KEY (`discussion_id`),
+  ADD KEY `paper_id` (`paper_id`),
+  ADD KEY `question_id` (`question_id`);
 
 --
 -- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
-  ADD PRIMARY KEY (`user_id`,`resource_id`) USING BTREE;
+  ADD PRIMARY KEY (`user_id`,`resource_id`) USING BTREE,
+  ADD KEY `resource_id` (`resource_id`);
+
+--
+-- Indexes for table `interest_list`
+--
+ALTER TABLE `interest_list`
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `subject_code` (`subject_code`);
 
 --
 -- Indexes for table `lecturer`
@@ -271,37 +281,45 @@ ALTER TABLE `lecturer`
 -- Indexes for table `lesson`
 --
 ALTER TABLE `lesson`
-  ADD PRIMARY KEY (`tag`);
+  ADD PRIMARY KEY (`tag`),
+  ADD KEY `subject_code` (`subject_code`);
 
 --
 -- Indexes for table `meeting`
 --
 ALTER TABLE `meeting`
-  ADD PRIMARY KEY (`meeting_id`);
+  ADD PRIMARY KEY (`meeting_id`),
+  ADD KEY `student_user_id` (`student_user_id`),
+  ADD KEY `lecturer_user_id` (`lecturer_user_id`);
 
 --
 -- Indexes for table `paper_preparation`
 --
 ALTER TABLE `paper_preparation`
-  ADD PRIMARY KEY (`user_id`,`paper_id`) USING BTREE;
+  ADD PRIMARY KEY (`user_id`,`paper_id`) USING BTREE,
+  ADD KEY `paper_id` (`paper_id`);
 
 --
 -- Indexes for table `past_paper`
 --
 ALTER TABLE `past_paper`
-  ADD PRIMARY KEY (`paper_id`);
+  ADD PRIMARY KEY (`paper_id`),
+  ADD KEY `subject_code` (`subject_code`);
 
 --
 -- Indexes for table `question`
 --
 ALTER TABLE `question`
-  ADD PRIMARY KEY (`question_id`,`paper_id`) USING BTREE;
+  ADD PRIMARY KEY (`question_id`,`paper_id`) USING BTREE,
+  ADD KEY `paper_id` (`paper_id`);
 
 --
 -- Indexes for table `question_belongs_to_lesson`
 --
 ALTER TABLE `question_belongs_to_lesson`
-  ADD PRIMARY KEY (`tag`,`question_id`,`paper_id`) USING BTREE;
+  ADD PRIMARY KEY (`tag`,`question_id`,`paper_id`) USING BTREE,
+  ADD KEY `question_id` (`question_id`),
+  ADD KEY `paper_id` (`paper_id`);
 
 --
 -- Indexes for table `registred_user`
@@ -315,7 +333,10 @@ ALTER TABLE `registred_user`
 -- Indexes for table `resources`
 --
 ALTER TABLE `resources`
-  ADD PRIMARY KEY (`resource_id`);
+  ADD PRIMARY KEY (`resource_id`),
+  ADD KEY `discussion_id` (`discussion_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `resources_ibfk_3` (`parent_resource_id`);
 
 --
 -- Indexes for table `stduent`
@@ -375,6 +396,103 @@ ALTER TABLE `registred_user`
 --
 ALTER TABLE `resources`
   MODIFY `resource_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `answer_script`
+--
+ALTER TABLE `answer_script`
+  ADD CONSTRAINT `answer_script_ibfk_1` FOREIGN KEY (`paper_id`) REFERENCES `past_paper` (`paper_id`);
+
+--
+-- Constraints for table `available_day`
+--
+ALTER TABLE `available_day`
+  ADD CONSTRAINT `available_day_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `lecturer` (`user_id`);
+
+--
+-- Constraints for table `discussion`
+--
+ALTER TABLE `discussion`
+  ADD CONSTRAINT `discussion_ibfk_1` FOREIGN KEY (`paper_id`) REFERENCES `question` (`paper_id`),
+  ADD CONSTRAINT `discussion_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`);
+
+--
+-- Constraints for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `registred_user` (`user_id`),
+  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`resource_id`) REFERENCES `resources` (`resource_id`);
+
+--
+-- Constraints for table `interest_list`
+--
+ALTER TABLE `interest_list`
+  ADD CONSTRAINT `interest_list_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `registred_user` (`user_id`),
+  ADD CONSTRAINT `interest_list_ibfk_2` FOREIGN KEY (`subject_code`) REFERENCES `subject` (`subject_code`);
+
+--
+-- Constraints for table `lecturer`
+--
+ALTER TABLE `lecturer`
+  ADD CONSTRAINT `lecturer_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `registred_user` (`user_id`);
+
+--
+-- Constraints for table `lesson`
+--
+ALTER TABLE `lesson`
+  ADD CONSTRAINT `lesson_ibfk_1` FOREIGN KEY (`subject_code`) REFERENCES `subject` (`subject_code`);
+
+--
+-- Constraints for table `meeting`
+--
+ALTER TABLE `meeting`
+  ADD CONSTRAINT `meeting_ibfk_1` FOREIGN KEY (`student_user_id`) REFERENCES `stduent` (`user_id`),
+  ADD CONSTRAINT `meeting_ibfk_2` FOREIGN KEY (`lecturer_user_id`) REFERENCES `lecturer` (`user_id`);
+
+--
+-- Constraints for table `paper_preparation`
+--
+ALTER TABLE `paper_preparation`
+  ADD CONSTRAINT `paper_preparation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `lecturer` (`user_id`),
+  ADD CONSTRAINT `paper_preparation_ibfk_2` FOREIGN KEY (`paper_id`) REFERENCES `past_paper` (`paper_id`);
+
+--
+-- Constraints for table `past_paper`
+--
+ALTER TABLE `past_paper`
+  ADD CONSTRAINT `past_paper_ibfk_1` FOREIGN KEY (`subject_code`) REFERENCES `subject` (`subject_code`);
+
+--
+-- Constraints for table `question`
+--
+ALTER TABLE `question`
+  ADD CONSTRAINT `question_ibfk_1` FOREIGN KEY (`paper_id`) REFERENCES `past_paper` (`paper_id`);
+
+--
+-- Constraints for table `question_belongs_to_lesson`
+--
+ALTER TABLE `question_belongs_to_lesson`
+  ADD CONSTRAINT `question_belongs_to_lesson_ibfk_1` FOREIGN KEY (`tag`) REFERENCES `lesson` (`tag`),
+  ADD CONSTRAINT `question_belongs_to_lesson_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `question` (`question_id`),
+  ADD CONSTRAINT `question_belongs_to_lesson_ibfk_3` FOREIGN KEY (`paper_id`) REFERENCES `question` (`paper_id`);
+
+--
+-- Constraints for table `resources`
+--
+ALTER TABLE `resources`
+  ADD CONSTRAINT `resources_ibfk_1` FOREIGN KEY (`discussion_id`) REFERENCES `discussion` (`discussion_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `resources_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `registred_user` (`user_id`),
+  ADD CONSTRAINT `resources_ibfk_3` FOREIGN KEY (`parent_resource_id`) REFERENCES `resources` (`resource_id`);
+
+--
+-- Constraints for table `stduent`
+--
+ALTER TABLE `stduent`
+  ADD CONSTRAINT `stduent_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `registred_user` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
