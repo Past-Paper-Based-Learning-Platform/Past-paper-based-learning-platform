@@ -51,6 +51,12 @@
             <div class="container">
                 <h2 style="padding:10px;">Schedule Meeting</h2>
             </div>
+            
+            <div>
+                <ul>
+                    <li><!-- for each item--></li>
+                </ul>
+            </div>
         </article>
 
         <article class="side">
