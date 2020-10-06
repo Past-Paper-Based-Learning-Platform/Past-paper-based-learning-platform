@@ -1,11 +1,26 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body{
     background-color: rgb(240, 235, 235);
     font-family: sans-serif;
-    margin: 1em;
+    margin: 0;
 }
 .page-title{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     font-size: 2em;
     color: midnightblue;
+}
+.container{
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1em;
 }
