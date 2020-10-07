@@ -1,9 +1,10 @@
-html{
+html, body{
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
     height: 100%;
     font-family: sans-serif;
+    background-color: rgb(240, 235, 235);
 }
 *,
 *:before,
@@ -32,10 +33,6 @@ header a{
   text-align: center;
   text-decoration: none; 
   font-weight: bold;
-}
-body{
-    background-color: rgb(240, 235, 235);
-    margin: 0px;
 }
 div{
     margin: 8px 0px;
@@ -79,6 +76,11 @@ header img{
     width: 100%;
 }
 .row:before{
+    content: "";
+    display: table;
+    clear: both;
+}
+.row:after{
     content: "";
     display: table;
     clear: both;
