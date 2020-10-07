@@ -23,7 +23,14 @@
         }
 
         input.search {
-            width: 95%;
+            width: 90%;
+        }
+
+        button.btn{
+            font-size:15px;
+            padding:8px;
+            border: 1px solid #ccc;
+	        border-radius: 4px;
         }
 
         div.container {
@@ -35,6 +42,18 @@
 
         form div.element{
             padding:10px;
+        }
+
+        input[type=text], textarea{
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=text]:focus {
+            border: 3px solid #555;
         }
 
         .button {
@@ -70,7 +89,7 @@
         <article class="mid">
             <div style="padding-bottom:20px;">
                 <input type="text" placeholder="Search.." name="search" class="search">
-                <button type="submit">&#128269;</button>
+                <button class="btn" type="submit">&#128269;</button>
             </div>
 
             <div class="container">
