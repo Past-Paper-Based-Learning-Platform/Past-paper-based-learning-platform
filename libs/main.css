@@ -94,6 +94,9 @@ header img{
 .bg-dblue{
     background-color: midnightblue;
 }
+.bg-gray{
+    background-color: lightslategray;
+}
 /*form styling*/
 div input[type="text"]{
     width: 100%;
