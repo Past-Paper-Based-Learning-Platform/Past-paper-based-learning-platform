@@ -53,6 +53,10 @@ header img{
     margin-left: auto;
     margin-right: auto;
 }
+.container-fit{
+    position: relative;
+    width: 100%;
+}
 /* 6-column grid system */
 .col-1-item, .col-2-item, .col-3-item, .col-4-item, .col-5-item, .col-6-item{
     float: left;
@@ -96,6 +100,9 @@ header img{
 }
 .bg-gray{
     background-color: lightslategray;
+}
+.bg-body{
+    background-color: rgb(240, 235, 235);
 }
 /*form styling*/
 div input[type="text"]{
