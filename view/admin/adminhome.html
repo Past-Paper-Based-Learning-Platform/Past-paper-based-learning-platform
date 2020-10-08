@@ -19,16 +19,46 @@
     </div>
     <div class="row">
         <div class="col-5-item bg-lblue" style="height: 600px;">
-            div 1
+            <div class="tab">
+                <div class="col-3-item">
+                    <button class="tablinks" onclick="openTab(event, 'deactivate')">Deactivate Accounts</button>
+                </div>
+                <div class="col-3-item">
+                    <button class="tablinks" onclick="openTab(event, 'removepost')">Remove Posts</button>
+                </div>
+            </div>
+            <div id="deactivate" class="tabcontent" style="height: 500px;">
+                <h3>Select Accounts</h3>
+            </div>
+            
+            <div id="removepost" class="tabcontent" style="height: 500px;">
+                <h3>Select Post ID</h3>
+            </div>
         </div>
         <div class="col-1-item bg-gray" style="height: 600px;">
             <div class="container-fit-vertical bg-body strong">
                 Notifications
             </div>
-            <div class="container-fit-vertical bg-white text-gray scroll" style="height: 520px;">
+            <div class="container-fit-vertical bg-white text-gray auto-scroll" style="height: 520px;">
                 &lt;Notification list&gt;
             </div>
         </div>
     </div>
+
+    <script>
+        function openTab(evt, tabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(tabName).style.display = "block";
+          evt.currentTarget.className += " active";
+        }
+    </script>
 </body>
 </html>
