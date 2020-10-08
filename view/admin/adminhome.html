@@ -11,24 +11,34 @@
             Administrator
         </div>
         <div class="col-2-item">
-            <input type="text" value="e-mail / username" id="email">
+            <input type="text" placeholder="e-mail / username" id="email">
         </div>
         <div class="col-1-item">
-            <button type="submit"> Search User Account</button>
+            <button class="bg-dblue border-dblue" type="submit">Search User Account</button>
         </div>
     </div>
     <div class="row">
         <div class="col-5-item bg-lblue" style="height: 600px;">
             <div class="tab">
                 <div class="col-3-item">
-                    <button class="tablinks" onclick="openTab(event, 'deactivate')">Deactivate Accounts</button>
+                    <button id="defaulttab" class="tablinks" onclick="openTab(event, 'deactivate')" >Deactivate Accounts</button>
                 </div>
                 <div class="col-3-item">
                     <button class="tablinks" onclick="openTab(event, 'removepost')">Remove Posts</button>
                 </div>
             </div>
             <div id="deactivate" class="tabcontent" style="height: 500px;">
-                <h3>Select Accounts</h3>
+                <div class="col-3-item">
+                    <div class="col-2-item strong text-white">Add Account to Deactivate:</div>
+                    <div class="col-4-item"><input type="text" placeholder="e-mail / username" id="addemail"></div>
+                    <div class="col-2-item"><button class="bg-dblue border-dblue" type="submit">Add Account</button></div> 
+                </div>
+                <div class="col-3-item">
+                    <div class="container-fit-vertical bg-white text-gray auto-scroll" style="height: 360px">&lt;Accounts to be Deactivated&gt;</div> 
+                </div>
+                <div class="col-3-item" style="float: right;">
+                    <button class="bg-red border-red" type="submit">Deactivate Accounts</button>
+                </div>
             </div>
             
             <div id="removepost" class="tabcontent" style="height: 500px;">
@@ -46,6 +56,7 @@
     </div>
 
     <script>
+        document.getElementById("defaulttab").click();
         function openTab(evt, tabName) {
           var i, tabcontent, tablinks;
           tabcontent = document.getElementsByClassName("tabcontent");

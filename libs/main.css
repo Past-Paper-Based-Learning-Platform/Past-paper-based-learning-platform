@@ -115,6 +115,9 @@ header img{
 .bg-dblue{
     background-color: midnightblue;
 }
+.bg-blue{
+    background-color:  rgb(74, 125, 180);
+}
 .bg-gray{
     background-color: lightslategray;
 }
@@ -126,6 +129,19 @@ header img{
 }
 .bg-body{
     background-color: rgb(240, 235, 235);
+}
+.bg-red{
+    background-color: rgb(255, 16, 16);
+}
+/* border color classes*/
+.border-red{
+    border-color: rgb(219, 17, 17);
+}
+.border-blue{
+    border-color: rgb(52, 89, 129);
+}
+.border-dblue{
+    border-color: rgb(10, 10, 49);
 }
 /* text color classes*/
 .text-white{
@@ -155,12 +171,10 @@ div button{
     color: white;
     cursor: pointer;
     font-weight: bold;
-    background-color: rgb(33, 28, 107);
     transition: 0.3s;
-    -webkit-appearance: button;
 }
 div button:hover{
-    background: #ddd;
+    background-color: rgb(106, 112, 119);
 }
 /* Style the tab */
 .tab{
@@ -185,10 +199,9 @@ div button:hover{
 .tab button:hover{
     background-color: #ddd;
 }
-
 /* Create an active/current tablink class */
 .tab button.active{
-    background-color: #ccc;
+    background-color: rgb(74, 125, 180);
 }
 
 /* Style the tab content */
@@ -197,5 +210,5 @@ div button:hover{
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
-    background-color: lightslategray;
+    background-color: rgb(130, 150, 170);
 }
