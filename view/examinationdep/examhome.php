@@ -50,12 +50,10 @@
                             <option value="First Year">
                             <option value="Second Year">
                             <option value="Third Year">
-                            <option value="Forth Year">
+                            <option value="Fourth Year">
                         </datalist>
                     </div>
-                </div>                    
-                    
-                
+                </div>   
                 <div class="row">
                     <div class="col-3-item">
                         <div class="col-2-item strong text-white">Select Subject:</div>
@@ -68,28 +66,32 @@
                                 <option value="Subject-IV">
                             </datalist>
                         </div>
-                    </div>
-                    <div class="col-2-item">
-                        <div class="col-4-item strong text-white">Choose Exam Date:</div>
-                        </br>
-                        <div class="date-picker">
-                            <div class="selected-date"></div>
-                            <div class="dates">
-                                <div class="month">
-                                    <div class="arrows prev-mth">&lt;</div>
-                                    <div class="mth"></div>
-                                    <div class="arrows next-mth">&gt;</div>
+                        <div class="col-2-item strong text-white"></br>Choose Examination Date:</div>                        
+                        <div class="col-4-item">
+                            <div class="date-picker">
+                                <div class="selected-date"></div>
+                                <div class="dates">
+                                    <div class="month">
+                                        <div class="arrows prev-mth">&lt;</div>
+                                        <div class="mth"></div>
+                                        <div class="arrows next-mth">&gt;</div>
+                                    </div>
+                                    <div class="days"></div>
                                 </div>
-                                <div class="days"></div>
                             </div>
-                        </div>                    
+                        </div>
+                        <div class="col-4-item"></div>                        
+                        <div class="col-2-item">
+                            <button class="bg-blue border-blue" type="submit">Add Subject</button>
+                        </div>
+                        <div class="col-2-item" style="float: right;">
+                            <button class="bg-green border-green" type="submit">Confirm Schedule</button>
+                        </div>                        
                     </div>
-                    <div class="col-1-item">
-                    </br></br>
-                        <button class="bg-blue border-blue" type="submit">Add to Schedule</button>
+                    <div class="col-3-item">
+                        <div class="container-fit-vertical bg-white text-gray auto-scroll" style="height: 330px;">&lt;Schedule&gt;</div>
                     </div>
-                </div>
-                <div class="container-fit-vertical bg-white text-gray auto-scroll" style="height: 200px; width: 50%">&lt;Schedule&gt;</div>                         
+                </div>                    
             </div>
             
             <div id="uploadpastpapers" class="tabcontent" style="height: 500px;">
