@@ -30,7 +30,7 @@
                     <div class="col-2-item">
                         <div class="col-2-item strong text-white">Year of Examination:</div>
                         <div class="col-4-item">
-                            <input type="text" name="year" placeholder="<?php echo date("Y"); ?>">
+                            <input type="text" name="year" value="<?php echo date("Y"); ?>">
                         </div>
                     </div>
                     <div class="col-2-item">
@@ -99,7 +99,7 @@
                     <div class="col-2-item">
                         <div class="col-2-item strong text-white">Year of Examination:</div>
                         <div class="col-4-item">
-                            <input type="text" name="year" placeholder="<?php echo date("Y"); ?>">
+                            <input type="text" name="year" value="<?php echo date("Y"); ?>">
                         </div>
                     </div>
                     <div class="col-2-item">
@@ -168,19 +168,57 @@
 
             <div id="managesubjects" class="tabcontent" style="height: 600px;">
                 <div class="col-5-item">
-                    <div class="col-2-item strong text-white">Enter Post ID:</div>
-                    <div class="col-4-item"><input type="text" placeholder="Post ID" id="postid"></div>
-                    <div class="col-2-item strong text-white">Content:</div>
-                    <div class="col-4-item bg-white text-gray" style="height: 300px;">&lt;Display Content Here&gt;</div>
-                    <div class="col-4-item" style="float: right;">
-                        <div class="col-3-item"><button class="bg-green border-green" type="submit">Ignore Repot & Keep the Post</button></div>
-                        <div class="col-3-item"><button class="bg-red border-red" type="submit">Remove Post</button></div>
+                    <div class="col-2-item">
+                        <div class="col-2-item strong text-white">Year of Examination:</div>
+                        <div class="col-4-item">
+                            <input type="text" name="year" value="<?php echo date("Y"); ?>">
+                        </div>
+                    </div>
+                    <div class="col-2-item">
+                        <div class="col-2-item strong text-white">Semester:</div>
+                        <div class="col-4-item">
+                            <input type="text" list="semester" name="semester">
+                            <datalist id="semester">
+                                <option value="Semester-I">
+                                <option value="Semester-II">
+                            </datalist>
+                        </div> 
+                    </div>
+                    <div class="col-2-item">
+                        <div class="col-2-item strong text-white">Year of Study:</div>
+                        <div class="col-4-item">
+                            <input type="text" list="studyyear" name="studyyear">
+                            <datalist id="studyyear">
+                                <option value="First Year">
+                                <option value="Second Year">
+                                <option value="Third Year">
+                                <option value="Fourth Year">
+                            </datalist>
+                        </div>
                     </div>
                 </div>
-                <div class="col-1-item">
-                    <div class="col-4-item"><button class="bg-dblue border-dblue" type="submit">Search Post</button></div>
+                <div class="col-1-item"></br></br>
+                    <button class="bg-blue border-blue" type="submit">Show Subjects</button>
+                </div>
+                <div class="col-3-item"><hr>
+                    <h2>Add Subject</h2>
+                    <div class="col-2-item strong text-white">Subject Code:</div>
+                    <div class="col-4-item">
+                        <input type="text" name="subjectcode">
+                    </div>
+                    <div class="col-2-item strong text-white">Subject Name:</div>
+                    <div class="col-4-item">
+                        <input type="text" name="subjectname">
+                    </div>
+                    <div class="col-2-item" style="float: right;">
+                        <button class="bg-green border-green" type="submit">Add Subject</button>  
+                    </div>         
+                </div>
+                <div class="col-3-item">
+                    <div class="container-fit-vertical bg-white text-gray auto-scroll" style="height: 370px;">&lt;Show Subjects&gt;</div>
                 </div>
             </div>
+            
         </div>
         <div class="col-1-item bg-gray" style="height: 700px;">
             <div class="container-fit-vertical bg-lgray strong">

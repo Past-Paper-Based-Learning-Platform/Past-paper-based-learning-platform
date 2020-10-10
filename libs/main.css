@@ -114,7 +114,25 @@ header img{
     display: table;
     clear: both;
 }
-
+/*table formating*/
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td{
+    text-align: left;
+    padding: 8px;
+    color: white;
+}
+tr:nth-child(even){
+    background-color: #575757;
+}
+tr:nth-child(odd){
+    background-color: rgb(39, 39, 39);
+} 
+th{
+    background-color: #2d6ab9;
+}
 /*background color classes*/
 .bg-lblue{
     background-color: lightblue;
