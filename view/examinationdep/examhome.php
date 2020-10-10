@@ -85,7 +85,7 @@
                             <button class="bg-blue border-blue" type="submit">Add Subject</button>
                         </div>
                         <div class="col-2-item" style="float: right;">
-                            <button class="bg-green border-green" type="submit">Confirm Schedule</button>
+                            <button class="bg-green border-green" type="submit">Update Details</button>
                         </div>                        
                     </div>
                     <div class="col-3-item">
@@ -95,19 +95,73 @@
             </div>
             
             <div id="uploadpastpapers" class="tabcontent" style="height: 500px;">
-                <div class="col-5-item">
-                    <div class="col-2-item strong text-white">Enter Post ID:</div>
-                    <div class="col-4-item"><input type="text" placeholder="Post ID" id="postid"></div>
-                    <div class="col-2-item strong text-white">Content:</div>
-                    <div class="col-4-item bg-white text-gray" style="height: 300px;">&lt;Display Content Here&gt;</div>
-                    <div class="col-4-item" style="float: right;">
-                        <div class="col-3-item"><button class="bg-green border-green" type="submit">Ignore Repot & Keep the Post</button></div>
-                        <div class="col-3-item"><button class="bg-red border-red" type="submit">Remove Post</button></div>
+                <div class="col-2-item">
+                    <div class="col-2-item strong text-white">Year of Examination:</div>
+                    <div class="col-4-item">
+                        <input type="text" name="year" placeholder="<?php echo date("Y"); ?>">
                     </div>
                 </div>
-                <div class="col-1-item">
-                    <div class="col-4-item"><button class="bg-dblue border-dblue" type="submit">Search Post</button></div>
-                    
+                <div class="col-2-item">
+                    <div class="col-2-item strong text-white">Select Semester:</div>
+                    <div class="col-4-item">
+                        <input type="text" list="semester" name="semester">
+                        <datalist id="semester">
+                            <option value="Semester-I">
+                            <option value="Semester-II">
+                        </datalist>
+                    </div> 
+                </div>
+                <div class="col-2-item">
+                    <div class="col-2-item strong text-white">Select Year of Study:</div>
+                    <div class="col-4-item">
+                        <input type="text" list="studyyear" name="studyyear">
+                        <datalist id="studyyear">
+                            <option value="First Year">
+                            <option value="Second Year">
+                            <option value="Third Year">
+                            <option value="Fourth Year">
+                        </datalist>
+                    </div>
+                </div>   
+                <div class="row">
+                    <div class="col-3-item">
+                        <div class="col-2-item strong text-white">Select Subject:</div>
+                        <div class="col-4-item">
+                            <input type="text" list="subject" name="subject">
+                            <datalist id="subject">
+                                <option value="Subject-I">
+                                <option value="Subject-II">
+                                <option value="Subject-III">
+                                <option value="Subject-IV">
+                            </datalist>
+                        </div>
+                        <div class="col-2-item strong text-white">Responsible Lecturer:</div>
+                        <div class="col-4-item">
+                            <input type="text" list="lecturer" name="lecturer">
+                            <datalist id="lecturer">
+                                <option value="Lecturer-I">
+                                <option value="Lecturer-II">
+                                <option value="Lecturer-III">
+                                <option value="Lecturer-IV">
+                            </datalist>
+                        </div> 
+                        <div class="col-1-item strong text-white">Import File:</div>
+                        <div class="col-3-item">
+                            <input type="text" name="paperpdf">  
+                        </div>
+                        <div class="col-2-item">
+                            <button class="bg-blue border-blue" type="submit">Browse..</button>  
+                        </div>                       
+                        <div class="col-2-item">
+                            <button class="bg-blue border-blue" type="submit">Add File</button>
+                        </div>
+                        <div class="col-2-item" style="float: right;">
+                            <button class="bg-green border-green" type="submit">Upload Files</button>
+                        </div>         
+                    </div>
+                    <div class="col-3-item">
+                        <div class="container-fit-vertical bg-white text-gray auto-scroll" style="height: 330px;">&lt;Upload file list&gt;</div>
+                    </div>
                 </div>
             </div>
 
