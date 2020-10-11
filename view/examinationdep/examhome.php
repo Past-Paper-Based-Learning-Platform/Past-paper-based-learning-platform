@@ -69,6 +69,10 @@
                             <option value="Subject-II">
                             <option value="Subject-III">
                             <option value="Subject-IV">
+                            <option value="Subject-V">
+                            <option value="Subject-VI">
+                            <option value="Subject-VII">
+                            <option value="Subject-VIII">
                         </datalist>
                     </div>
                     <div class="col-2-item strong text-white"></br>Choose Examination Date:</div>                        
@@ -89,8 +93,67 @@
                         <button class="bg-green border-green" type="submit">Update Record</button>
                     </div>                        
                 </div>
-                <div class="col-3-item">
-                    <div class="container-fit-vertical bg-white text-gray auto-scroll" style="height: 370px;">&lt;Show Details Here&gt;</div>
+                <div class="col-3-item" style="height: 400px; overflow: auto;">
+                    <table>
+                        <thread>
+                            <tr>
+                                <th>Subject Code</th>
+                                <th>Subject Name</th>
+                                <th>Date of Examination</th>
+                                <th></th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                            <tr>
+                                <td>SCS2201</td>
+                                <td>Subject-I</td>
+                                <td>01/01/2020</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Record</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2202</td>
+                                <td>Subject-II</td>
+                                <td>02/01/2020</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Record</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2203</td>
+                                <td>Subject-III</td>
+                                <td>03/01/2020</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Record</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2204</td>
+                                <td>Subject-IV</td>
+                                <td>04/01/2020</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Record</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2205</td>
+                                <td>Subject-V</td>
+                                <td>05/01/2020</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Record</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2206</td>
+                                <td>Subject-VI</td>
+                                <td>06/01/2020</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Record</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2207</td>
+                                <td>Subject-VII</td>
+                                <td>07/01/2020</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Record</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2208</td>
+                                <td>Subject-VIII</td>
+                                <td>08/01/2020</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Record</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>  
             
@@ -138,6 +201,19 @@
                             <option value="Subject-II">
                             <option value="Subject-III">
                             <option value="Subject-IV">
+                            <option value="Subject-V">
+                            <option value="Subject-VI">
+                            <option value="Subject-VII">
+                            <option value="Subject-VIII">
+                        </datalist>
+                    </div>
+                    <div class="col-2-item strong text-white">Select Part:</div>
+                    <div class="col-4-item">
+                        <input type="text" list="part" name="part">
+                        <datalist id="part">
+                            <option value="Part A">
+                            <option value="Part B">
+                            <option value="Part C">
                         </datalist>
                     </div>
                     <div class="col-2-item strong text-white">Responsible Lecturer:</div>
@@ -161,8 +237,85 @@
                         <button class="bg-green border-green" type="submit">Upload File</button>
                     </div>         
                 </div>
-                <div class="col-3-item">
-                    <div class="container-fit-vertical bg-white text-gray auto-scroll" style="height: 370px;">&lt;Show Uploaded Papers&gt;</div>
+                <div class="col-3-item" style="height: 400px; overflow: auto;">
+                    <table>
+                        <thread>
+                            <tr>
+                                <th>Subject Code</th>
+                                <th>Subject Name</th>
+                                <th>Part</th>
+                                <th></th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                            <tr>
+                                <td>SCS2201</td>
+                                <td>Subject-I</td>
+                                <td>Part A</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>                            
+                            <tr>
+                                <td>SCS2201</td>
+                                <td>Subject-I</td>
+                                <td>Part B</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2202</td>
+                                <td>Subject-II</td>
+                                <td>Part A</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2202</td>
+                                <td>Subject-II</td>
+                                <td>Part B</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2202</td>
+                                <td>Subject-II</td>
+                                <td>Part C</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2203</td>
+                                <td>Subject-III</td>
+                                <td>Part A</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2205</td>
+                                <td>Subject-V</td>
+                                <td>Part A</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2205</td>
+                                <td>Subject-V</td>
+                                <td>Part B</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2207</td>
+                                <td>Subject-VII</td>
+                                <td>Part A</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2207</td>
+                                <td>Subject-VII</td>
+                                <td>Part B</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2207</td>
+                                <td>Subject-VII</td>
+                                <td>Part C</td>
+                                <td><button class="bg-red border-red" type="submit">Delete Paper</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>                
             </div>
 
@@ -214,8 +367,58 @@
                         <button class="bg-green border-green" type="submit">Add Subject</button>  
                     </div>         
                 </div>
-                <div class="col-3-item">
-                    <div class="container-fit-vertical bg-white text-gray auto-scroll" style="height: 370px;">&lt;Show Subjects&gt;</div>
+                <div class="col-3-item" style="height: 400px; overflow: auto;">
+                    <table>
+                        <thread>
+                            <tr>
+                                <th>Subject Code</th>
+                                <th>Subject Name</th>
+                                <th></th>
+                            </tr>
+                        </thread>
+                        <tbody>
+                            <tr>
+                                <td>SCS2201</td>
+                                <td>Subject-I</td>
+                                <td><button class="bg-red border-red" type="submit">Remove Subject</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2202</td>
+                                <td>Subject-II</td>
+                                <td><button class="bg-red border-red" type="submit">Remove Subject</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2203</td>
+                                <td>Subject-III</td>
+                                <td><button class="bg-red border-red" type="submit">Remove Subject</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2204</td>
+                                <td>Subject-IV</td>
+                                <td><button class="bg-red border-red" type="submit">Remove Subject</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2205</td>
+                                <td>Subject-V</td>
+                                <td><button class="bg-red border-red" type="submit">Remove Subject</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2206</td>
+                                <td>Subject-VI</td>
+                                <td><button class="bg-red border-red" type="submit">Remove Subject</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2207</td>
+                                <td>Subject-VII</td>
+                                <td><button class="bg-red border-red" type="submit">Remove Subject</button></td>
+                            </tr>
+                            <tr>
+                                <td>SCS2208</td>
+                                <td>Subject-VIII</td>
+                                <td><button class="bg-red border-red" type="submit">Remove Subject</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
             
