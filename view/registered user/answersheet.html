@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        nav ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav li{
+            display: inline;
+            float: left;
+            width: 50%;
+            text-align: center;
+        }
+        li a{
+            display: block;
+            padding: 8px;
+            background-color: #000099;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: x-large;
+            border: 1px solid #000099;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+        }
+        li a:hover:not(.active){
+            background-color: #0000e6;
+        }
+        .active{
+            background-color: #ffffff;
+            color: #000099;
+        }
+        .container{
+            display: block;
+            width:48%;
+            height: 700px;
+            border: 1px solid black;
+            float: left;
+            margin: 5px;
+            padding: 5px;
+        }
+        iframe{
+            width: 99%;
+            height: 600px;
+        }
+        input, textarea, select{
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #000099;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button{
+            padding: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 4px;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white; 
+            color: black; 
+            border: 2px solid #000099;
+        }
+        button:hover {
+            background-color: #0000e6;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a class="active" href = "pastpaper.html">Past Paper</a></li>
+            <li><a href = "discussion.html">Discussion</a></li>
+        </ul>
+    </nav>
+
+    
+
+    <section class="container">
+        <nav>
+            <ul>
+                <li><a href = "pastpaper.html">Question Paper</a></li>
+                <li><a class="active" href = "answersheet.html">Answer sheet</a></li>
+            </ul>
+        </nav>
+
+        <h3>Answer sheet subject code</h3>
+
+        <iframe src="../../pastpapers/SCS 2101 Part A.pdf"></iframe>
+    </section> 
+
+    <section class="container">
+        <h3>New discussion</h3>
+
+        <form>
+            <label for="question">Select question: </label>
+            <input list="question" name="path">
+            <datalist id="question">
+                <option value="custom">custom</option>
+                <option value="1>b>i">1 -> b -> i</option>
+                <option value="1>a">1 -> a</option> 
+                <option value="1>b>ii">1 -> b -> ii</option>
+                <option value="2>a>i">2 -> a -> i</option>
+                <option value="2>a>i">2 -> a -> ii</option>
+            </datalist><br>
+            <!--add js-->
+
+            <button>crop</button><br><!--js action function-->
+            
+            <laber for="lesson">Lesson: </laber>
+            <input list="lesson" name="lesson">
+            <datalist id="lesson">
+                <option value ="custom">custom</option>
+                <option value ="#string_matching">string matching</option>
+                <option value ="#KMP_algorith">KMP algorithm</option>
+                <option value="Boyer_Moore_algorithm">Boyer Moore algorithm</option>
+                <option value="Greedy_algorithm">Greedy Algorithm</option>
+            </datalist><br>
+            <!--add js-->
+
+            <label for="message">Text: </label>
+            <textarea name="message" rows="20" placeholder="type your text here" style="width:100%;"></textarea>
+
+            <label for="type">Type: </label>
+            <select id="type" name="type">
+                <option value ="question">Question</option>
+                <option value ="answer">Answer</option>
+            </select><br>
+            
+            <button type="input" style="float: right; padding: 16px 32px;">CREATE</button>
+        </form>    
+    </section>
+</body>
+</html>

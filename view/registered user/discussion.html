@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        nav ul{
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        nav li{
+            display: inline;
+            float: left;
+            width: 50%;
+            text-align: center;
+        }
+        li a{
+            display: block;
+            padding: 8px;
+            background-color: #000099;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: x-large;
+            border: 1px solid #000099;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+        }
+        li a:hover:not(.active){
+            background-color: #0000e6;
+        }
+        .active{
+            background-color: #ffffff;
+            color: #000099;
+        }
+        .container{
+            display: block;
+            width:48%;
+            height: 700px;
+            border: 1px solid black;
+            float: left;
+            margin: 5px;
+            padding: 5px;
+        }
+        iframe{
+            width: 99%;
+            height: 600px;
+        }
+        input, textarea, select{
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #000099;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button{
+            padding: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 4px;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            background-color: white; 
+            color: black; 
+            border: 2px solid #000099;
+        }
+        button:hover {
+            background-color: #0000e6;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href = "pastpaper.html">Past Paper</a></li>
+            <li><a class="active" href = "discussion.html">Discussion</a></li>
+        </ul>
+    </nav>
+
+    
+
+    <section class="container">
+        <h3>View Discussion</h3>
+        <label for="question">Select question: </label>
+        <input list="question" name="path">
+        <datalist id="question">
+            <option value="custom">custom</option>
+            <option value="1>b>i">1 -> b -> i</option>
+            <option value="1>a">1 -> a</option> 
+            <option value="1>b>ii">1 -> b -> ii</option>
+            <option value="2>a>i">2 -> a -> i</option>
+            <option value="2>a>i">2 -> a -> ii</option>
+        </datalist><br>
+        <!--add js-->
+
+        <label for="discussion">Search discussion: </label>
+        <input list="discussion" name="discussion">
+        <datalist id="discussion">
+            <option value="discussion 1">discussion 1</option>
+            <option value="discussion 2">discussion 2</option> 
+            <option value="discussion 3">discussion 3</option>
+            <option value="discussion 4">discussion 4</option>
+            <option value="discussion 5">discussion 5</option>
+        </datalist><br>
+        <!--add js-->
+
+        <button type="input" style="float: right; padding: 16px 32px;">View</button>
+
+    </section> 
+
+    <section class="container">
+        <h3>Discussion id</h3>
+        <iframe src="../../view/registered user/discussionlist.html"></iframe>
+    </section>
+</body>
+</html>
