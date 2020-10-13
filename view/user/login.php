@@ -13,9 +13,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }else{
         //Login
         if (!empty($_POST["email_un"]) && !empty($_POST["password"])) {
-            include '../../model/Login.php';
+            include_once '../../model/Login.php';
             $login = new Login();
-        
             $username = $login->loginMember($_POST["email_un"], $_POST["password"]);
             if(isset($username)){
                 header("Location: ../template.php?username=".$username); 

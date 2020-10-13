@@ -1,5 +1,5 @@
 <?php
-include '../../controller/Configuration.php';
+include_once('../../controller/Configuration.php');
 class UserController{
    
     function userLogin($username, $password){
