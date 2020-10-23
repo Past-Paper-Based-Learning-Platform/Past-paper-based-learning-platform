@@ -331,6 +331,11 @@ div button:hover{
     text-align:center;
 }
 
+.paper_frame{
+    width: 100%;
+    height: 100%;
+}
+
 /*TOAST start*/
 #snackbar {
     visibility: hidden; /* Hidden by default. Visible on click */
