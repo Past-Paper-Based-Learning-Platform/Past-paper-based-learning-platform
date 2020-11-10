@@ -12,7 +12,7 @@ class UserController{
        $result = $con->query($query);
        if ($result->num_rows > 0) {
           while($row = $result->fetch_assoc()) {
-            return $row["user_name"];
+            return $row["user_name"]."-".$row["user_id"];
           }
           return null;
        }else{
@@ -22,8 +22,8 @@ class UserController{
       $config->closeConnection();
     }
 
-    function signupUser($username, $email,  $password, $subject, $designation, $academicYear, $indexNum){
-       
+    function signupUser($username, $email,  $password, $subjects, $designation, $academicYear, $indexNum){
+      
         $config = new Configuration();
         $con = $config->createConnection();
 
@@ -53,8 +53,8 @@ class UserController{
         if(strpos($email, 'lec') !== false){
             
             //insert lecturer data
-            $sql = "INSERT INTO lecturer (designation, user_id) 
-            VALUES ('".$designation."', '".$userId."')";
+            $sql = "INSERT INTO lecturer (designation, user_id, Subjects ) 
+            VALUES ('".$designation."', '".$userId."', '".$subjects."')";
 
             $results = $con->query($sql);
 
@@ -65,8 +65,8 @@ class UserController{
             }
         }else{
             //insert studnt data
-            $sql = "INSERT INTO stduent (user_id, index_number, year, course) 
-            VALUES ('".$userId."', '".$indexNum."', '".$academicYear."', '".$subject."')";
+            $sql = "INSERT INTO student (user_id, index_number, year, Subjects) 
+            VALUES ('".$userId."', '".$indexNum."', '".$academicYear."', '".$subjects."')";
 
             $results = $con->query($sql);
 
@@ -101,6 +101,39 @@ class UserController{
         // }else {
         //    echo "Message could not be sent...";
         // }
+    }
+
+    function getInterestList($user){
+        $config = new Configuration();
+        $con = $config->createConnection();
+        $subjects = null;
+        $selectQuery = 'SELECT * FROM student where user_id = "'.$user.'"';
+        $sekectresult = $con->query($selectQuery);
+        if ($sekectresult->num_rows > 0) {
+            while($row = $sekectresult->fetch_assoc()) {
+                $subjects = $row["Subjects"];               
+            }
+        }
+
+        return $subjects;
+    }
+
+    function getInterestListDesc($iterestList){
+        $config = new Configuration();
+        $con = $config->createConnection();
+        $interstListDesc = null;
+        $arrList = [];
+        $selectQuery = 'SELECT subject_name FROM subject where subject_code in(\''.implode("','",$iterestList).'\')';
+        
+        $selectresult = $con->query($selectQuery);
+        if ($selectresult->num_rows > 0) {
+            while($row = $selectresult->fetch_assoc()) {
+                $interstListDesc = $row["subject_name"];             
+                array_push($arrList, $interstListDesc);
+            }
+        }
+
+        return $arrList;
     }
 }
 ?>

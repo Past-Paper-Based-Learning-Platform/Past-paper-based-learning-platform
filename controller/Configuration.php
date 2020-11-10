@@ -41,5 +41,11 @@ class Configuration
         return $subjects;
     }
 
+    function updateSubjects($user, $subjects){
+        $con = self::createConnection();
+        $sql = "UPDATE student SET Subjects='".$subjects."' WHERE user_id=".$user;
+
+        $con->query($sql);
+    }
 }
 ?>

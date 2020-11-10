@@ -6,7 +6,7 @@ $subjects = $signup->getSubjects();
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(isset($_POST['confirmPW'])){
-        include '../../model/SignUp.php';
+        include_once '../../model/SignUp.php';
         //Register
         $signup = new SignUp();
         $signup->signUpMember();
@@ -17,7 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $login = new Login();
             $username = $login->loginMember($_POST["email_un"], $_POST["password"]);
             if(isset($username)){
-                header("Location: ../template.php?username=".$username); 
+                header("Location: ../common/template.php?username=".$username); 
             }else{
                 $loginerr = "Login failed. please try again";
             }
@@ -69,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <div class="col-5-item">
                         <div class="col-3-item"></div>
                         <div class="col-2-item">
-                         <input style="background: transparent; border: none;color:red;width:100%" type"text" name="loginerr" id="loginerrId" value = "<?php echo (isset($loginerr))?$loginerr:'';?>">
+                         <input style="background: transparent; border: none;color:red;width:100%" type="text" name="loginerr" id="loginerrId" value = "<?php echo (isset($loginerr))?$loginerr:'';?>">
                         </div>
                     </div>
                 </form>
@@ -122,10 +122,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="col-1-item strong text-white">Designation</div> 
                             <div class="col-1-item">
                                 <select name="designation" id="cars">
-                                    <option value="volvo">des1</option>
-                                    <option value="saab">des2</option>
-                                    <option value="opel">des3</option>
-                                    <option value="audi">des4</option>
+                                    <option value="lecturer">Lecturer</option>
+                                    <option value="instructor">Instructor</option>
                                 </select>
                             </div>
                             <div class="col-2-item"></div>
@@ -133,22 +131,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <div class="col-6-item" style="padding-botton:2px">
                             <div class="col-2-item"></div>
                             <div class="col-1-item strong text-white">Subjects</div> 
-                            <div class="col-1-item">
-                                <select name="subject" id="cars">
+                            <div class="col-2-item">
+                                <div class="custom-select" id="custom-select">Select Subjects..</div>
+                                <div id="custom-select-option-box" style="height: 110px; overflow: auto;">
                                     <?php 
-                                    foreach($subjects as $subject){
-                                        echo "<option value='".$subject['subject_code']."'>".$subject['subject_name']."</option>";
-                                        
-                                    }
+                                        foreach($subjects as $subject){
+                                         echo "<div class='custom-select-option'> <input onchange='toggleFillColor(this);'  class='custom-select-option-checkbox' type='checkbox' name='lecSubjcts[]' value='".$subject['subject_code']."'> ".$subject['subject_name']." </div>";  
+                                        }
                                     ?>
-                                </select>
+                                </div>
                             </div>
-                            <div class="col-2-item"></div>
                         </div>
                         <div class="col-5-item">
                             <div class="col-3-item"></div>
                             <div class="col-1-item">
-                                <button class="bg-dblue border-dblue" type="submit" id="lecSignUp" name="signUpBtnLec">Sign Ups</button>
+                                <button class="bg-dblue border-dblue" type="submit" id="lecSignUp" name="signUpBtnLec">Sign Up</button>
                             </div>
                         </div>
                     </div>
@@ -172,18 +169,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 <div class="col-1-item"><input type="text" placeholder="Index Number" id="indexNum_id" name="indexNum"></div>
                                 <div class="col-2-item"><span style="color:red" id="indexNumValidId">Index Number required</span></div>
                             </div>
-                            <div class="col-6-item" style="padding-botton:2px">
+                            <div class="col-6-item" >
                                 <div class="col-2-item"></div>
                                 <div class="col-1-item strong text-white">Subjects</div> 
-                                <div class="col-1-item">
-                                    <select name="subject" id="cars">
-                                        <?php 
+                                <div class="col-2-item">
+                                <div class="custom-select-stu" id="custom-select-stu">Select Subjects..</div>
+                                <div id="custom-select-option-box-stu" style="height: 67px; overflow: auto;">
+                                    <?php 
                                         foreach($subjects as $subject){
-                                            echo "<option value='".$subject['subject_code']."'>".$subject['subject_name']."</option>";
-                                            
+                                         echo "<div class='custom-select-option-stu'> <input onchange='toggleFillColor(this);'  class='custom-select-option-checkbox-stu' type='checkbox' name='stuSubjcts[]' value='".$subject['subject_code']."'> ".$subject['subject_name']." </div>";  
                                         }
-                                        ?>
-                                    </select>
+                                    ?>
+                                </div>
                                 </div>
                                 <div class="col-2-item"></div>
                             </div>
@@ -405,7 +402,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             }
 
             toasFunction();
-            e.preventDefault();
         });
 
         function toasFunction() {
@@ -418,8 +414,74 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         
             // After 3 seconds, remove the show class from DIV
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
-            location.reload(); 
+            //location.reload(); 
         } 
+
+        $("#custom-select").on("click", function() {
+		$("#custom-select-option-box").toggle();
+	});
+	function toggleFillColor(obj) {
+		$("#custom-select-option-box").show();
+		if ($(obj).prop('checked') == true) {
+			$(obj).parent().css("background", '#c6e7ed');
+		} else {
+			$(obj).parent().css("background", '#FFF');
+		}
+	}
+	$(".custom-select-option").on("click", function(e) {
+		var checkboxObj = $(this).children("input");
+		if ($(e.target).attr("class") != "custom-select-option-checkbox") {
+			if ($(checkboxObj).prop('checked') == true) {
+				$(checkboxObj).prop('checked', false)
+			} else {
+				$(checkboxObj).prop("checked", true);
+			}
+		}
+		toggleFillColor(checkboxObj);
+	});
+
+	$("body")
+		.on("click",
+        function(e) {
+            if (e.target.id != "custom-select"
+                    && $(e.target).attr("class") != "custom-select-option") {
+                $("#custom-select-option-box").hide();
+            }
+        });
+
+        //stu subject drop down
+        $("#custom-select-stu").on("click", function() {
+		$("#custom-select-option-box-stu").toggle();
+	});
+	function toggleFillColor(obj) {
+		$("#custom-select-option-box-stu").show();
+		if ($(obj).prop('checked') == true) {
+			$(obj).parent().css("background", '#c6e7ed');
+		} else {
+			$(obj).parent().css("background", '#FFF');
+		}
+	}
+	$(".custom-select-option-stu").on("click", function(e) {
+		var checkboxObj = $(this).children("input");
+		if ($(e.target).attr("class") != "custom-select-option-checkbox-stu") {
+			if ($(checkboxObj).prop('checked') == true) {
+				$(checkboxObj).prop('checked', false)
+			} else {
+				$(checkboxObj).prop("checked", true);
+			}
+		}
+		toggleFillColor(checkboxObj);
+	});
+
+	$("body")
+			.on(
+					"click",
+					function(e) {
+						if (e.target.id != "custom-select-stu"
+								&& $(e.target).attr("class") != "custom-select-option-stu") {
+							$("#custom-select-option-box-stu").hide();
+						}
+					});
     </script>
     </div>
  </body>
