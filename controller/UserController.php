@@ -12,6 +12,10 @@ class UserController{
        $result = $con->query($query);
        if ($result->num_rows > 0) {
           while($row = $result->fetch_assoc()) {
+            if($row["user_name"]=="examDep"){
+                header("Location: ../../view/examinationdep/examhome.php");
+                return;
+            }
             return $row["user_name"]."-".$row["user_id"];
           }
           return null;
