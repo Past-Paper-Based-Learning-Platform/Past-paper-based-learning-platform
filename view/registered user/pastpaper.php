@@ -9,12 +9,10 @@
     <div class="tab">
         <div class="col-3-item">
             <button id="defaulttab" class="tablinks" onclick="openTab(event, 'pastpaper')" >Past Paper</button>
-            <!--    <li><a class="active" href = "pastpaper.html">Past Paper</a></li> -->
         </div>
 
         <div class="col-3-item">
             <button class="tablinks" onclick="openTab(event, 'discussion')">Discussion</button>
-           <!-- <li><a href = "discussion.html">Discussion</a></li> -->
         </div>
     </div>
 
@@ -23,12 +21,10 @@
             <div class="tab">
                 <div class="col-3-item">
                     <button id="secondary_defaulttab" class="secondary_tablinks" onclick="secondary_openTab(event, 'questionpaper')" >Question Paper</button>
-                    <!--    <li><a class="active" href = "pastpaper.html">Question Paper</a></li> -->
                 </div>
 
                 <div class="col-3-item">
                     <button class="secondary_tablinks" onclick="secondary_openTab(event, 'answersheet')">Answer Sheet</button>
-                    <!--    <li><a href = "answersheet.html">Answer sheet</a></li> -->
                 </div>
             </div>
 
@@ -118,7 +114,7 @@
     
         <div class="col-3-item bg-gray"style="height: 100%;">
             <h3>Discussion id</h3>
-            <iframe class="paper_frame" src="../../view/registered user/discussionlist.html"></iframe>
+            <iframe class="paper_frame" src="../../view/registered user/discussionlist.php"></iframe>
         </div>
     </div>
 

@@ -109,10 +109,49 @@ include_once '../../controller/Template.php';
                                 <button class="bg-dblue border-dblue" type="submit" style="width:60%" name="showquestions">View questions</button>
                             </div>
                         </form>
+                        
+                        <!-- Scedule meeting -->
+                        <div style="text-align:center;">
+                            <button class="tablinks bg-dblue border-dblue" style="width:60%" onclick="openTab(event, 'meeting')">Scedule Meeting</button>
+                        </div>
 
                     </td>
+                    
+                    <!-- Content -->
+                    <td style="width:60%;border: 1px solid black">
+                        <!-- HOME default content -->
+                        <div id="home" class="tabcontent" style="height: 600px; display: block;">
+                            <h1>Content</h1>
+                        </div>
+                        
+                        <!-- Scedule meeting Content -->
+                        <div id="meeting" class="tabcontent" style="height: 600px; display: none block;">
+                            <div>
+                                <h2>Request Meeting</h2>
 
-                    <td style="width:60%;border: 1px solid black">Content</td>
+                                <form action="#">
+                                    <div class="element">
+                                        <label for="receiver">To: </label>
+                                        <input type="text" id="receiver" name="receiver" placeholder="Enter name / email of the Lecturer" style="width:90%;"><br>
+                                    </div>
+
+                                    <div class="element">
+                                        <label for="Date">Date: </label>
+                                        <input type="date" id="Date" name="Date" min="today"><br>
+                                    </div>
+
+                                    <div class="element">
+                                        <label for="message">Message: </label>
+                                        <textarea name="message" rows="10" placeholder="type your message here" style="width:100%;"></textarea>
+                                    </div>
+
+                                    <div class="element">
+                                        <button class="bg-dblue border-dblue" type="button">Send Request</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
 
                     <td style="width:20%;border: 1px solid black;">
                         <div class="bg-gray">
