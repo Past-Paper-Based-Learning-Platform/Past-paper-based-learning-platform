@@ -151,6 +151,7 @@ include_once '../../controller/Template.php';
                                 </form>
                             </div>
                         </div>
+                        
                     </td>
 
                     <td style="width:20%;border: 1px solid black;">
