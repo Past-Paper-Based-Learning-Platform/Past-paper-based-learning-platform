@@ -49,10 +49,18 @@ class Template
         
     }
 
+    //get past paper details
     function getPastpapers(){
         $userModel = new UserModel();
         $result_paper = $userModel->get_pastpapers();
         return $result_paper;     
+    }
+
+    //get lesson details
+    function getLessons(){
+        $userModel = new UserModel();
+        $result_lesson = $userModel->get_lessons();
+        return $result_lesson;
     }
 }
 ?>

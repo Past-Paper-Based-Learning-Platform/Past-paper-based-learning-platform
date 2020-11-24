@@ -11,6 +11,7 @@ include_once '../../controller/Template.php';
     $subjects = $template->getInterestList($userId);
     $allSubjects = $template->getSubjects($userId);
     $result_paper = $template->getPastpapers();
+    $result_lesson = $template->getLessons();
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $template->addSubjects($userId);
@@ -89,25 +90,26 @@ include_once '../../controller/Template.php';
                             </div>
                         </form>
 
-                       <a href="#">complain</a><br/><br/>
-                       <select name="vqsubjects" id="subjectsId">
-                        <?php 
-                            foreach($allSubjects as $subject){
-                                echo "<option value=".$subject['subject_code'].">".$subject['subject_name']."</option>";
-                            }
-                        ?>
-                      </select><br/><br/>
-                      <select name="years" id="yearsId">
-                        <option value="2020">2020</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                        <option value="2016">2016</option>
-                        <option value="2015">2015</option>
-                       </select>
-                       <div>
-                           <button class="bg-dblue border-dblue" type="button" style="width:60%">View questions</button>
-                       </div>
+                        <a href="#">complain</a><br/><br/>
+
+                        <!-- view questions -->
+                        <form action=".." method = "POST">
+                            <div>
+                                <input list="lesson" name="lesson" placeholder="Select lesson">
+                                <datalist id="lesson">
+                                    <?php
+                                    while($row = mysqli_fetch_assoc($result_lesson))
+                                    {
+                                        echo "<option value = ".$row['tag']." > ".$row['tag']. "-" .$row['subject_code']. "-".$row['subject_name']. "</option>";
+                                    }
+                                    ?>
+                                </datalist><br>
+                            </div>
+                            <div>
+                                <button class="bg-dblue border-dblue" type="submit" style="width:60%" name="showquestions">View questions</button>
+                            </div>
+                        </form>
+
                     </td>
 
                     <td style="width:60%;border: 1px solid black">Content</td>
