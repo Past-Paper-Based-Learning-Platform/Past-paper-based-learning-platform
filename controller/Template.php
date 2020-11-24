@@ -48,5 +48,11 @@ class Template
         $config->updateSubjects($user, implode(",",$interestList).",".implode(",",$_POST['addSubjcts']));
         
     }
+
+    function getPastpapers(){
+        $userModel = new UserModel();
+        $result_paper = $userModel->get_pastpapers();
+        return $result_paper;     
+    }
 }
 ?>

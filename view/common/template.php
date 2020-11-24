@@ -10,6 +10,7 @@ include_once '../../controller/Template.php';
 
     $subjects = $template->getInterestList($userId);
     $allSubjects = $template->getSubjects($userId);
+    $result_paper = $template->getPastpapers();
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $template->addSubjects($userId);
@@ -62,32 +63,32 @@ include_once '../../controller/Template.php';
             <table class="table" style="width:100%;height:88%;table-layout: fixed">
                 <tr>
                     <td style="width:20%;border: 1px solid black;text-align:center">
-                      <img src="../../pictures/thumbnail.PNG" alt="Trulli" width="70%" height="50%" style="text-align:center;">
-                      <div style="text-align:center;">
-                        <i class="fa fa-trophy"></i>
-                        <i class="fa fa-heart"></i>
-                        <i class="fa fa-diamond"></i>
-                        <i class="fa fa-certificate"></i>
-                      </div>
-                      <label id="indexnum"xxxx></label>
-                      <select name="ppsubjects" id="subjectsId">
-                        <?php 
-                            foreach($allSubjects as $subject){
-                                echo "<option value=".$subject['subject_code'].">".$subject['subject_name']."</option>";
-                            }
-                        ?>
-                      </select><br/><br/>
-                      <select name="years" id="yearsId">
-                        <option value="2020">2020</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                        <option value="2026">2016</option>
-                        <option value="2015">2015</option>
-                       </select>
-                       <div>
-                           <button class="bg-dblue border-dblue" type="button" style="width:60%">View past paper</button>
-                       </div>
+                        <img src="../../pictures/thumbnail.PNG" alt="Trulli" width="70%" height="50%" style="text-align:center;">
+                        <div style="text-align:center;">
+                            <i class="fa fa-trophy"></i>
+                            <i class="fa fa-heart"></i>
+                            <i class="fa fa-diamond"></i>
+                            <i class="fa fa-certificate"></i>
+                        </div>
+
+                        <!-- view past paper -->
+                        <form action=".." method = "POST">
+                            <div>
+                                <input list="paper" name="paper" placeholder="Select Paper">
+                                <datalist id="paper">
+                                    <?php
+                                    while($row = mysqli_fetch_assoc($result_paper))
+                                    {
+                                        echo "<option value = ".$row['paper_id']." > ".$row['subject_code']. "-" .$row['subject_name']. "-".$row['year']. "-" .$row['semester']. "-" .$row['part']. "</option>";
+                                    }
+                                    ?>
+                                </datalist><br>
+                            </div>
+                            <div>
+                                <button class="bg-dblue border-dblue" type="submit" style="width:60%" name="showpaper">View past paper</button>
+                            </div>
+                        </form>
+
                        <a href="#">complain</a><br/><br/>
                        <select name="vqsubjects" id="subjectsId">
                         <?php 

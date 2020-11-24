@@ -135,5 +135,23 @@ class UserModel{
 
         return $arrList;
     }
+
+    function get_pastpapers(){
+        $config = new Configuration();
+        $con = $config->createConnection();
+
+        try
+			{
+				$query="SELECT past_paper.paper_id, past_paper.subject_code, past_paper.year, subject.semester, subject.subject_name, past_paper.part FROM past_paper INNER JOIN subject ON past_paper.subject_code=subject.subject_code";
+				$result = mysqli_query($con,$query);
+				return $result;
+				$config->closeConnection();
+			}
+			catch (Exception $e)
+			{
+				$config->closeConnection();
+				throw $e;
+			}
+    }
 }
 ?>
