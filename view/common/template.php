@@ -73,22 +73,18 @@ include_once '../../controller/Template.php';
                         </div>
 
                         <!-- view past paper -->
-                        <form action=".." method = "POST">
-                            <div>
-                                <input list="paper" name="paper" placeholder="Select Paper">
-                                <datalist id="paper">
-                                    <?php
+                        <div class="dropdown" style="text-align:center;">
+                            <button onclick="dropdownpaper()" class="bg-dblue border-dblue">View PastPaper</button>
+                            <div id="myDropdown" class="dropdown-content">
+                                <input type="text" placeholder="Search Pastpaper.." id="myInput" onkeyup="filterFunction()">
+                                <?php
                                     while($row = mysqli_fetch_assoc($result_paper))
                                     {
-                                        echo "<option value = ".$row['paper_id']." > ".$row['subject_code']. "-" .$row['subject_name']. "-".$row['year']. "-" .$row['semester']. "-" .$row['part']. "</option>";
+                                       echo "<a href='http://localhost/Main/view/registered%20user/pastpaper.php?paper_id=".$row['paper_id']."' target='_blank'>".$row['subject_code']. "-" .$row['subject_name']. "-".$row['year']. "-" .$row['semester']. "-" .$row['part']. "</a><br>";
                                     }
-                                    ?>
-                                </datalist><br>
+                                ?>
                             </div>
-                            <div>
-                                <button class="bg-dblue border-dblue" type="submit" style="width:60%" name="showpaper">View past paper</button>
-                            </div>
-                        </form>
+                        </div><br>
 
                         <a href="#">complain</a><br/><br/>
 
@@ -151,7 +147,7 @@ include_once '../../controller/Template.php';
                                 </form>
                             </div>
                         </div>
-                        
+
                     </td>
 
                     <td style="width:20%;border: 1px solid black;">
@@ -192,6 +188,28 @@ include_once '../../controller/Template.php';
         </div>
         <script src="../../libs/main.js"></script>
         <script>
+
+            //drop down button
+            function dropdownpaper() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+            
+            function filterFunction() {
+                var input, filter, ul, li, a, i;
+                input = document.getElementById("myInput");
+                filter = input.value.toUpperCase();
+                div = document.getElementById("myDropdown");
+                a = div.getElementsByTagName("a");
+                for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+                }
+            }
+
              $("#custom-select").on("click", function() {
                 $("#custom-select-option-box").toggle();
             });
