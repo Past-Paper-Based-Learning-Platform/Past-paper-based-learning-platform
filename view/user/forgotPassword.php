@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <?php
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+/*if($_SERVER["REQUEST_METHOD"] == "POST"){
     //Register
-    include '../../model/ForgotPassword.php';
+    include '../../controller/ForgotPassword.php';
     $forgotPassword = new ForgotPassword();
     $forgotPassword->sendRecoveryPassword($_POST["email"]);
-}
+}*/
 ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../../libs/main.css" type="text/css">
+    <link rel="stylesheet" href="libs/main.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onload="signupDisplay()">
@@ -39,24 +39,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="col-6-item">
                     <div class="col-2-item"></div>
                     <div class="col-2-item">
-                        <button class="bg-dblue border-dblue" type="submit" id="sendRecoverPW">Send Recovery Password</button>
+                        <button class="bg-dblue border-dblue" type="submit" id="sendRecoverPW" name="sendRecoverPW">Send Recovery Password</button>
                         <span>Check your email account</span>
                     </div>
                 </div>
                 <div class="col-6-item">
                     <div class="col-2-item"></div>
                     <div class="col-1-item">
-                        <a href="login.php">Login</a>
+                        <a href="http://localhost/Main/index.php?page=login.php">Login</a>
                     </div>
                     <div class="col-1-item">
                         <!-- <a href="#" type="submit" >To Resend Click Here</a>    -->
-                        <button class="bg-dblue border-dblue" type="submit">To Resend Click Here</button>
+                        <button class="bg-dblue border-dblue" type="submit" name="sendagain">To Resend Click Here</button>
                     </div>
                 </div>
              </form>
         </div>
         </div>
-        <script src="../../libs/main.js"></script>
+        <script src="libs/main.js"></script>
     <script>
         function signupDisplay(){
             var emailValidationId = document.getElementById("emailValidationId");
