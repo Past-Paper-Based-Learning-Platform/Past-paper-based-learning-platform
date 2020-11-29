@@ -16,6 +16,9 @@
             }
             if (isset($_POST['updtintlst'])){
 				$this->addSubjects();
+            }
+            if (isset($_POST['logout'])){
+				$this->logout();
 			}
 		}
 
@@ -111,6 +114,12 @@
                 }
             }
         }
+
+        //logout user
+		public function logout(){
+			session_destroy();
+			echo '<script language="javascript">window.location.href ="http://localhost/Main/index.php"</script>';
+		}
 
     }
 ?>

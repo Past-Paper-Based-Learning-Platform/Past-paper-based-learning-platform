@@ -31,19 +31,27 @@
                             <div class="col-1-item" style="color:white;">
                                 Hi <?php echo $username ?>
                             </div>
-                            <div class="col-3-item">
-                                <a href=""><input type="text" placeholder="Search.." name="search"></a>
-                            </div>
-                            <div class="col-1-item">
-                                <a href="#" ><button type="submit"><i class="fa fa-search"></i></button></a>   
+                            <div class="search-container">
+                                <form action="/action_page.php">
+                                    <div class="col-2-item">
+                                        <a href=""><input type="text" placeholder="Search.." name="search"></a>
+                                    </div>
+                                    <div class="col-1-item">
+                                        <a href="#" ><button type="submit"><i class="fa fa-search"></i></button></a>   
+                                    </div>
+                                </form>
                             </div>
                             <div class="col-1-item" >
                                 <a href="#" style="color:white;">Settings</a>
                                 <i class="fa fa-cog fa-lg" style="color:white;"></i>
                             </div>
+                            <div class="col-1-item">
+                                <form action="http://localhost/Main/lecturerindex.php" method = "POST">
+                                    <button class="bg-dblue border-dblue" type="submit" style="width:60%" name="logout">Log out</button>
+                                </form>
+                            </div>
                         </div>
-                    </form>
-                </div>
+                    
             </div>
 
             <table class="table" style="width:100%;height:88%;table-layout: fixed">
