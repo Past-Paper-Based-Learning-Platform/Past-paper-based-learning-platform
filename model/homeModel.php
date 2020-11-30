@@ -137,7 +137,6 @@
 			{
                 $this->open_db();
                 foreach($subjects as $subject){
-                    echo $subject.'\n';
                     $query="INSERT INTO interest_list (user_id,subject_code) VALUES ('".$userId."','".$subject."')";
                     $result = mysqli_query($this->condb,$query);
                 }

@@ -8,6 +8,24 @@
                 <div class="col-1-item"><input type="text" placeholder="Username" id="un_id" name="uname"></div>
                 <div class="col-2-item"><span style="color:red" id="usernameValidId">Username required</span></div>
             </div>
+            <div class="col-6-item" style="padding-botton:2px">
+                <div class="col-2-item"></div>
+                <div class="col-1-item strong text-white">First name</div> 
+                <div class="col-1-item"><input type="text" placeholder="First name" name="first_name"></div>
+                <div class="col-2-item"><span style="color:red" id="usernameValidId">First name required</span></div>
+            </div>
+            <div class="col-6-item" style="padding-botton:2px">
+                <div class="col-2-item"></div>
+                <div class="col-1-item strong text-white">Middle name</div> 
+                <div class="col-1-item"><input type="text" placeholder="Middle name" name="middle_name"></div>
+                <div class="col-2-item"><span style="color:red" id="usernameValidId">Middle name required</span></div>
+            </div>
+            <div class="col-6-item" style="padding-botton:2px">
+                <div class="col-2-item"></div>
+                <div class="col-1-item strong text-white">Last name</div> 
+                <div class="col-1-item"><input type="text" placeholder="Last name" name="last_name"></div>
+                <div class="col-2-item"><span style="color:red" id="usernameValidId">Last name required</span></div>
+            </div>
             <div class="col-6-item">
                 <div class="col-2-item"></div>
                 <div class="col-1-item strong text-white">Email</div> 

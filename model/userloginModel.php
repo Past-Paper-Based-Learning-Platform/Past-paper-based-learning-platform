@@ -52,15 +52,15 @@
 		}
 
 		//sign up user
-		function signupUser($username, $email,  $password, $user_flag, $subjects, $designation, $academicYear, $indexNum)
+		function signupUser($username, $first_name, $middle_name, $last_name, $email,  $password, $user_flag, $subjects, $designation, $academicYear, $indexNum)
 		{
 			try
 			{
 				$this->open_db();
 				$encryptPw = $this->hashPassword($password);
 				//print_r($subjects);
-				$sql = "INSERT INTO registred_user (email, user_name, password, user_flag, activeStatus) 
-				VALUES ('".$email."', '".$username."', '".$encryptPw."', '".$user_flag."', '1')";
+				$sql = "INSERT INTO registred_user (email, user_name, password, first_name, middle_name, last_name, user_flag, activeStatus) 
+				VALUES ('".$email."', '".$username."', '".$encryptPw."', '".$first_name."', '".$middle_name."', '".$last_name."', '".$user_flag."', '1')";
 			
 				$results = mysqli_query($this->condb,$sql);
 	
@@ -76,6 +76,14 @@
 				if ($sekectresult->num_rows > 0) {
 					while($row = $sekectresult->fetch_assoc()) {
 						$userId = $row["user_id"];
+					}
+				}
+
+				//add subjects to the data base
+				if(!empty($subjects)){
+					foreach($subjects as $subject){
+						$query="INSERT INTO interest_list (user_id,subject_code) VALUES ('".$userId."','".$subject."')";
+						$result = mysqli_query($this->condb,$query);
 					}
 				}
 	
