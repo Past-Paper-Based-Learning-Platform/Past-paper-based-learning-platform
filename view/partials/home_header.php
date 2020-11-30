@@ -25,24 +25,29 @@
     <div class="row container">
         <div class="col-6-item bg-lblue">
             <div class="tab">
-                <div class="search-container">
-                    <form action="/action_page.php">
-                        <div class="col-6-item" style="width:100%;">
-                            <div class="col-1-item" style="color:white;">
-                                Hi <?php echo $username ?>
-                            </div>
-                            <div class="col-3-item">
+                <div class="col-6-item" style="width:100%;">
+                    <div class="col-1-item" style="color:white;">
+                        Hi <?php echo $username ?>
+                    </div>
+                    <div class="search-container">
+                        <form action="http://localhost/Main/homeindex.php?page=home.php">
+                            <div class="col-2-item">
                                 <a href=""><input type="text" placeholder="Search.." name="search"></a>
                             </div>
                             <div class="col-1-item">
                                 <a href="#" ><button type="submit"><i class="fa fa-search"></i></button></a>   
                             </div>
-                            <div class="col-1-item" >
-                                <a href="#" style="color:white;">Settings</a>
-                                <i class="fa fa-cog fa-lg" style="color:white;"></i>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                    <div class="col-1-item">
+                        <a href="#" style="color:white;">Settings</a>
+                        <i class="fa fa-cog fa-lg" style="color:white;"></i>
+                    </div>
+                    <div class="col-1-item">
+                        <form action="http://localhost/Main/homeindex.php" method = "POST">
+                            <button class="bg-dblue border-dblue" type="submit" style="width:60%" name="logout">Log out</button>
+                        </form>
+                    </div>
                 </div>
             </div>
 
