@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="libs/main.css" type="text/css">
     <link rel="stylesheet" href="libs/template.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -45,7 +45,7 @@
                 <form action="http://localhost/Main/homeindex.php" method = "POST">
                     <button class="bg-blue border-dblue logoutbtn" type="submit" name="logout">Log out</button>
                 </form>
-                <a href="http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>">
+                <a href="http://localhost/Main/homeindex.php">
                     <button class="bg-blue border-dblue settingsbtn" type="submit" name="logout">
                         <i class="fa fa-cog fa-lg"></i>
                     </button>
@@ -57,17 +57,17 @@
             <tr>
                 <td style="width:20%;text-align:center">
                 <div class="col-6-item bg-lblue lefthometab" style="height: 100%">
-                    <img src="pictures/thumbnail.PNG" class="profilepic" alt="Profile Picture" style="text-align:center;">
+                    <img src="pictures/thumbnail.PNG" alt="Trulli" width="70%" height="50%" style="text-align:center;">
                     <div style="text-align:center;">
-                        <i class="fa fa-trophy" style="width:23%"></i>
-                        <i class="fa fa-heart" style="width:23%"></i>
-                        <i class="fa fa-diamond" style="width:23%"></i>
-                        <i class="fa fa-certificate" style="width:23%"></i>
+                        <i class="fa fa-trophy"></i>
+                        <i class="fa fa-heart"></i>
+                        <i class="fa fa-diamond"></i>
+                        <i class="fa fa-certificate"></i>
                     </div>
 
                     <!-- view past paper -->
                     <div class="dropdown" style="text-align:center;">
-                        <button onclick="dropdownpaper()" class="dropbtn">View PastPaper</button>
+                        <button onclick="dropdownpaper()" class="bg-dblue border-dblue">View PastPaper</button>
                         <div id="myDropdown" class="dropdown-content">
                             <input type="text" placeholder="Search Pastpaper.." id="myInput" onkeyup="filterFunction()">
                             <?php
@@ -76,12 +76,13 @@
                                     echo "<a href='http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=".$row['paper_id']."' target='_blank'>".$row['subject_code']. "-" .$row['subject_name']. "-".$row['year']. "-" .$row['semester']. "-" .$row['part']. "</a><br>";
                                 }
                             ?>
-                            <button href='http://localhost/Main/homeindex.php?page=home.php' id="complian" style="display:none;">Complain</button>
                         </div>
                     </div><br>
 
+                    <a href="#">complain</a><br/><br/>
+
                     <!-- view questions -->
-                    <form action="http://localhost/Main/homeindex.php" method = "POST">
+                    <form action="http://localhost/Main/homeindex.php?page=home.php" method = "POST">
                         <div>
                             <input list="lesson" name="lesson" placeholder="Select lesson">
                             <datalist id="lesson">
