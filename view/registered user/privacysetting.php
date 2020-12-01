@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>View Past Paper</title>
+    <title>Setting</title>
     <link rel="stylesheet" href="libs/main.css" type="text/css">
 </head>
 
@@ -16,35 +16,54 @@
         <div class="col-2-item">
         <a href='http://localhost/Main/homeindex.php?page=notificationsetting.php&user_id=<?php echo $userId; ?>'><button >Notification Setting</button></a>
         </div>
-
+      </div>
+      
         <?php
     echo"
     <form method='POST' action='http://localhost/Main/homeindex.php'>
-    
-            <p>Change Password</p>
             
-            <input type='hidden' name='user_id'required value='".$row['user_id']."'>
+         
+            
+              <div style='background:white; width:300px; margin:auto;'>
+              <p style='text-align:center;'>Change Password</p>
+              </div>
+              
+            
+                <input type='hidden' name='user_id'required value='".$row['user_id']."'>
+              
+              <table class='setting-table'>
+            <tr>
+            <td>Current Password</td>
+              <td>
+               <input type='password' name='current_pw'required value=".$row['password'].">
+              </td>
+            </tr>
 
-            <input type='password' name='current_pw'required value=".$row['password'].">
-            
-              <br><br>
+            <tr>
+            <td>New Password</td>
+                <td>
+                 <input type='password' name='new_pw'placeholder='New Password'>
+                </td>
+              </tr>
+
+              <tr>
+              <td>Confirm Password</td>
+                <td>
+                   <input type='password' name='confirm_pw' placeholder='Confirm Password'>
+                </td>
+              </tr>
+              
+          </table>
+          <div class='tab'style='float:right; width:200px;'>
+          <button name='changepassword'>Change Password</button>
+       </div>
           
-              <input type='password' name='new_pw'placeholder='New Password'>
-              <br><br>
-
-              <input type='password' name='confirm_pw' placeholder='Confirm Password'>
-         <br><br>
-
-           
-              <input type='submit' name='changepassword' value='Change Password'>
-      
-   
-      
-    
           </form>
           ";
           ?>
-     </div>
+     
   </div>
   </body>
   </html> 
+  
+              

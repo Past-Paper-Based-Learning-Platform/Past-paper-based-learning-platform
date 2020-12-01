@@ -53,9 +53,9 @@
             </div>
         </div>
 
-        <table class="table" style="width:100%;height:88%;table-layout: fixed">
-            <tr>
-                <td style="width:20%;text-align:center">
+        <table class="table" style="width:100%;height:88%;table-layout: fixed;">
+            <tr style="backgroung-color:none;">
+                <td style="width:20%;text-align:center;">
                 <div class="col-6-item bg-lblue lefthometab" style="height: 100%">
                     <img src="pictures/thumbnail.PNG" class="profilepic" alt="Profile Picture" style="text-align:center;">
                     <div style="text-align:center;">

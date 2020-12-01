@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>View Past Paper</title>
+    <title>Setting</title>
     <link rel="stylesheet" href="libs/main.css" type="text/css">
 </head>
 
@@ -17,6 +17,8 @@
         <a href='http://localhost/Main/homeindex.php?page=notificationsetting.php&user_id=<?php echo $userId; ?>'><button>Notification Setting</button></a>
         </div>
   </div>
+
+  <div>
 <?php
     
   
@@ -49,18 +51,21 @@
             <tr>
               <td>Email</td>
               <td>
-                <input type='email' name='email'required value=".$row['email'].">
+                <input type='email' name='email' style='width: 100%;
+                height: 2rem;
+                border-radius: 5px;
+                color: rgb(0, 0, 0);
+                border-color: midnightblue;' required value=".$row['email'].">
               </td>
             </tr>
-            <input type='hidden' name='password'required value=".$row['password'].">
-              <td>
-                <input type='submit' value='update' name='updateuser'>
-              </td>
-              
-            </tr>
-  
-  
+
           </table>
+
+          <input type='hidden' name='password'required value=".$row['password'].">
+
+          <div class='tab'style='float:right; width:200px;'>
+                  <button name='updateuser'>Change Password</button>
+          </div>
   
       </form>
     ";
@@ -68,6 +73,7 @@
     
       
     ?>
+    </div>
   </div>
   
 </body>

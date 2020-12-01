@@ -258,10 +258,10 @@
 
         }
 
-        public function show_data(){
+        public function show_data($paper_id){
             $this->open_db();
             $discussionArray=array();
-            $sql="SELECT resource_id,type,content,discussion_id,parent_resource_id,registred_user.first_name,registred_user.last_name,registred_user.user_id FROM resources JOIN registred_user ON resources.user_id=registred_user.user_id ORDER BY resource_id DESC";
+            $sql="SELECT * FROM ((discussion INNER JOIN resources ON resources.discussion_id=discussion.discussion_id) INNER JOIN registred_user ON resources.user_id=registred_user.user_id)  WHERE paper_id=$paper_id  ORDER BY resource_id DESC";
             $result= $this->condb-> query($sql);
                 while ($row_ah = mysqli_fetch_assoc($result)) {
                     array_push($discussionArray, $row_ah);
@@ -282,6 +282,9 @@
             $this->condb->close();
     }
 
+    
+		
+
     public function user_update($user_id,$first_name,$middle_name, $last_name,$email,$password){
         $this->open_db();
         $sql= "UPDATE registred_user SET email='$email' , first_name='$first_name' , middle_name='$middle_name' , last_name='$last_name' ,password='$password' WHERE user_id=$user_id";
@@ -289,9 +292,16 @@
         return $result;
         }
 
+        //hash password
+		function hashPassword($password){ 
+        	$hashedPW = sha1($password); 
+			return $hashedPW;
+        }
+        
     public function password_update($user_id,$password){
             $this->open_db();
-            $sql= "UPDATE registred_user SET password='$password' WHERE user_id=$user_id";
+            $hashPassword=$this->hashPassword($password);
+            $sql= "UPDATE registred_user SET password='$hashPassword' WHERE user_id=$user_id";
             $result= $this->condb-> query($sql);
             return $result;
         }

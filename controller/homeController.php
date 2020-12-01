@@ -32,9 +32,7 @@
 			if (isset($_POST['changepassword'])){
 				$this->passwordUpdate();
 			}
-			if (isset($_POST['changepassword'])){
-				$this->passwordUpdate();
-			}
+			
 		}
 
 		//page view
@@ -48,8 +46,9 @@
 			if($page == 'pastpaper.php' or $page == 'discussion.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
 				$answer_result = $this->objsm->get_answerpath($userId);
-				$result=$this->objsm->show_data();
 				$paper_id=$userId;
+				$result=$this->objsm->show_data($paper_id);
+				
 				
 			}
 			if($page=='userprofile.php'){
@@ -131,7 +130,7 @@
 		
 		}
 
-		public function passowrdUpdate(){
+		public function passwordUpdate(){
 			$user_id=$_POST['user_id'];
 			$password=$_POST['current_pw'];
 			$new_pw=$_POST['new_pw'];
