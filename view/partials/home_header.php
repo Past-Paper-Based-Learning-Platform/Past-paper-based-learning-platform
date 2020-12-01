@@ -76,7 +76,7 @@
                                     echo "<a href='http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=".$row['paper_id']."' target='_blank'>".$row['subject_code']. "-" .$row['subject_name']. "-".$row['year']. "-" .$row['semester']. "-" .$row['part']. "</a><br>";
                                 }
                             ?>
-                            <button href='http://localhost/Main/homeindex.php?page=home.php' id="complian" style="display:none;">Complain</button>
+                            <button onclick="document.location='http://localhost/Main/homeindex.php?page=home.php'" id="complian" style="display:none;">Complain</button>
                         </div>
                     </div><br>
 
