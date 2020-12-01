@@ -53,16 +53,11 @@
 				
 			}
 			if($page=='userprofile.php'){
-				
-      
         		$row=$this->objsm->get_user($userId);
 				
 			}
 
 			if($page=='profilesetting.php' or $page=='privacysetting.php'){
-				$paper_result =$this->objsm->get_paperpath($userId);
-				$answer_result = $this->objsm->get_answerpath($userId);
-      
 				$row=$this->objsm->get_user($userId);
 				
 				
