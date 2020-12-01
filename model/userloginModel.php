@@ -210,4 +210,39 @@
 			$this->close_db();     
 		}
 
+		function checkEmailIsExist($email){
+			$this->open_db();
+		
+			//get user id by email
+			$user = null;
+			$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
+			$sekectresult = mysqli_query($this->condb,$selectQuery);
+			if ($sekectresult->num_rows > 0) {
+				while($row = $sekectresult->fetch_assoc()) {
+					$user = $row["user_id"];
+				}
+			}
+
+			return $user;
+			
+			$this->close_db();  
+		}
+
+		function checkUsernameIsExist($uname){
+			$this->open_db();
+		
+			//get user id by user
+			$user = null;
+			$selectQuery = 'SELECT * FROM registred_user where user_name = "'.$uname.'"';
+			$sekectresult = mysqli_query($this->condb,$selectQuery);
+			if ($sekectresult->num_rows > 0) {
+				while($row = $sekectresult->fetch_assoc()) {
+					$user = $row["user_id"];
+				}
+			}
+
+			return $user;
+			
+			$this->close_db();
+		}
 }

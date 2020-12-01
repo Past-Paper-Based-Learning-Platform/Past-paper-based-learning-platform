@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="libs/main.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body onload="signupDisplay()">
+<body onload="display()">
     <div class="row container">
         <div class="col-6-item bg-lblue" style="height: 600px;">
         <div class="tab">
@@ -58,7 +58,7 @@
         </div>
         <script src="libs/main.js"></script>
     <script>
-        function signupDisplay(){
+        function display(){
             var emailValidationId = document.getElementById("emailValidationId");
             emailValidationId.style.display = "none";
             var confirmemailValidationId = document.getElementById("confirmemailValidationId");

@@ -36,7 +36,29 @@
 			if(isset($_POST['resetPW'])){
 				$this->sendRecoveryPassword($_POST['emailtext'], $_POST['newPw']);
 			}
+			
+			// if(isset($_POST['continueBtn'])){
+			// 	$this->checkEmailandUsernameExist($_POST['email'], $_POST['uname']);
+			// }
+			
 		}		
+
+		//check email
+		public function checkEmailandUsernameExist($email, $username){
+			
+			// $undata = $this->objsm->checkUsernameIsExist($username);
+			// if(!is_null($undata)){
+			// 	echo '<script> alert("Entered username already exist") </script>';
+			// 	return;
+			// }
+
+			// $data = $this->objsm->checkEmailIsExist($email);
+			// echo '<script> alert("maaaaaaaa'.$email.'") </script>';
+			// if(!is_null($data)){
+			// 	echo '<script> alert("Entered email already exist") </script>';
+			// 	return;
+			// }
+		}
 		
 		//page view
 		public function viewloginsignup($page)
@@ -60,6 +82,18 @@
 			$indexNum = null;
 			$subjects = [];
 
+			//check email is already in db
+			$data = $this->objsm->checkEmailIsExist($email);
+			if(!is_null($data)){
+				
+			}
+
+			//check uname is already in db
+			$undata = $this->objsm->checkUsernameIsExist($username);
+			if(!is_null($undata)){
+				
+			}
+
 			if(strpos($email, 'lec') !== false)
 			{
 				//lecturer
@@ -80,7 +114,7 @@
 			}
 
 			$this->objsm->signupUser($username, $first_name, $middle_name, $last_name, $email,  $password, $user_flag, $subjects, $designation, $academicYear, $indexNum);
-
+			echo '<script language="javascript">window.location.href ="http://localhost/Main/index.php?page=login.php"</script>';
 		}
 
 		//login user
@@ -112,11 +146,18 @@
 			}
 			else
 			{
-				$loginerr = "Invalid user name or password";
+				echo '<script> alert("Invalid user name or password") </script>';
 			}
 		}
 
-		function sendRecoverdetail(){
+		function sendRecoverdetail($email){
+			$data = $this->objsm->checkEmailIsExist($email);
+			
+			if(is_null($data)){
+				echo '<script> alert("Entered email is invalid") </script>';
+				return;
+			}
+
 			$mail = $_POST['email'];
 			echo '<script language="javascript">window.location.href ="http://localhost/Main/view/user/resetPassword.php?email='.$mail.'"</script>';
 		}
