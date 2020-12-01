@@ -45,7 +45,7 @@ document.getElementById("myDropdown").classList.toggle("show");
 }
 
 function filterFunction() {
-var input, filter, ul, li, a, i;
+var input, filter, ul, li, a, i,b;
 input = document.getElementById("myInput");
 filter = input.value.toUpperCase();
 div = document.getElementById("myDropdown");
@@ -56,6 +56,8 @@ if (txtValue.toUpperCase().indexOf(filter) > -1) {
 a[i].style.display = "";
 } else {
 a[i].style.display = "none";
+b=document.getElementById('complian');
+b.style.display="";
 }
 }
 }

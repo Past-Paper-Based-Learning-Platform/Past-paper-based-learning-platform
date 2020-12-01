@@ -46,6 +46,9 @@
 		function signUpMember()
 		{
 			$username =  $_POST['uname'];
+			$first_name = $_POST['first_name'];
+			$middle_name = $_POST['middle_name'];
+			$last_name = $_POST['last_name'];
 			$email = $_POST['email'];
 			$password = $_POST['pw'];
 			$user_flag = null;
@@ -73,7 +76,7 @@
 				$subjects = $_POST['stuSubjcts'];
 			}
 
-			$this->objsm->signupUser($username, $email,  $password, $user_flag, $subjects, $designation, $academicYear, $indexNum);
+			$this->objsm->signupUser($username, $first_name, $middle_name, $last_name, $email,  $password, $user_flag, $subjects, $designation, $academicYear, $indexNum);
 
 		}
 
