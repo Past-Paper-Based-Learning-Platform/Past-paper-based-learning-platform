@@ -23,7 +23,7 @@
                 </div>
         </div>
         <div style="height: 500px;background-color: rgb(130, 150, 170)">
-        <form action="" method="POST" id="forgotPWFormId">
+        <form action="http://localhost/Main/index.php?page=forgotPassword.php" method="POST" id="forgotPWFormId">
                 <div class="col-6-item">
                     <div class="col-2-item"></div>
                     <div class="col-1-item strong text-white">Email</div> 

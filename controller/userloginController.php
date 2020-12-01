@@ -28,10 +28,13 @@
                 $this->signUpMember();
 			}
 			if (isset($_POST['sendRecoverPW'])){
-                $this->sendRecoverdetail();
+				$this->sendRecoverdetail($_POST['email']);
 			}
 			if (isset($_POST['sendagain'])){
-                $this->sendRecoverdetail();
+				$this->sendRecoverdetail($_POST['email']);
+			}
+			if(isset($_POST['resetPW'])){
+				$this->sendRecoveryPassword($_POST['emailtext'], $_POST['newPw']);
 			}
 		}		
 		
@@ -84,7 +87,7 @@
 		function loginMember($username, $password)
 		{
 			$svariable=$this->objsm->userLogin($username, $password);
-			if($svariable)
+			if(!is_null($svariable))
 			{ 
 					$_SESSION['user_name'] = $svariable['user_name'];
 					$_SESSION['user_id'] = $svariable['user_id'];
@@ -92,7 +95,7 @@
 
 				if($svariable['user_role'] == 'S')
 				{
-						echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php")</script>';
+					echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php")</script>';
 				}
 				elseif($svariable['user_role'] == 'L' || $svariable['user_role'] == 'I')
 				{
@@ -114,8 +117,12 @@
 		}
 
 		function sendRecoverdetail(){
-			$email = $_POST['email'];
-			$this->objsm->sendRecoverPWEmail($email);
+			$mail = $_POST['email'];
+			echo '<script language="javascript">window.location.href ="http://localhost/Main/view/user/resetPassword.php?email='.$mail.'"</script>';
+		}
+
+		function sendRecoveryPassword($email, $password){
+			$this->objsm->resetPassword($email, $password);
 		}
     }
 		
