@@ -40,7 +40,7 @@
                         </form>
                     </div>
                     <div class="col-1-item">
-                        <a href="#" style="color:white;">Settings</a>
+                        <a href="http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>'" style="color:white;">Settings</a>
                         <i class="fa fa-cog fa-lg" style="color:white;"></i>
                     </div>
                     <div class="col-1-item">
