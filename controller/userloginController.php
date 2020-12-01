@@ -119,7 +119,7 @@
 
 		//login user
 		function loginMember($username, $password)
-		{
+		{	
 			$svariable=$this->objsm->userLogin($username, $password);
 			if(!is_null($svariable))
 			{ 

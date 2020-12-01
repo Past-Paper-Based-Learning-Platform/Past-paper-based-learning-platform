@@ -86,6 +86,23 @@
             	throw $e;
         	}		
 		}
+		public function get_paperpath($id){
+			try{
+				$this->open_db();
+				$query=$this->condb->prepare("SELECT past_paper FROM past_paper WHERE paper_id=?");
+				$query->bind_param("i",$id);
+				$query->execute();
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;	
+			}
+			catch (Exception $e) 
+			{
+            	$this->close_db();
+            	throw $e;
+        	}
+		}
 		public function get_subjects($year, $course){
 			try{
 				$this->open_db();

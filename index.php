@@ -1,7 +1,7 @@
 <?php
     //session_unset();
     if(!isset($_SESSION) && empty($_SESSION['user_role']))
-    {
+    {   
         require_once  'controller/userloginController.php';		
         $controller = new userloginController();	
         $page = 'login.php';

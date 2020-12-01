@@ -32,51 +32,50 @@
 		}	
 		public function show_papers()
 		{	
+			$year=trim($_POST['year']);
+			$semester=$course=$studyyear='';
+			switch (trim($_POST['semester']))
+			{
+				case "Semester-I":
+					$semester='1';
+					break;
+				case "Semester-II":
+					$semester='2';
+					break;
+			}
+			switch (trim($_POST['course']))
+			{
+				case "Computer Science":
+					$course="CS";
+					break;
+				case "Information Systems":
+					$course="IS";
+					break;
+			}
+			switch (trim($_POST['studyyear']))
+			{
+				case "First Year":
+					$studyyear='1';
+					break;
+				case "Second Year":
+					$studyyear='2';
+					break;
+				case "Third Year":
+					$studyyear='3';
+					break;
+				case "Four Year":
+					$studyyear='4';
+					break;
+			}
+			$result=$this->objsm->get_papers($year, $semester, $course, $studyyear);
 			
-				$year=trim($_POST['year']);
-				$semester=$course=$studyyear='';
-				switch (trim($_POST['semester']))
-				{
-					case "Semester-I":
-						$semester='1';
-						break;
-					case "Semester-II":
-						$semester='2';
-						break;
-				}
-				switch (trim($_POST['course']))
-				{
-					case "Computer Science":
-						$course="CS";
-						break;
-					case "Information Systems":
-						$course="IS";
-						break;
-				}
-				switch (trim($_POST['studyyear']))
-				{
-					case "First Year":
-						$studyyear='1';
-						break;
-					case "Second Year":
-						$studyyear='2';
-						break;
-					case "Third Year":
-						$studyyear='3';
-						break;
-					case "Four Year":
-						$studyyear='4';
-						break;
-				}
-				$result=$this->objsm->get_papers($year, $semester, $course, $studyyear);
-				
-				include 'view/examinationdep/examhome.php';
-			
+			include 'view/examinationdep/examhome.php';
 		}		
 		public function delete_paper()
 		{
+			$row = mysqli_fetch_array($this->objsm->get_paperpath($_POST['deletebtn']));
+			unlink('pastpapers/'.$row['past_paper']);
 			if ($this->objsm->del_paper($_POST['deletebtn'])){
-				unlink('pastpapers/'.$_POST['paper']);
 				$this->show_papers();
 				echo '<script>alert("Successfully Deleted Paper!")</script>';
 			}
