@@ -9,6 +9,7 @@
     <title>Home</title>
     <link rel="stylesheet" href="libs/main.css" type="text/css">
     <link rel="stylesheet" href="libs/template.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/discussionForm.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
