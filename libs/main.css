@@ -190,6 +190,8 @@ header img{
     font-family: 'Times New Roman', Times, serif;
     color: midnightblue;
     padding-left: 40px;
+    margin-top:20px;
+    margin-bottom: 20px;
 }
 
 .homeheadtab button:hover{
@@ -224,6 +226,22 @@ header img{
     float:right;
     margin-right: 5px;
 }
+.verticlebtn{
+    width:100%;
+    color: white;
+    background-color: midnightblue;
+    margin: 0px;
+    border-radius: 0px;
+    border: none;
+    font-size: larger;
+    height:50px;
+}
+.verticlebtn button:hover{
+    background-color: white;
+    color: midnightblue;
+}
+
+
 /*table formating*/
 table{
     border: none;

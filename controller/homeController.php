@@ -32,6 +32,18 @@
 			if (isset($_POST['changepassword'])){
 				$this->passwordUpdate();
 			}
+
+			if (isset($_POST['delete'])){
+				$this->deleteDiscussion();
+			}
+
+			if (isset($_POST['edit'])){
+				$this->editDiscussion();
+			}
+
+			if (isset($_POST['showquestions'])){
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php")</script>';
+			}
 			
 		}
 
@@ -42,6 +54,7 @@
 			$allSubjects = $this->objsm->getSubjects($userId);
 			$result_paper = $this->objsm->getPastpapers();
 			$result_lesson = $this->objsm->getLessons();
+			$result_user_discussion=$this->objsm->getUserDiscussion($userId);
 			
 			if($page == 'pastpaper.php' or $page == 'discussion.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -61,6 +74,9 @@
 				
 				
 			}
+			if($page=='pastpaperedit.php'){
+
+			}
            require_once 'view/registered user/'.$page.'';
 		}
 		
@@ -71,7 +87,7 @@
 			$this->objsm->updateSubjects($userId,$subjects);
 			$subjects = $this->objsm->getInterestList($userId);
 			$allSubjects = $this->objsm->getSubjects($userId);
-			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php")</script>';
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php")</script>';
 		}
 
 		//logout user
@@ -145,6 +161,26 @@
 			}else{
 				echo"incurrect password";
 			}
+		}
+
+		public function deleteDiscussion(){
+			$resource_id=$_POST['uid'];
+			$discusssion_id=$_POST['dis_id'];
+			$parent_resource_id=$_POST['res_id'];
+			$paper_id=$_POST['paper_id'];
+			
+			$result=$this->objsm->delete_data($resource_id,$discusssion_id,$parent_resource_id);
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=discussion.php&paper_id='.$paper_id.'")</script>';
+		}
+
+		public function editDiscussion(){
+			$user_id=$_POST['uid'];
+			$discussion_id=$_POST['discussion_id'];
+			$paper_id=$_POST['paper_id'];
+			$content=$_POST['message'];
+			$result=$this->objsm->get_question_details($discussion_id);
+			$result2=$this->objsm->get_lesson_details($result['question_id'],$paper_id);
+			require_once "./view/registered user/pastpaperedit.php";
 		}
 
     }

@@ -1,9 +1,28 @@
-<?php
-include "view/partials/pastpaper_header.php";
-?>
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>View Past Paper</title>
+    <link rel="stylesheet" href="libs/main.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/discussionForm.css" type="text/css">
+</head>
+
+
+<body>
+    <div class='container'>
+    <div class="tab" >
+        <div class="col-3-item"  style='margin:auto;'>
+        <a href='http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=<?php echo $paper_id; ?>'><button style="background:blue;">Past Paper</button></a>
+        </div>
+        <div class="col-3-item"  style='margin:auto;'>
+        <a href='http://localhost/Main/homeindex.php?page=discussion.php&paper_id=<?php echo $paper_id; ?>'><button>Discussion</button></a>
+        </div>
+    </div>
+
+
+
 
     <div id="pastpaper" class="tabcontent" style="height: 600px; display: block;">
-        <div class="col-3-item bg-gray">
+        <div class="col-3-item bg-gray" style="height: 95%; width:48.25%; margin:10px;">
             <div class="tab">
                 <div class="col-3-item">
                     <button id="secondary_defaulttab" class="secondary_tablinks" onclick="secondary_openTab(event, 'questionpaper')" >Question Paper</button>
@@ -25,7 +44,7 @@ include "view/partials/pastpaper_header.php";
             </div>
         </div> 
 
-        <div class="col-3-item bg-gray">
+        <div class="col-3-item bg-gray" style="height: 95%; width:48.25%; margin:10px;">
             <h3>New discussion</h3>
 
             <?php
@@ -70,21 +89,20 @@ include "view/partials/pastpaper_header.php";
         </div>
         <div class='lesson-area'>
             <label >Lesson</label><br>
-            <textarea class='lesson' name='lesson'></textarea><br>
+            <textarea style='height:50px; border-radius:10px;' class='lesson' name='lesson'></textarea><br>
         </div>
         <div class='content-area'>
             <label >Content</label><br>
-            <textarea class='content' name='content'></textarea><br>
+            <textarea class='content' style='height:70px; border-radius:10px;' name='content'></textarea><br>
             
         </div>
         <div class='radio-btn'>
-            <label>Question</label>
-            <input type='radio' name='type' class='radio-type' value='Question'>
-            <label>Answer</label>
-            <input type='radio' name='type' class='radio-type' value='Answer'><br>
+            
+            <input type='hidden'  name='type' class='radio-type' value='Discussion'>
+        <br>
         </div>
         <div class='create-btn'>
-        <input type='submit' name='create_discussion' value='Create'>
+        <input  class='bg-blue border-blue btn' style='width: 20%;' type='submit' name='create_discussion' value='Create'>
         </div>
         </form>
         </div>";

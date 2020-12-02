@@ -1,6 +1,12 @@
-<?php include 'view/partials/home_header.php';?>
-                        <!-- HOME default content -->
-      
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>View Past Paper</title>
+    <link rel="stylesheet" href="libs/main.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/discussionForm.css" type="text/css">
+</head>
+<body>
+    <div class="container">
     <?php
                 foreach($result_user_discussion as $row) {
                                 
@@ -10,10 +16,13 @@
 
                     if($discussion_id!=null && $parent_resource_id==null){
 
+
+                    
+
                             echo" <div class='comment-box'>
                                     <div class='discussion-area'>
                                         <div class='name'>
-                                        <a href='http://localhost/Main/homeindex.php?page=userprofile.php&user_id=".$row['user_id']."'>".$row['first_name']." ".$row['last_name']."</a> 
+                                        <a href='http://localhost/Main/homeindex.php?page=userprofile.php&user_id=".$row['user_id']."'>".$row['first_name']."</a> 
                                         </div>
                                         <div class='type'>
                                             ".$row['type']."
@@ -75,5 +84,6 @@
                     }
                 
             ?>
-   
-<?php include 'view/partials/home_footer.php';?>             
+    </div>
+</body>
+</html>

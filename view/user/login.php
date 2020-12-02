@@ -1,3 +1,5 @@
+<html>
+<body onload="loadFunction()">
 <?php include 'view/partials/login_header.php';?>
     <form action="http://localhost/Main/index.php?page=login.php" method="post" id="loginFormId">
         <div class="col-6-item">
@@ -34,5 +36,38 @@
         <div class="col-1-item">
             <a href="http://localhost/Main/index.php?page=signup.php">Sign up</a>   
         </div>
-    </div>           
+    </div> 
+
+<script>
+function loadFunction(){  
+    var emailUnId = document.getElementById("unValidationId");
+    emailUnId.style.display = "none";
+    var pwId = document.getElementById("pwValidationId");
+    pwId.style.display = "none";
+}
+
+$("#loginFormId").submit(function(e) {
+        var email = document.getElementById("email_un_id").value; 
+        var pw =document.getElementById("passwordId").value;
+            if(!email){
+            var unValidationId = document.getElementById("unValidationId");
+            unValidationId.style.display = "block";
+            var pwValidationId = document.getElementById("pwValidationId");
+            pwValidationId.style.display = "none";
+            e.preventDefault();
+            return;
+        }
+        if(!pw){
+                var unValidationId = document.getElementById("unValidationId");
+                unValidationId.style.display = "none";
+                var pwValidationId = document.getElementById("pwValidationId");
+                pwValidationId.style.display = "block";
+                e.preventDefault();
+                return;
+            }
+        });
+</script>
+
+</body>
+</html>    
 <?php include 'view/partials/login_footer.php';

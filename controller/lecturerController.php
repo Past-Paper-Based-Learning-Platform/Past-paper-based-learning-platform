@@ -50,7 +50,6 @@
         public function uploadanswers()
         {
             $paperid =$_POST['paper'];
-
             $target_dir = "answerscripts/";
             $target_file = $target_dir . basename($_FILES["answer_script"]["name"]);
             $uploadOk = 1;
@@ -60,58 +59,54 @@
             if($paperid)
             {
                 $uploadOk = 1;
+                //Check if there's a file
+                $check = filesize($_FILES['answer_script']['tmp_name']);
+                if($check !== false)
+                {
+                    $uploadOk = 1;
+                    //check if the file is a pdf
+                    if($FileType != "pdf") 
+                    {
+                        echo "<script language='javascript'> alert('Sorry, only PDF files are allowed.'); </script>";
+                    }
+                    else{
+                        //Cheack if file already exists
+                        if (file_exists($target_file))
+                        {
+                            echo "<script language='javascript'> alert('You have already uploaded your file or Rename the file and try again'); </script>";
+                        }
+                        else{
+                            if($uploadOk == 0)
+                            {
+                                echo "<script language='javascript'> alert('Sorry, Failed to upload the file'); </script>";
+                            }
+                            else
+                            {
+                                //upload answer script
+                                if(move_uploaded_file($_FILES['answer_script']['tmp_name'],$target_file))
+                                {
+                                    $result = $this->objsm->uploadscript($target_file,$paperid);
+                                    if($result)
+                                    {
+                                        echo "<script language='javascript'> alert('The file ". htmlspecialchars( basename( $_FILES["answer_script"]["name"])). " has been uploaded.'); </script>";
+                                    }
+                                    else
+                                    {
+                                        echo "<script language='javascript'> alert('Sorry, Failed to upload the file'); </script>";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    echo "<script language='javascript'> alert('You haven't chosen a file'); </script>";
+                }
             }
             else
             {
                 echo "<script language='javascript'> alert('Please select a pastpaper'); </script>";
-                $uploadOk = 0;
-            }
-
-            //Check if there's a file
-            $check = filesize($_FILES['answer_script']['tmp_name']);
-            if($check !== false)
-            {
-                $uploadOk = 1;
-            }
-            else
-            {
-                echo "You haven't chosen a file";
-                $uploadOk = 0;
-            }
-
-            //check if the file is a pdf
-            if($FileType != "pdf") 
-            {
-                echo "Sorry, only PDF files are allowed.";
-                $uploadOk = 0;
-            }
-
-            //Cheack if file already exists
-            if (file_exists($target_file))
-            {
-                echo "You have already uploaded your file or Rename the file and try again";
-                $uploadOk = 0;
-            }
-
-            if($uploadOk == 0)
-            {
-                echo "Sorry, Failed to upload the file";
-            }
-            else
-            {
-                //upload answer script
-                if(move_uploaded_file($_FILES['answer_script']['tmp_name'],$target_file))
-                {
-                    $result = $this->objsm->uploadscript($target_file,$paperid);
-                    if($result)
-                    {
-                        echo "The file ". htmlspecialchars( basename( $_FILES["answer_script"]["name"])). " has been uploaded.";
-                    }
-                    else
-                    {
-                        echo "Sorry, Failed to upload the file";
-                    }
-                }
             }
         }
 

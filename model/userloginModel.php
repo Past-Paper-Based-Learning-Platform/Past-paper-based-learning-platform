@@ -65,8 +65,9 @@
 				$results = mysqli_query($this->condb,$sql);
 	
 				if (!$results) {
-					$qerror = mysqli_error($this->condb);
-					echo "Error: " . $sql . "<br>" . $qerror ;
+					echo "<script language='javascript'> alert('Sign Up unsuccessful! You have already signed up using this email!');</script>";
+					//$qerror = mysqli_error($this->condb);
+					//echo "Error: " . $sql . "<br>" . $qerror ;
 				}
 	
 				//get userId
@@ -131,8 +132,10 @@
 				$this->open_db();
 				$encryptPW = $this->hashPassword($password);
 		
-				$query = 'SELECT * FROM registred_user where email = "'.$username.'" or user_name = "'.$username.'" and password ="'.$encryptPW.'"';
+				$query = 'SELECT * FROM registred_user where password= "'.$encryptPW.'" and email = "'.$username.'" or user_name ="'.$username.'"';
+				
 				$result = mysqli_query($this->condb,$query);
+				
 				if ($result->num_rows > 0) 
 				{
 					while($row = $result->fetch_assoc())
@@ -187,4 +190,60 @@
 			//    echo "Message could not be sent...";
 			// }
 		}
-	}
+
+		function resetPassword($email, $password){
+			
+			$this->open_db();
+			$encryptPW = $this->hashPassword($password);
+		
+			//get user id by email
+			$user = "";
+			$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
+			$sekectresult = mysqli_query($this->condb,$selectQuery);
+			if ($sekectresult->num_rows > 0) {
+				while($row = $sekectresult->fetch_assoc()) {
+					$user = $row["user_id"];
+				}
+			}
+			
+			$sql = "UPDATE registred_user SET password='".$encryptPW."' WHERE user_id=".$user;
+			mysqli_query($this->condb,$sql);
+			$this->close_db();     
+		}
+
+		function checkEmailIsExist($email){
+			$this->open_db();
+		
+			//get user id by email
+			$user = null;
+			$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
+			$sekectresult = mysqli_query($this->condb,$selectQuery);
+			if ($sekectresult->num_rows > 0) {
+				while($row = $sekectresult->fetch_assoc()) {
+					$user = $row["user_id"];
+				}
+			}
+
+			return $user;
+			
+			$this->close_db();  
+		}
+
+		function checkUsernameIsExist($uname){
+			$this->open_db();
+		
+			//get user id by user
+			$user = null;
+			$selectQuery = 'SELECT * FROM registred_user where user_name = "'.$uname.'"';
+			$sekectresult = mysqli_query($this->condb,$selectQuery);
+			if ($sekectresult->num_rows > 0) {
+				while($row = $sekectresult->fetch_assoc()) {
+					$user = $row["user_id"];
+				}
+			}
+
+			return $user;
+			
+			$this->close_db();
+		}
+}

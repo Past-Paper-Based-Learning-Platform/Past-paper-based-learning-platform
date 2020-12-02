@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="libs/main.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
-<body onload="signupDisplay()">
+<body onload="display()">
     <div class="row container">
         <div class="col-6-item bg-lblue" style="height: 600px;">
         <div class="tab">
@@ -23,7 +23,7 @@
                 </div>
         </div>
         <div style="height: 500px;background-color: rgb(130, 150, 170)">
-        <form action="" method="POST" id="forgotPWFormId">
+        <form action="http://localhost/Main/index.php?page=forgotPassword.php" method="POST" id="forgotPWFormId">
                 <div class="col-6-item">
                     <div class="col-2-item"></div>
                     <div class="col-1-item strong text-white">Email</div> 
@@ -58,7 +58,7 @@
         </div>
         <script src="libs/main.js"></script>
     <script>
-        function signupDisplay(){
+        function display(){
             var emailValidationId = document.getElementById("emailValidationId");
             emailValidationId.style.display = "none";
             var confirmemailValidationId = document.getElementById("confirmemailValidationId");

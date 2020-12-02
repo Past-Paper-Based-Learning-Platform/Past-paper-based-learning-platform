@@ -2,17 +2,12 @@
                         <!-- Scedule meeting Content -->
                         <div class="container bg-dblue col-6-item" style='height:100%;'>
                             <div>
-                                <h2>Request Meeting</h2>
+                                <h2>Send complain</h2>
 
-                                <form action="#">
+                                <form action="http://localhost/Main/homeindex.php?page=complain.php">
                                     <div class="element">
                                         <label for="receiver">To: </label>
                                         <input type="text" id="receiver" name="receiver" placeholder="Enter name / email of the Lecturer" style="width:90%;"><br>
-                                    </div>
-
-                                    <div class="element">
-                                        <label for="Date">Date: </label>
-                                        <input type="date" id="Date" name="Date" min="today"><br>
                                     </div>
 
                                     <div class="element">
@@ -21,7 +16,7 @@
                                     </div>
 
                                     <div class="element">
-                                        <button class="bg-blue border-dblue" type="button" style='width:200px;float:right;'>Send Request</button>
+                                        <button class="bg-blue border-dblue" type="button" style='width:200px;float:right;'>Send Complain</button>
                                     </div>
                                 </form>
                             </div>
