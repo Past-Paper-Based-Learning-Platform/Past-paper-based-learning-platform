@@ -63,9 +63,9 @@
 
           <input type='hidden' name='password'required value=".$row['password'].">
 
-          <div class='tab'style='float:right; width:200px;'>
+          <!--<div class='tab'style='float:right; width:200px;'>
                   <button name='updateuser'>Change Password</button>
-          </div>
+          </div>-->
   
       </form>
     ";

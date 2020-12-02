@@ -32,7 +32,7 @@
                 <input type='hidden' name='user_id'required value='".$row['user_id']."'>
               
               <table class='setting-table'>
-            <tr>
+            <tr style='display:none'>
             <td>Current Password</td>
               <td>
                <input type='password' name='current_pw'required value=".$row['password'].">
