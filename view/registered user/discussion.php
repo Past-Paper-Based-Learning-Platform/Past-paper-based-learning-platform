@@ -10,6 +10,10 @@
 <body>
 
 <div class='container' style="">
+<section class = 'logohead'>
+            <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
+            <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
+        </section>
     <div class="tab">
         <div class="col-3-item" style='margin:auto;'>
         <a href='http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=<?php echo $paper_id; ?>'><button>Past Paper</button></a>
@@ -69,7 +73,7 @@
                             echo" <div class='comment-box'>
                                     <div class='discussion-area'>
                                         <div class='name'>
-                                        <a href='http://localhost/Main/homeindex.php?page=userprofile.php&user_id=".$row['user_id']."'>".$row['first_name']."</a> 
+                                        <a style='text-decoration:none;' href='http://localhost/Main/homeindex.php?page=userprofile.php&user_id=".$row['user_id']."'>".$row['first_name']." ".$row['last_name']."</a> 
                                         </div>
                                         <div class='type'>
                                             ".$row['type']."

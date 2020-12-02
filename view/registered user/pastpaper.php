@@ -9,6 +9,10 @@
 
 <body>
     <div class='container'>
+    <section class = 'logohead'>
+            <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
+            <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
+        </section>
     <div class="tab" >
         <div class="col-3-item"  style='margin:auto;'>
         <a href='http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=<?php echo $paper_id; ?>'><button style="background:blue;">Past Paper</button></a>
@@ -59,6 +63,8 @@
                 <option >Other</option>
             </select>
 
+           
+
             <select name='main-question' class='part-select' required>
                 <option disabled=''>Main Question</option>
                 <option >01</option>
@@ -83,6 +89,9 @@
                 <option >d</option>
             </select><br>
         </div>
+
+        <button class='bg-dblue' style='width:20%'>CROP</button>
+
         <div class='lesson-area'>
             <label >Lesson</label><br>
             <textarea style='height:50px; border-radius:10px;' class='lesson' name='lesson'></textarea><br>

@@ -42,7 +42,7 @@
 			}
 
 			if (isset($_POST['showquestions'])){
-				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php")</script>';
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=discussionlist.php")</script>';
 			}
 			
 		}
@@ -61,8 +61,6 @@
 				$answer_result = $this->objsm->get_answerpath($userId);
 				$paper_id=$userId;
 				$result=$this->objsm->show_data($paper_id);
-				
-				
 			}
 			if($page=='userprofile.php'){
         		$row=$this->objsm->get_user($userId);

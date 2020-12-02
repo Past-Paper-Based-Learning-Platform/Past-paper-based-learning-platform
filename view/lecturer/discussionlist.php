@@ -16,6 +16,10 @@
 </head>
 
 <body>
+<section class = 'logohead'>
+            <a href='http://localhost/Main/lecturerindex.php?page=lecturerHome.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
+            <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
+        </section>
     <div class="post parent">
         <h3>1 -> b -> i  <br> Post id Q</h3><br>
         <p><a href="#">#KMP_algorithm</a> <a href="#">#String matching</a> <a href="#" style="text-decoration: none;">&#127991;</a></p>

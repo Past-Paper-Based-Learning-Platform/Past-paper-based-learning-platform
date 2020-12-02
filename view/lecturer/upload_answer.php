@@ -17,7 +17,7 @@
             <input type="file" id="answer_script" name="answer_script"><br>
         </div>
         <div class="element">
-            <button class="" name= "upload_answers" type="submit">UPLOAD</button>
+            <button class="bg-dblue" name= "upload_answers" type="submit" >UPLOAD</button>
         </div>
     </form>
 <?php include 'view/partials/lecturer_footer.php';?>

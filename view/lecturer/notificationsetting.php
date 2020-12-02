@@ -70,18 +70,18 @@ input:checked + .slider:before {
 
   <div class="container">
   <section class = 'logohead'>
-            <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
+            <a href='http://localhost/Main/lecturerindex.php?page=lecturerHome.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
             <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
         </section>
     <div class="tab">
         <div class="col-2-item">
-        <a href='http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>'><button >Profile Setting</button></a>
+        <a href='http://localhost/Main/lecturerindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>'><button >Profile Setting</button></a>
         </div>
         <div class="col-2-item">
-        <a href='http://localhost/Main/homeindex.php?page=privacysetting.php&user_id=<?php echo $userId; ?>'><button>Privacy Setting</button></a>
+        <a href='http://localhost/Main/lecturerindex.php?page=privacysetting.php&user_id=<?php echo $userId; ?>'><button>Privacy Setting</button></a>
         </div>
         <div class="col-2-item">
-        <a href='http://localhost/Main/homeindex.php?page=notificationsetting.php&user_id=<?php echo $userId; ?>'><button style="background:blue;">Notification Setting</button></a>
+        <a href='http://localhost/Main/lecturerindex.php?page=notificationsetting.php&user_id=<?php echo $userId; ?>'><button style="background:blue;">Notification Setting</button></a>
         </div>
       </div>
 

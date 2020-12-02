@@ -6,19 +6,19 @@
 </head>
 
 <div class="container">
-<section class = 'logohead'>
-            <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
+        <section class = 'logohead'>
+            <a href='http://localhost/Main/lecturerindex.php?page=lecturerHome.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
             <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
         </section>
 <div class="tab">
         <div class="col-2-item">
-        <a href='http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>'><button style="background:blue;">Profile Setting</button></a>
+        <a href='http://localhost/Main/lecturerindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>'><button style="background:blue;">Profile Setting</button></a>
         </div>
         <div class="col-2-item">
-        <a href='http://localhost/Main/homeindex.php?page=privacysetting.php&user_id=<?php echo $userId; ?>'><button>Privacy Setting</button></a>
+        <a href='http://localhost/Main/lecturerindex.php?page=privacysetting.php&user_id=<?php echo $userId; ?>'><button>Privacy Setting</button></a>
         </div>
         <div class="col-2-item">
-        <a href='http://localhost/Main/homeindex.php?page=notificationsetting.php&user_id=<?php echo $userId; ?>'><button>Notification Setting</button></a>
+        <a href='http://localhost/Main/lecturerindex.php?page=notificationsetting.php&user_id=<?php echo $userId; ?>'><button>Notification Setting</button></a>
         </div>
   </div>
 
@@ -26,7 +26,7 @@
 <?php
     
   
-    echo "<form method='POST' action='http://localhost/Main/homeindex.php'>
+    echo "<form method='POST' action='http://localhost/Main/lecturerindex.php'>
   
       <input type='hidden' name='user_id'required value='".$row['user_id']."'>
   
@@ -70,7 +70,6 @@
           <div class='tab'style='float:right; width:200px;'>
                   <button name='updateuser'>Change</button>
           </div>
-
   
       </form>
     ";
@@ -93,7 +92,7 @@
         ?>
       </ul> 
       <div style="text-align:left; margin-top: 8px;margin-bottom: 8px;">
-        <form action="http://localhost/Main/homeindex.php?page=profilesetting.php" method="post" id="addSubjectsForm">
+        <form action="http://localhost/Main/lecturerindex.php?page=profilesetting.php" method="post" id="addSubjectsForm">
           <div class="custom-select-stu" id="custom-select-stu" style="color:black">Select More..</div>
           <div id="custom-select-option-box-stu" style="height: 100px; overflow: auto;">
             <?php 

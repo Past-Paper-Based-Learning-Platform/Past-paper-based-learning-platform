@@ -1,10 +1,10 @@
 <?php include 'view/partials/home_header.php';?>
                         <!-- Scedule meeting Content -->
-                        <div class="container bg-dblue col-6-item" style='height:100%; color:black;'>
+                        <div class="container bg-dblue col-6-item" style='height:100%;color:black;'>
                             <div>
                                 <h2>Send complain</h2>
 
-                                <form action="http://localhost/Main/homeindex.php?page=complain.php">
+                                <form action="http://localhost/Main/lecturerindex.php?page=complain.php">
                                     <div class="element">
                                         <label for="receiver">To: </label>
                                         <input type="text" id="receiver" name="receiver" placeholder="Enter name / email of the Lecturer" style="width:90%;"><br>
