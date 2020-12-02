@@ -22,13 +22,13 @@
     } );
     </script>
 </head>
-<body class='bg-lgray'>
-    <div class="row container ">
+<body>
+    <div class="row container" style="background-color:rgb(0, 99, 165);">
         <section class = 'logohead'>
             <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
             <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
         </section>
-        <div class="col-6-item bg-dblue homeheadtab" style="width:100%;">
+        <div class="col-6-item bg-gray homeheadtab" style="width:100%;">
             <div class="col-1-item" style="color:white;">
             <a href='http://localhost/Main/homeindex.php?page=home.php'class='usernametag'>Hi <?php echo $username ?></a>
             </div>
@@ -57,7 +57,7 @@
         <table class="hometable" style="width:100%;height:88%;table-layout: fixed;">
             <tr>
                 <td style="width:20%;text-align:center;">
-                    <div class="col-6-item bg-lblue lefthometab" style="height: 100%;margin:0px;">
+                    <div class="col-6-item bg-gray lefthometab" style="height: 100%;margin:0px;">
                         <img src="pictures/thumbnail.PNG" class="profilepic" alt="Profile Picture" style="text-align:center;">
                         <div style="text-align:center;">
                             <i class="fa fa-trophy" style="width:23%"></i>

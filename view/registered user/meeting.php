@@ -1,6 +1,6 @@
 <?php include 'view/partials/home_header.php';?>
                         <!-- Scedule meeting Content -->
-                        <div class="container bg-dblue col-6-item" style='height:100%;'>
+                        <div class=" bg-dblue col-6-item" style='height:100%;'>
                             <div>
                                 <h2>Request Meeting</h2>
 
@@ -14,6 +14,8 @@
                                         <label for="Date">Date: </label>
                                         <input type="date" id="Date" name="Date" min="today"><br>
                                     </div>
+
+                                    <?php include 'view/partials/calender.php'; ?>
 
                                     <div class="element">
                                         <label for="message">Message: </label>

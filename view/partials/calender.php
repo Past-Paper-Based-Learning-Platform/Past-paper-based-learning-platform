@@ -1,31 +1,6 @@
-<! DOCTYPE html>
-<head>
-    <style>
-        table{
-            text-align: center;
-            border-collapse:collapse;
-        }
-        table tr th{
-            border: 2px solid #400dd9;
-            width:14%;
-        }
-        table tr.th1{
-            background-color:#400dd9;
-            color:#ffffff;;
-        }
-        table tr.th2{
-            background-color:#c8b7fa;
-        }
-        table tr td{
-            width:14%;
-            background-color:#ede7fd;
-            border: 2px solid #ffffff;
-        }
-    </style>
-</head>
 
 <body>
-    <table>
+    <table class='calender'>
         <tr class="th1">
             <th>&lsaquo;</th>
             <th colspan="3">MONTH</th>
@@ -42,59 +17,48 @@
             <th>SAT</th>
         </tr>
         <tr>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
+            <td></td>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>5</td>
+            <td>6</td>
         </tr>
         <tr>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
+            <td>7</td>
+            <td>8</td>
+            <td>9</td>
+            <td>10</td>
+            <td>11</td>
+            <td>12</td>
+            <td>13</td>
         </tr>
         <tr>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
+            <td>14</td>
+            <td>15</td>
+            <td>16</td>
+            <td>17</td>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
         </tr>
         <tr>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
+            <td>21</td>
+            <td>22</td>
+            <td>23</td>
+            <td>24</td>
+            <td>25</td>
+            <td>26</td>
+            <td>27</td>
         </tr>
         <tr>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
-            <td>X</td>
+            <td>28</td>
+            <td>29</td>
+            <td>30</td>
+            <td>31</td>
+            <td></td>
+            <td></td>
+            <td></td>
         </tr>
     </table>
-</body>
-</html>

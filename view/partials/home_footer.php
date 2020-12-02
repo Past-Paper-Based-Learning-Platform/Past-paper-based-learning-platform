@@ -1,7 +1,7 @@
 </td>
 
 <td style="width:20%;border: none;">
-<div class="col-6-item bg-lblue lefthometab" style="height: 100%">
+<div class="col-6-item bg-gray lefthometab" style="height: 100%">
     <div class="bg-gray" style="border-radius:0px;">
         <h4 style="text-align:center;">Notification</h4>
     <div>

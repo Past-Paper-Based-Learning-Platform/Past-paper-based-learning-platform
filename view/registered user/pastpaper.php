@@ -18,10 +18,6 @@
         </div>
     </div>
 
-
-
-
-    <div id="pastpaper" class="tabcontent" style="height: 600px; display: block;">
         <div class="col-3-item bg-gray" style="height: 95%; width:48.25%; margin:10px;">
             <div class="tab">
                 <div class="col-3-item">
@@ -34,12 +30,12 @@
             </div>
 
             <div  id="questionpaper" class="secondary_tabcontent" style="height: 400px; display: block;">
-                <h3>Past Paper subject code</h3>
+                <h3>Past Paper</h3>
                 <iframe class="paper_frame" src="pastpapers/<?php echo $paper_result ?>"></iframe>
             </div>
             
-            <div id="answersheet" class="secondary_tabcontent" style="height: 400px; display: block;">
-                <h3>Answer sheet subject code</h3>
+            <div id="answersheet" class="secondary_tabcontent" style="height: 400px; display: none;">
+                <h3>Answer sheet</h3>
                 <iframe class="paper_frame" src="<?php echo $answer_result ?>"></iframe>
             </div>
         </div> 
