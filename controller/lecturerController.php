@@ -140,7 +140,7 @@
                 }
                 else
                 {
-                    echo "<script language='javascript'> alert('You haven't chosen a file'); </script>";
+                    echo "<script language='javascript'> alert('Please choose a file'); </script>";
                 }
             }
             else
