@@ -1,5 +1,5 @@
 <?php
-    class userloginModel{
+    class userModel{
 		// set database config for mysql
 		function __construct($consetup)
 		{
@@ -245,5 +245,47 @@
 			return $user;
 			
 			$this->close_db();
+		}
+
+		function checkCurrentPassword($username, $curpassword){
+			try{
+				$this->open_db();
+				$encryptPW = $this->hashPassword($curpassword);
+				
+				$query=$this->condb->prepare('SELECT * FROM registred_user where password= "'.$encryptPW.'" and user_name ="'.$username.'"');
+				$query->execute();
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				
+				if ($res->num_rows > 0){
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			catch (Exception $e)
+			{
+				$this->close_db();
+            	throw $e;
+			}
+		}
+
+		function updateNewPassword($username, $newpassword){
+			try{
+				$this->open_db();
+				$encryptPW = $this->hashPassword($newpassword);
+				$query=$this->condb->prepare('UPDATE registred_user SET password="'.$encryptPW.'" WHERE user_name="'.$username.'"');
+				$query->execute();
+				$query->close();
+				$this->close_db();
+			}
+			catch (Exception $e)
+			{
+				$this->close_db();
+            	throw $e;
+			}
 		}
 }

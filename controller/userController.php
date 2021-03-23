@@ -1,16 +1,16 @@
 <?php
-	require 'model/userloginModel.php';
+	require 'model/userModel.php';
 	require_once 'config.php';
 
     //session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
     
-	class userloginController 
+	class userController 
 	{
 
  		function __construct() 
 		{          
 			$this->objconfig = new config();
-			$this->objsm =  new userloginModel($this->objconfig);
+			$this->objsm =  new userModel($this->objconfig);
 		}
         // mvc handler request
 		public function mvchandler() 
@@ -146,7 +146,7 @@
 			}
 			else
 			{
-				echo '<script> alert("Invalid user name or password") </script>';
+				echo '<script>var alert=document.getElementById("alert"); alert.style.display="block";</script>';
 			}
 		}
 
@@ -164,6 +164,19 @@
 
 		function sendRecoveryPassword($email, $password){
 			$this->objsm->resetPassword($email, $password);
+		}
+
+		function changePassword($username, $curpassword, $newpassword){
+			if($this->objsm->checkCurrentPassword($username, $curpassword)){
+				$this->objsm->updateNewPassword($username, $newpassword);
+				session_destroy();
+				echo '<script> alert("Password Changed Successfully! Login Using New Password."); window.location.href="http://localhost/Main/index.php";</script>';
+			}
+			else
+			{
+				echo '<script> alert("Wrong Current Password!"); window.location.href="http://localhost/Main/view/examinationdep/changepassword.php";</script>';
+
+			}
 		}
     }
 		

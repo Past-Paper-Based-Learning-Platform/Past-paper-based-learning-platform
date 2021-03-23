@@ -4,17 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="libs/main.css" type="text/css">
+    <link rel="stylesheet" href="libs/loginstylesheet.css" type="text/css">
+    <link rel="stylesheet" href="libs/signupstylesheet.css" type="text/css">
+    <script src="libs/alert.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onload="signupDisplay()">
-    <div class="tab">
-    <div class="col-1-item"></div>
-        <div class="col-2-item">
-        <a href='http://localhost/Main/index.php?page=login.php'><button>Login</button></a>
-        </div>
-        <div class="col-2-item">
-        <a href='http://localhost/Main/index.php?page=signup.php'><button>Signup</button></a>
-        </div>
-        <div class="col-1-item"></div>
-    </div>
+    <section class = 'logohead'>
+        <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
+        <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
+    </section>

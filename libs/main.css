@@ -2,8 +2,9 @@ html, body{
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
-    height: 100%;
+    height: inherit;
     font-family: sans-serif;
+    background-image: linear-gradient( rgb(40, 40, 53), rgb(189, 190, 216));
     background-color: rgb(0, 99, 165);
 }
 *,
@@ -81,6 +82,10 @@ header img{
 .auto-scroll{
     overflow: auto;
 }
+hr{
+    background-color: rgb(255, 255, 255);
+    height: 2px;
+}
 /* 6-column grid system */
 .col-1-item, .col-2-item, .col-3-item, .col-4-item, .col-5-item, .col-6-item{
     float: left;
@@ -118,7 +123,7 @@ header img{
 
 /*background color classes*/
 .bg-lblue{
-    background-color: lightblue;
+    background-color: rgb(99, 186, 212);
 }
 .bg-dblue{
     background-color: midnightblue;
@@ -143,6 +148,39 @@ header img{
 }
 .bg-green{
     background-color: rgb(33, 189, 33);
+}
+
+/*gradient colors*/
+.gradient-lblue{
+    background-image: linear-gradient(to bottom right, lightblue, white);
+}
+.gradient-dblue{
+    background-image: linear-gradient( midnightblue, rgb(144, 150, 207));
+}
+.gradient-blue{
+    background-image: linear-gradient(rgb(0, 89, 148), rgb(127, 187, 243));
+}
+.gradient-gray{
+    background-image: linear-gradient(rgb(54, 54, 54), rgb(163, 163, 163));
+}
+.gradient-lgray{
+    background-image: linear-gradient(rgb(141, 141, 141), rgb(255, 255, 255));
+}
+.gradient-red{
+    background-image: linear-gradient( rgb(228, 25, 25), rgb(218, 119, 119));
+}
+.gradient-green{
+    background-image: linear-gradient( rgb(26, 143, 26), rgb(122, 218, 119));
+}
+.gradient-black{
+    background-image: linear-gradient( rgb(27, 27, 36), rgb(189, 190, 216));
+}
+.gradient-hot{
+    background-image: linear-gradient(to bottom right, rgb(223, 35, 35), rgb(236, 236, 49));
+}
+
+.transparent{
+    opacity: 0.4;
 }
 /* border color classes*/
 .border-red{
@@ -190,8 +228,6 @@ header img{
     font-family: 'Times New Roman', Times, serif;
     color: midnightblue;
     padding-left: 40px;
-    margin-top:20px;
-    margin-bottom: 20px;
 }
 
 .homeheadtab button:hover{
@@ -226,22 +262,6 @@ header img{
     float:right;
     margin-right: 5px;
 }
-.verticlebtn{
-    width:100%;
-    color: white;
-    background-color: midnightblue;
-    margin: 0px;
-    border-radius: 0px;
-    border: none;
-    font-size: larger;
-    height:50px;
-}
-.verticlebtn button:hover{
-    background-color: white;
-    color: midnightblue;
-}
-
-
 /*table formating*/
 table{
     border: none;
@@ -283,6 +303,13 @@ div input[type="text"]{
     color: rgb(0, 0, 0);
     border-color: midnightblue;
 }
+div input[type="number"]{
+    width: 100%;
+    height: 2rem;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    border-color: midnightblue;
+}
 div input[type="password"]{
     width: 100%;
     height: 2rem;
@@ -307,7 +334,6 @@ div button:hover{
 .tab{
     padding: 0px;
     overflow: hidden;
-    border: 1px solid #ccc;
     background-color: rgb(33, 28, 107);
 }  
 /* Style the buttons that are used to open the tab content */
@@ -318,7 +344,6 @@ div button:hover{
     outline: none;
     cursor: pointer;
     font-size: 16px;
-    padding: 10px 10px;
     transition: 0.3s;
 }
 
@@ -335,9 +360,6 @@ div button:hover{
 .tabcontent{
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
-    background-color: rgb(130, 150, 170);
 }
 
 /*drop down button*/
