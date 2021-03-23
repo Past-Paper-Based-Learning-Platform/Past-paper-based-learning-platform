@@ -132,7 +132,7 @@
 				$this->open_db();
 				$encryptPW = $this->hashPassword($password);
 		
-				$query = 'SELECT * FROM registred_user where password= "'.$encryptPW.'" and email = "'.$username.'" or user_name ="'.$username.'"';
+				$query = 'SELECT * FROM registred_user where password= "'.$encryptPW.'" and (email = "'.$username.'" or user_name ="'.$username.'")';
 				
 				$result = mysqli_query($this->condb,$query);
 				

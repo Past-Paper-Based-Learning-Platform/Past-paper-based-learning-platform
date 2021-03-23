@@ -36,6 +36,9 @@
 			if(isset($_POST['resetPW'])){
 				$this->sendRecoveryPassword($_POST['emailtext'], $_POST['newPw']);
 			}
+			if(isset($_POST['changepwd'])){
+				$this->changePassword($_SESSION['user_name'], trim($_POST['currentpass']), trim($_POST['newpass']));
+			}
 			
 			// if(isset($_POST['continueBtn'])){
 			// 	$this->checkEmailandUsernameExist($_POST['email'], $_POST['uname']);
