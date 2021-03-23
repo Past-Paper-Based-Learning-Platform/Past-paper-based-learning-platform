@@ -6,6 +6,10 @@
 </head>
 
 <div class="container">
+<section class = 'logohead'>
+            <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
+            <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
+        </section>
 <div class="tab">
         <div class="col-2-item">
         <a href='http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>'><button style="background:blue;">Profile Setting</button></a>
@@ -64,8 +68,9 @@
           <input type='hidden' name='password'required value=".$row['password'].">
 
           <div class='tab'style='float:right; width:200px;'>
-                  <button name='updateuser'>Change Password</button>
+                  <button name='updateuser'>Change</button>
           </div>
+
   
       </form>
     ";
@@ -74,8 +79,34 @@
       
     ?>
     </div>
+
+      
   </div>
-  
+  <div class="container">
+    <div class="bg-gray">
+      <h3 style="text-align:center;">Interest List</h3>
+      <ul style="list-style-type: square;">
+        <?php
+          while($row = mysqli_fetch_assoc($subjects)) {
+            echo "<li>". $row['subject_name']. "</li>";
+          }
+        ?>
+      </ul> 
+      <div style="text-align:left; margin-top: 8px;margin-bottom: 8px;">
+        <form action="http://localhost/Main/homeindex.php?page=profilesetting.php" method="post" id="addSubjectsForm">
+          <div class="custom-select-stu" id="custom-select-stu" style="color:black">Select More..</div>
+          <div id="custom-select-option-box-stu" style="height: 100px; overflow: auto;">
+            <?php 
+              foreach($allSubjects as $subject){
+                echo "<div class='custom-select-option'> <input onchange='toggleFillColor(this);'  class='custom-select-option-checkbox' type='checkbox' name='addSubjcts[]' value='".$subject['subject_code']."'> ".$subject['subject_name']." </div>";  
+              }
+            ?>
+          </div>
+          <button class="bg-dblue border-dblue" type="submit" style="width:30%;float:right;width:200px;" name='updtintlst' >Add</button>
+        </form>            
+      </div>
+    </div>
+  </div>
 </body>
 </html>
 

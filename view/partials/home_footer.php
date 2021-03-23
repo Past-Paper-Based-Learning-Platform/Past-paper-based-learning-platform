@@ -1,36 +1,15 @@
 </td>
 
-<td style="width:20%;border: 1px solid black;">
-    <div class="bg-gray">
-        <h4 style="text-align:center;">Interest List</h4>
-        <ul style="list-style-type: square;">
-            <?php
-                while($row = mysqli_fetch_assoc($subjects)) {
-                    echo "<li>". $row['subject_name']. "</li>";
-                }
-            ?>
-        </ul> 
-        <div style="text-align:center;">
-            <form action="http://localhost/Main/homeindex.php" method="post" id="addSubjectsForm">
-                <div class="custom-select-stu" id="custom-select-stu" style="color:black">Select More..</div>
-                <div id="custom-select-option-box-stu" style="height: 67px; overflow: auto;">
-                    <?php 
-                        foreach($allSubjects as $subject){
-                           echo "<div class='custom-select-option'> <input onchange='toggleFillColor(this);'  class='custom-select-option-checkbox' type='checkbox' name='addSubjcts[]' value='".$subject['subject_code']."'> ".$subject['subject_name']." </div>";  
-                        }
-                    ?>
-                </div>
-                <button class="bg-dblue border-dblue" type="submit" style="width:30%" name='updtintlst'>Add</button>
-            </form>            
-        </div>
-    </div>
-    <div class="bg-gray">
+<td style="width:20%;border: none;">
+<div class="col-6-item bg-gray lefthometab" style="height: 100%">
+    <div class="bg-gray" style="border-radius:0px;">
         <h4 style="text-align:center;">Notification</h4>
     <div>
     <p>Date: <input type="text" id="datepicker"></p>
     <div style="text-align:center;">
       <a href="#">complain</a><br/><br/>
-    <div>    
+    <div> 
+</div>
 </td>
 </tr>
 </table>

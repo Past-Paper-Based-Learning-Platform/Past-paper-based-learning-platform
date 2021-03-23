@@ -1,3 +1,7 @@
+<?php 
+    session_unset();
+  //  define('BASE_URL','http://localhost/Main/');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +19,10 @@
         </div>
         <div class="col-1-item">
             <button class="bg-dblue border-dblue" type="submit">Search User Account</button>
+        </div>
+        <div class="col-1-item text-white">
+            <a href="http://localhost/Main/view/admin/changepassword.php" style="text-decoration:none; color:white">change password</a>&nbsp;&nbsp;&nbsp;|
+            <a href="http://localhost/Main/examindex.php?action=logout" style="text-decoration:none; color:white">log-out</a>&nbsp;
         </div>
     </div>
     <div class="row container">

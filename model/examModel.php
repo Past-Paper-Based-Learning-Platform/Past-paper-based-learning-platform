@@ -86,6 +86,23 @@
             	throw $e;
         	}		
 		}
+		public function get_paperpath($id){
+			try{
+				$this->open_db();
+				$query=$this->condb->prepare("SELECT past_paper FROM past_paper WHERE paper_id=?");
+				$query->bind_param("i",$id);
+				$query->execute();
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;	
+			}
+			catch (Exception $e) 
+			{
+            	$this->close_db();
+            	throw $e;
+        	}
+		}
 		public function get_subjects($year, $course){
 			try{
 				$this->open_db();
@@ -97,10 +114,101 @@
 				return $res;	
 			}
 			catch (Exception $e) 
-			{
+			{   
             	$this->close_db();
             	throw $e;
         	}		
-		}      
+		}
+		public function all_subjects(){
+			try{
+				$this->open_db();
+				$query=$this->condb->prepare("SELECT subject_code, subject_name FROM subject");
+				$query->execute();
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}	
+		}
+		public function semester_subjects($year, $semester, $course, $studyyear){
+			try{
+				$this->open_db();
+				if($semester=='0'){
+					$query=$this->condb->prepare("SELECT subject_code, subject_name, active_flag, removed_year 
+					FROM subject 
+					WHERE course_code='$course'
+					AND semester='1/2'
+					AND year_of_study='$studyyear'
+					AND introduced_year<=$year AND (removed_year>$year OR removed_year=0)");
+				}else{
+					$query=$this->condb->prepare("SELECT subject_code, subject_name, active_flag, removed_year 
+					FROM subject 
+					WHERE course_code='$course'
+					AND (semester='$semester' OR semester='1/2')
+					AND year_of_study='$studyyear'
+					AND introduced_year<=$year AND (removed_year>$year OR removed_year=0)");
+				}				
+				$query->execute();
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}	
+		}
+
+		public function inactive_subject($subjectcode){
+			try{
+				$this->open_db();
+				$query=$this->condb->prepare("UPDATE subject SET active_flag=0, removed_year=YEAR(CURDATE()) WHERE subject_code='$subjectcode'");
+				$query->execute();
+				$query->close();
+				$this->close_db();
+				return true;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw false;
+        	}	
+		}
+
+		public function newsubject_details($semester, $course, $studyyear, $subjectcode, $subjectname, $linkedsubject, $addedyear){
+			try{
+				$this->open_db();
+				if($linkedsubject==''){
+					if($semester=='0'){
+						$query=$this->condb->prepare("INSERT INTO subject(subject_code, subject_name, introduced_year, year_of_study, semester, course_code, linked_subject, active_flag) VALUES ('$subjectcode', '$subjectname', $addedyear, '$studyyear', '1/2', '$course', NULL, 1)");
+					}else{
+						$query=$this->condb->prepare("INSERT INTO subject(subject_code, subject_name, introduced_year, year_of_study, semester, course_code, linked_subject, active_flag) VALUES ('$subjectcode', '$subjectname', $addedyear, '$studyyear', '$semester', '$course', NULL, 1)");
+					}
+				}else if($semester=='0'){
+					$query=$this->condb->prepare("INSERT INTO subject(subject_code, subject_name, introduced_year, year_of_study, semester, course_code, linked_subject, active_flag) VALUES ('$subjectcode', '$subjectname', $addedyear, '$studyyear', '1/2', '$course', '$linkedsubject', 1)");
+				}else{
+					$query=$this->condb->prepare("INSERT INTO subject(subject_code, subject_name, introduced_year, year_of_study, semester, course_code, linked_subject, active_flag) VALUES ('$subjectcode', '$subjectname', $addedyear, '$studyyear', '$semester', '$course', '$linkedsubject', 1)");
+				}
+				
+				if(!$query->execute()){
+					return false;
+				}
+				$query->close();
+				$this->close_db();
+				return true;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}	
+		}
     }   
 ?>

@@ -271,6 +271,19 @@
             $this->condb->close();
         }
 
+        public function getUserDiscussion($userId){
+            $this->open_db();
+            $discussionUserArray=array();
+            $sql="SELECT * FROM resources INNER JOIN registred_user ON registred_user.user_id = resources.user_id WHERE registred_user.user_id=$userId ORDER BY resource_id DESC";
+            $result= $this->condb-> query($sql);
+                while ($row_discussion = mysqli_fetch_assoc($result)) {
+                    array_push($discussionUserArray, $row_discussion);
+                }
+            
+            return $discussionUserArray;
+            $this->condb->close();
+        }
+
         public function get_user($user_id){
             $this->open_db();
           
@@ -304,6 +317,40 @@
             $sql= "UPDATE registred_user SET password='$hashPassword' WHERE user_id=$user_id";
             $result= $this->condb-> query($sql);
             return $result;
+        }
+
+        public function delete_data($resource_id,$discussion_id,$parent_resource_id){
+            $this->open_db();
+                if($discussion_id!=null and $parent_resource_id==null){
+    
+                $sql="DELETE FROM resources Where discussion_id='$discussion_id'";
+                $result= $this->condb-> query($sql);
+                
+                $sql2="DELETE FROM discussion Where discussion_id='$discussion_id'";
+                $result2= $this->condb-> query($sql2);
+            }else{
+                $sql="DELETE FROM resources Where resource_id='$resource_id'";
+                $result= $this->condb-> query($sql);
+            }
+            $this->condb->close();
+        }
+
+        public function get_question_details($discussion_id){
+            $this->open_db();
+            $sql="SELECT * FROM discussion INNER JOIN question ON question.question_id=discussion.question_id WHERE discussion_id=$discussion_id ";
+            $result= $this->condb-> query($sql);
+            $row= mysqli_fetch_assoc($result);
+            return $row;
+            $this->condb->close();
+        }
+
+        public function get_lesson_details($question_id,$paper_id){
+            $this->open_db();
+            $sql="SELECT * FROM question_belongs_to_lesson WHERE question_id=$question_id and paper_id=$paper_id ";
+            $result= $this->condb-> query($sql);
+            $row= mysqli_fetch_assoc($result);
+            return $row;
+            $this->condb->close();
         }
 
         

@@ -1,16 +1,16 @@
 <?php
-	require 'model/userloginModel.php';
+	require 'model/userModel.php';
 	require_once 'config.php';
 
     //session_status() === PHP_SESSION_ACTIVE ? TRUE : session_start();
     
-	class userloginController 
+	class userController 
 	{
 
  		function __construct() 
 		{          
 			$this->objconfig = new config();
-			$this->objsm =  new userloginModel($this->objconfig);
+			$this->objsm =  new userModel($this->objconfig);
 		}
         // mvc handler request
 		public function mvchandler() 
@@ -28,12 +28,37 @@
                 $this->signUpMember();
 			}
 			if (isset($_POST['sendRecoverPW'])){
-                $this->sendRecoverdetail();
+				$this->sendRecoverdetail($_POST['email']);
 			}
 			if (isset($_POST['sendagain'])){
-                $this->sendRecoverdetail();
+				$this->sendRecoverdetail($_POST['email']);
 			}
+			if(isset($_POST['resetPW'])){
+				$this->sendRecoveryPassword($_POST['emailtext'], $_POST['newPw']);
+			}
+			
+			// if(isset($_POST['continueBtn'])){
+			// 	$this->checkEmailandUsernameExist($_POST['email'], $_POST['uname']);
+			// }
+			
 		}		
+
+		//check email
+		public function checkEmailandUsernameExist($email, $username){
+			
+			// $undata = $this->objsm->checkUsernameIsExist($username);
+			// if(!is_null($undata)){
+			// 	echo '<script> alert("Entered username already exist") </script>';
+			// 	return;
+			// }
+
+			// $data = $this->objsm->checkEmailIsExist($email);
+			// echo '<script> alert("maaaaaaaa'.$email.'") </script>';
+			// if(!is_null($data)){
+			// 	echo '<script> alert("Entered email already exist") </script>';
+			// 	return;
+			// }
+		}
 		
 		//page view
 		public function viewloginsignup($page)
@@ -57,6 +82,18 @@
 			$indexNum = null;
 			$subjects = [];
 
+			//check email is already in db
+			$data = $this->objsm->checkEmailIsExist($email);
+			if(!is_null($data)){
+				
+			}
+
+			//check uname is already in db
+			$undata = $this->objsm->checkUsernameIsExist($username);
+			if(!is_null($undata)){
+				
+			}
+
 			if(strpos($email, 'lec') !== false)
 			{
 				//lecturer
@@ -77,14 +114,14 @@
 			}
 
 			$this->objsm->signupUser($username, $first_name, $middle_name, $last_name, $email,  $password, $user_flag, $subjects, $designation, $academicYear, $indexNum);
-
+			echo '<script language="javascript">window.location.href ="http://localhost/Main/index.php?page=login.php"</script>';
 		}
 
 		//login user
 		function loginMember($username, $password)
 		{
 			$svariable=$this->objsm->userLogin($username, $password);
-			if($svariable)
+			if(!is_null($svariable))
 			{ 
 					$_SESSION['user_name'] = $svariable['user_name'];
 					$_SESSION['user_id'] = $svariable['user_id'];
@@ -92,7 +129,7 @@
 
 				if($svariable['user_role'] == 'S')
 				{
-						echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php")</script>';
+					echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php")</script>';
 				}
 				elseif($svariable['user_role'] == 'L' || $svariable['user_role'] == 'I')
 				{
@@ -109,13 +146,37 @@
 			}
 			else
 			{
-				$loginerr = "Invalid user name or password";
+				echo '<script>var alert=document.getElementById("alert"); alert.style.display="block";</script>';
 			}
 		}
 
-		function sendRecoverdetail(){
-			$email = $_POST['email'];
-			$this->objsm->sendRecoverPWEmail($email);
+		function sendRecoverdetail($email){
+			$data = $this->objsm->checkEmailIsExist($email);
+			
+			if(is_null($data)){
+				echo '<script> alert("Entered email is invalid") </script>';
+				return;
+			}
+
+			$mail = $_POST['email'];
+			echo '<script language="javascript">window.location.href ="http://localhost/Main/view/user/resetPassword.php?email='.$mail.'"</script>';
+		}
+
+		function sendRecoveryPassword($email, $password){
+			$this->objsm->resetPassword($email, $password);
+		}
+
+		function changePassword($username, $curpassword, $newpassword){
+			if($this->objsm->checkCurrentPassword($username, $curpassword)){
+				$this->objsm->updateNewPassword($username, $newpassword);
+				session_destroy();
+				echo '<script> alert("Password Changed Successfully! Login Using New Password."); window.location.href="http://localhost/Main/index.php";</script>';
+			}
+			else
+			{
+				echo '<script> alert("Wrong Current Password!"); window.location.href="http://localhost/Main/view/examinationdep/changepassword.php";</script>';
+
+			}
 		}
     }
 		

@@ -1,5 +1,5 @@
 
-document.getElementById("defaulttab").click();
+//document.getElementById("defaulttab").click();
 
 function openTab(evt, tabName) {
   var i, tabcontent, tablinks;

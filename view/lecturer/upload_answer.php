@@ -12,12 +12,16 @@
                     ?>
                 </datalist></br>
         </div>
-        <div>
+        <div class="drop-zone">
+            <span class="dzone-prompt">Drop file here or click to upload</span>
+            <input type="file" name="answer_script" id="answer_script" class="dzone-input">   
+        </div>
+       <!-- <div>
             <label for="answer_script">Select file: </label>
             <input type="file" id="answer_script" name="answer_script"><br>
-        </div>
+        </div>-->
         <div class="element">
-            <button class="" name= "upload_answers" type="submit">UPLOAD</button>
+            <button class="bg-dblue" name= "upload_answers" type="submit" >UPLOAD</button>
         </div>
     </form>
 <?php include 'view/partials/lecturer_footer.php';?>

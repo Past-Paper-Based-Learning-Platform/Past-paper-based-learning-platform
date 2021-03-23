@@ -6,6 +6,10 @@
 </head>
 
   <div class="container">
+  <section class = 'logohead'>
+            <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
+            <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
+        </section>
     <div class="tab">
         <div class="col-2-item">
         <a href='http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>'><button >Profile Setting</button></a>
@@ -32,12 +36,11 @@
                 <input type='hidden' name='user_id'required value='".$row['user_id']."'>
               
               <table class='setting-table'>
-            <tr>
-            <td>Current Password</td>
-              <td>
-               <input type='password' name='current_pw'required value=".$row['password'].">
-              </td>
-            </tr>
+            <tr style='display:none'>
+            
+              
+               <input type='hidden' name='current_pw'required value=".$row['password'].">
+              
 
             <tr>
             <td>New Password</td>

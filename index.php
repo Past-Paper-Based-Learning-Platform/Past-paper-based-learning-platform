@@ -2,8 +2,8 @@
     //session_unset();
     if(!isset($_SESSION) && empty($_SESSION['user_role']))
     {
-        require_once  'controller/userloginController.php';		
-        $controller = new userloginController();	
+        require_once  'controller/userController.php';		
+        $controller = new userController();	
         $page = 'login.php';
         if(isset($_GET['page'])){
             $page = $_GET['page'];
