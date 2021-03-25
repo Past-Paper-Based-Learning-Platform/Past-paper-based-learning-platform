@@ -151,7 +151,7 @@
 				}
 			}
 			if($error == 0){
-				$error = create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id);
+			//	$error = create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id);
 			}
 			
 			if($error>0){
