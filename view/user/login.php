@@ -28,10 +28,10 @@
         </div>
         </section>
 
-        <div class="alert" style="display:none;" id="alert">
-  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-  Invalid Username or Password!
-</div>
+        <div class="alert alert1" style="display:none;" id="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            Invalid Username or Password!
+        </div>
 <script>
 function loadFunction(){  
     var emailUnId = document.getElementById("unValidationId");

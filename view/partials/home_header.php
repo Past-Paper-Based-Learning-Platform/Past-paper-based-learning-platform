@@ -74,7 +74,7 @@
                                 <?php
                                     while($row = mysqli_fetch_assoc($result_paper))
                                     {
-                                        echo "<a href='http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=".$row['paper_id']."' target='_blank'>".$row['subject_code']. "-" .$row['subject_name']. "-".$row['year']. "-" .$row['semester']. "-" .$row['part']. "</a><br>";
+                                        echo "<a href='http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=".$row['paper_id']."&subject_code=".$row['subject_code']."' target='_blank'>".$row['subject_code']. "-" .$row['subject_name']. "-".$row['year']. "-" .$row['semester']. "-" .$row['part']. "</a><br>";
                                     }
                                 ?>
                                 <button onclick="document.location='http://localhost/Main/homeindex.php?page=complain.php'" id="complian" style="display:none; background-color: midnightblue;">Complain</button>
