@@ -184,7 +184,11 @@
         }
         }
 
-        public function create_discussion($user_id,$level1,$level2,$level3,$level4,$lesson,$content,$type,$paper){
+        public function create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id){ 
+            
+            
+            
+            /*
             
             $this->open_db();
 
@@ -255,7 +259,7 @@
             $resourceQuery="INSERT INTO resources (type,content,user_id,discussion_id)  VALUE ('$type','$content','$user_id',$discussion_id)";
             $result3= $this->condb->query($resourceQuery);
             $this->condb->close();
-
+*/
         }
 
         public function show_data($paper_id){
