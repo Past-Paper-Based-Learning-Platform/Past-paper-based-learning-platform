@@ -45,6 +45,9 @@
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=discussionlist.php")</script>';
 			}
 			
+			if (isset($_POST['postquestion'])){
+				$this->postGeneralQuestion();
+			}
 		}
 
 		//page view
@@ -54,13 +57,15 @@
 			$allSubjects = $this->objsm->getSubjects($userId);
 			$result_paper = $this->objsm->getPastpapers();
 			$result_lesson = $this->objsm->getLessons();
+			if($page != 'pastpaper.php'){
 			$result_user_discussion=$this->objsm->getUserDiscussion($userId);
+			}
 			
-			if($page == 'pastpaper.php' or $page == 'discussion.php'){
+			if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
 				$answer_result = $this->objsm->get_answerpath($userId);
 				$paper_id=$userId;
-				$result=$this->objsm->show_data($paper_id);
+			//	$result=$this->objsm->show_data($paper_id);
 			}
 			if($page=='userprofile.php'){
         		$row=$this->objsm->get_user($userId);
@@ -94,27 +99,69 @@
 			echo '<script language="javascript">window.location.href ="http://localhost/Main/index.php"</script>';
 		}
 
+		//ask question from past paper
 		public function createDiscussion(){
-            
-            $user_id=$_POST['user_id'];
-            $level1=$_POST['part'];
-            $level2=$_POST['main-question'];
-            $level3=$_POST['sub-question'];
-            $level4=$_POST['question'];
+	//		echo '<pre>'.print_r($_POST).'</pre>';
+	//		echo '<pre>'.print_r($_SESSION).'</pre>';
+	//		echo '<pre>'.print_r($_FILES).'</pre>';
+	//		echo '<pre>'.print_r($_GET).'</pre>';
 
-            $lesson=strtolower($_POST['lesson']);
-           
-            $content=$_POST['content'];
-            $type=$_POST['type'];
+		//	echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>' 
             
-            $paper= $_POST['paper_id'] ; 
-            
-            
-            $result=$this->objsm->create_discussion($user_id,$level1,$level2,$level3,$level4,$lesson,$content,$type,$paper);
-         
-            
-           echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=discussion.php&paper_id='.$paper.'")</script>';
-           
+            $user_id=$_SESSION['user_id'];
+            $paperID=$_GET['paper_id'];
+			$subject_code=$_GET['subject_code'];
+            $question=$_POST['question'];
+            $tags=$_POST['tags'];
+
+			if(isset($_POST['anonymous'])){
+            	$anonymous=$_POST['anonymous'];
+			}else{
+				$anonymous= 'off';
+			}
+
+			//split into seperate tags
+			$extags = explode(" ,",$tags);
+		//	echo '<pre>'.print_r($extags).'</pre>';
+			$error=0;
+			
+			$check = filesize($_FILES['image']['tmp_name']);
+
+			//check if there is a quesion written or uploaded
+			if($question == '' && empty($check)){
+					$error = 1; //neither image nor question
+			}else{
+				//check if there is a file uploaded
+				if(empty($check)){
+					$target_file='';
+				}else{
+					$target_dir = "questionattachments/";
+					$target_file =basename($_FILES["image"]["name"]);
+					$FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+					
+					//check if uploaded file is an image file
+					if($FileType == "jpeg" || $FileType == "jpg" || $FileType == "png"){
+						//avoid duplicates in the directory
+						while(file_exists($target_dir .$target_file)){
+							$target_file = "copy-" . $target_file;
+						}
+						if(!move_uploaded_file($_FILES['image']['tmp_name'],$target_dir .$target_file)){
+							$error = 3; //wrong with uploading
+						}
+					}else{
+						$error = 2; //not image type
+					}
+				}
+			}
+			if($error == 0){
+			//	$error = create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id);
+			}
+			
+			if($error>0){
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id='.$paperID.'&subject_code='.$subject_code.'&error='.$error.'")</script>';
+			}else{
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id='.$paperID.'&subject_code='.$subject_code.'")</script>';
+			}
 		}
 		
 		public function show_discussion(){
@@ -181,5 +228,42 @@
 			require_once "./view/registered user/pastpaperedit.php";
 		}
 
+		public function postGeneralQuestion(){
+			$user_id=$_SESSION['user_id'];
+			$qcontent=trim($_POST['question']);
+			$subject_code=$_POST['subjectrelated'];
+			$attachment='';
+			$upload_success=true;
+			if(isset($_FILES['picture'])){
+				$attachment = $_FILES['picture']['name'];
+      			$file_tmp =$_FILES['picture']['tmp_name'];
+      			$file_type=$_FILES['picture']['type'];
+      			$file_ext=strtolower(end(explode('.',$_FILES['picture']['name'])));
+
+				$extensions= array("jpeg","jpg","png");
+
+				if(in_array($file_ext,$extensions)=== false){
+					$upload_success=false;
+				}else{
+					move_uploaded_file($file_tmp,"questionattachments/".$attachment);
+				}
+			}
+			if($upload_success){
+				if ($this->objsm->create_general_question($user_id, $qcontent, $subject_code, $attachment)){
+					if(isset($_POST['anonymity'])){
+						$discussion_id=$this->objsm->get_dsicussion_id($user_id, $qcontent);
+						if(!$this->objsm->discussion_anonymous_name($discussion_id, $user_id)){
+							echo "<script>alert('Sorry! Could not create the discussion anonymously!'); window.location.href='view/registered user/feed.php';</script>";
+						}
+					}
+				}else{
+					unlink('questionattachments/'.$attachment);
+					echo "<script>alert('Create Discussion - Unuccess!'); window.location.href='view/registered user/feed.php';</script>";
+				}
+			}else{
+				echo "<script>alert('Only jpeg, jpg, png ectentions are allowed! Create Discussion - Unuccess!'); window.location.href='view/registered user/feed.php';</script>";
+			}
+
+		}
     }
 ?>

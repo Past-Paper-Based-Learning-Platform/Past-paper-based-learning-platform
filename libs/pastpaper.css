@@ -1,0 +1,202 @@
+html, body {
+    height: 100%;
+    overflow: auto;
+    margin: 0;
+}
+
+.logohead {
+    background-color: white;
+    height: 100px;
+}
+
+.logoimg {
+    float:left;
+    height: 90%;
+    padding: 5px;
+    padding-left: 20px;
+}
+
+.sitename {
+    float:left;
+    font-size: 45px;
+    font-family: 'Times New Roman', Times, serif;
+    color: midnightblue;
+    padding-left: 40px;
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+.pdf{
+    height:87%;
+}
+
+.sidetab{
+    height:100%;
+    width:200px;
+    position: fixed;
+    left: 0;
+    background-color: #1a334b;
+}
+
+.question{
+    background-color: #2d5072 !important;
+    color:#b0b3c0 !important;
+    border-radius: 0 0 15px 15px;
+    font-size: 20px !important;
+    text-align: center !important;
+}
+
+.question:focus{
+    outline: none;
+    color:#ffffff !important;
+    border-radius:15px 0 0 15px !important;
+}
+
+.sidetab button{
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    background-color: #1a334b;
+    text-align: left;
+    color:#969caf;
+    display: block;
+    width:100%;
+    border:none;
+}
+
+.sidetab button:hover{
+    color:#ffffff;
+}
+
+.sidetab button:focus{
+    outline: none;
+    color:#ffffff;
+}
+
+.content{
+    flex: 3;
+    margin-left: 200px;
+    padding:0px;
+    height:100%;
+}
+
+.content iframe{
+    height: 100%;
+    width: 100%;
+}
+
+.contentx{
+    flex: 3;
+    margin-left: 200px;
+    padding:0px;
+    height:60%;
+}
+
+.contentx iframe{
+    height: 100%;
+    width: 100%;
+}
+
+.discussionform{
+    background-color: #2d5072;
+    flex: 3;
+    margin-left: 200px;
+    padding:0px;
+    height:40%;
+    width: 100%;
+    padding: 15px;
+}
+
+.discussionform form{
+    width:100%;
+    
+}
+.discussionform h1{
+    color: #ffffff;
+    font-size: 20px;
+    margin:0;
+    width:fit-content;
+}
+
+.discussionform textarea{
+    width: 70%;   
+    height:100px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-left: 8px;
+    margin-bottom: 8px;
+  }
+
+  ::-webkit-file-upload-button {
+    background: #1a334b;
+    color: #ffffff;
+    outline: none;
+  }
+
+  input[type=file]{
+      color: #ffffff;
+      margin-bottom: 8px;
+  }
+
+  input[type=checkbox]{
+    color: #ffffff;
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+
+
+.tag-container{
+    width: 67%;
+    border: 2px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 8px;
+}
+  
+.tag-container .tag{
+    padding:2px;
+    border: 1px solid #ccc;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.tag i{
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.tag-container input{
+    flex: 1;
+    font-size: 16px;
+    padding:5px;
+    outline:none;
+    border:0;
+}
+
+.submitbtn{
+    color: #b0b3c0;
+    font-size: 16px;
+    background-color: #1a334b;
+    border: none;
+    padding: 8px;
+}
+
+.submitbtn:hover{
+    color: #1a334b;
+    background-color: #ffffff;
+    border:none;
+}
+
+.submitbtn:focus{
+    border:none;
+    outline: none;
+}

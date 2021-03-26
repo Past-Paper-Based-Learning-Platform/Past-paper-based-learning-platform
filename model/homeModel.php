@@ -184,7 +184,11 @@
         }
         }
 
-        public function create_discussion($user_id,$level1,$level2,$level3,$level4,$lesson,$content,$type,$paper){
+        public function create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id){ 
+            
+            
+            
+            /*
             
             $this->open_db();
 
@@ -255,7 +259,7 @@
             $resourceQuery="INSERT INTO resources (type,content,user_id,discussion_id)  VALUE ('$type','$content','$user_id',$discussion_id)";
             $result3= $this->condb->query($resourceQuery);
             $this->condb->close();
-
+*/
         }
 
         public function show_data($paper_id){
@@ -353,6 +357,33 @@
             $this->condb->close();
         }
 
+        public function create_general_question($user_id, $qcontent, $subject_code, $attachment){
+            try{
+				$this->open_db();
+                if($subject_code==""){
+                    if($attachment==""){
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content) VALUES ($user_id, '$qcontent')");
+                    }else{
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture) VALUES ($user_id, '$qcontent', '$attachment')");
+                    }
+                }else{
+                    if($attachment==""){
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code) VALUES ($user_id, '$qcontent', '$subject_code')");
+                    }else{
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment')");
+                    }
+                }
+				$query->execute();
+				$query->close();
+				$this->close_db();
+				return true;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw false;
+        	}	
+        }
         
     }
 ?>
