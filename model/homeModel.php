@@ -353,6 +353,33 @@
             $this->condb->close();
         }
 
+        public function create_general_question($user_id, $qcontent, $subject_code, $attachment){
+            try{
+				$this->open_db();
+                if($subject_code==""){
+                    if($attachment==""){
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content) VALUES ($user_id, '$qcontent')");
+                    }else{
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture) VALUES ($user_id, '$qcontent', '$attachment')");
+                    }
+                }else{
+                    if($attachment==""){
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code) VALUES ($user_id, '$qcontent', '$subject_code')");
+                    }else{
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment')");
+                    }
+                }
+				$query->execute();
+				$query->close();
+				$this->close_db();
+				return true;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw false;
+        	}	
+        }
         
     }
 ?>
