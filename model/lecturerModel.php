@@ -182,78 +182,116 @@
         }
 		}
 		
-		public function create_discussion($user_id,$level1,$level2,$level3,$level4,$lesson,$content,$type,$paper){
-            
-            $this->open_db();
+		public function create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id){
+            $timestamp = date('Y-m-d H:i:s');
 
-            $lessonQuery="SELECT * FROM lesson WHERE tag='$lesson'";
-            $lessonQueryOut=$this->condb-> query($lessonQuery);
-            $lessonNum=mysqli_num_rows( $lessonQueryOut);
+            $error = 0;
 
-            $questionSelectQuery="SELECT * FROM question WHERE paper_id='$paper' AND level1='$level1' AND level2='$level2' AND level3='$level3' AND level4='$level4'";
-            $questionSelectQueryOut=$this->condb-> query($questionSelectQuery);
-           
-            if(mysqli_num_rows($questionSelectQueryOut)==1){
-            $QuestionRow=$questionSelectQueryOut->fetch_assoc();
-            $question_row_id=$QuestionRow['question_id'];
-            $questionNum=true;
+            try{
+                $this->open_db();
+                if($target_file == ''){ //detect alredy asked question when only content is available 
+                    $query ="SELECT * FROM discussion WHERE content='$question'";
+                    $result = mysqli_query($this->condb,$query);
+                    $rowx = mysqli_fetch_assoc($result);
+                    if(!empty($rowx)){
+                        $error=4; //already asked question
+                        return $error;
+                    }
+                }
+
+            if($error != 4){
+                //insert question into discussion table
+                if($question != '' && $target_file != ''){
+                    $query1 = "INSERT INTO discussion (user_id, paper_id, subject_code, content, picture,timestamp) VALUES($user_id,$paperID ,'$subject_code' ,'$question' ,'$target_file','$timestamp')";
+                }
+                elseif($question == ''){
+                    $query1 = "INSERT INTO discussion (user_id, paper_id, subject_code, picture,timestamp) VALUES($user_id,$paperID ,'$subject_code' ,'$target_file' ,'$timestamp')";
+                }
+                elseif($target_file == ''){
+                    $query1 = "INSERT INTO discussion (user_id, paper_id, subject_code, content,timestamp) VALUES($user_id,$paperID ,'$subject_code' ,'$question' ,'$timestamp')";
+                }
+
+                $result1 = mysqli_query($this->condb,$query1);
+
+                //get discussion id of new entry
+                $query2 = "SELECT discussion_id FROM discussion WHERE user_id=$user_id AND timestamp='$timestamp'"; 
+                $result2 = mysqli_query($this->condb,$query2);
+                $row = mysqli_fetch_assoc($result2);
+
+                $discussion_id = $row['discussion_id'];
+                
+                //anonymous name
+                if($anonymous=='on'){
+                    $query3 = "INSERT INTO anonymous_names (discussion_id, user_id, anonymous_number) VALUES(".$discussion_id.",".$user_id.",1)";
+                    $result3 = mysqli_query($this->condb,$query3);
+                }
+
+                //insert tags
+                if(!empty($extags)){
+                    $this->insert_tags($discussion_id,$extags,$subject_code);
+                }
+
+                return $error;
             }else{
-                $questionNum=false;
+                return $error;
             }
 
-
-            $paperQuery="SELECT * FROM past_paper WHERE paper_id='$paper'";
-            $paperResult=$this->condb-> query($paperQuery);
-            $paperRow=$paperResult->fetch_assoc();
-            $subject_code=$paperRow['subject_code'];
-            
-           
-            
-            if($questionNum!=true and $lessonNum!=1){
-                $lessonInsert="INSERT INTO lesson (tag , subject_code) VALUE ('$lesson','$subject_code')";
-                $lessonResult=$this->condb-> query($lessonInsert);
-
-                $questionQuery="INSERT INTO question (paper_id,level1,level2,level3,level4,content)  VALUE ($paper,'$level1','$level2','$level3','$level4','Null')";
-                $questionQueryresult= $this->condb->query($questionQuery);
-                $question_id= $this->condb->insert_id;
-                
-
-                $questionLesson="INSERT INTO question_belongs_to_lesson (tag ,paper_id,question_id) VALUE ('$lesson',$paper,$question_id)";
-                $questionLessonresult= $this->condb->query($questionLesson);
-            }elseif($questionNum==true and $lessonNum!=1){
-                $lessonInsert="INSERT INTO lesson (tag , subject_code) VALUE ('$lesson','$subject_code')";
-                $lessonResult=$this->condb-> query($lessonInsert);
-
-                $questionLesson="INSERT INTO question_belongs_to_lesson (tag ,paper_id,question_id) VALUE ('$lesson',$paper,$question_row_id)";
-                $questionLessonresult= $this->condb->query($questionLesson);
-                $question_id=$question_row_id;
-            }elseif($questionNum!=true and $lessonNum==1){
-                $questionQuery="INSERT INTO question (paper_id,level1,level2,level3,level4,content)  VALUE ($paper,'$level1','$level2','$level3','$level4','Null')";
-                $questionQueryresult= $this->condb->query($questionQuery);
-                $question_id= $this->condb->insert_id;
-                
-
-                $questionLesson="INSERT INTO question_belongs_to_lesson (tag ,paper_id,question_id) VALUE ('$lesson',$paper,$question_id)";
-                $questionLessonresult= $this->condb->query($questionLesson);
-            }elseif($questionNum==true and $lessonNum==1){
-                $question_id=$question_row_id;
             }
+            catch (Exception $e)
+            {
+                $this->close_db();
+                throw $e;
+            }
+        }
 
-           /* $questionQuery="INSERT INTO question (paper_id,level1,level2,level3,level4,content)  VALUE ('$paper','$level1','$level2','$level3','$level4','Null')";
-            $result= $this->condb->query($questionQuery);
+        public function insert_tags($discussion_id,$extags,$subject_code){
+            try{
+                $this->open_db();
+                if($subject_code == ''){ //insert tags when subject is not available
+                    foreach($extags as $tag){
+                        $query = "SELECT * FROM tags WHERE tag='$tag' AND subject_code IS NULL";
+                        $result = mysqli_query($this->condb,$query);
+                        $row1 = mysqli_fetch_assoc($result);
 
-            $question_id= $this->condb->insert_id;
+                        if(empty($row1)){
+                            $query1 = "INSERT INTO tags (tag) VALUES (".$tag.")";
+                            $result1 = mysqli_query($this->condb,$query1);
+                        }
+                        $query2 = "SELECT tag_id FROM tags WHERE tag='$tag' AND subject_code IS NULL";
+                        $result2 = mysqli_query($this->condb,$query2);
 
-*/
-            $discussQuery="INSERT INTO discussion (paper_id,question_id)  VALUE ('$paper','$question_id')";
-            $result2= $this->condb-> query($discussQuery);
+                        $row = mysqli_fetch_assoc($result2);
+                        $tag_id = $row['tag_id'];
+                        $query3 = "INSERT INTO discussion_tags (discussion_id,tag_id) VALUES (".$discussion_id.",".$tag_id.")";
+                        $result3 = mysqli_query($this->condb,$query3);
+                    }
+                }else{ //insert tags when subject is available 
+                    foreach($extags as $tag){ 
 
-            $discussion_id= $this->condb->insert_id;
+                        $query = "SELECT * FROM tags WHERE tag='$tag' AND subject_code='$subject_code'";
+                        $result = mysqli_query($this->condb,$query);
+                        $row1 = mysqli_fetch_assoc($result);
+                        
+                        if(empty($row1)){
+                            $query1 = "INSERT INTO tags (tag, subject_code) VALUES ('$tag','$subject_code')";
+                            $result1 = mysqli_query($this->condb,$query1);
+                        }
 
-            $resourceQuery="INSERT INTO resources (type,content,user_id,discussion_id)  VALUE ('$type','$content','$user_id',$discussion_id)";
-            $result3= $this->condb->query($resourceQuery);
-            $this->condb->close();
+                        $query2 = "SELECT tag_id FROM tags WHERE tag='$tag' AND subject_code ='$subject_code'";
+                        $result2 = mysqli_query($this->condb,$query2);
+                        $row = mysqli_fetch_assoc($result2);
 
+                        $tag_id = $row['tag_id'];
+                        $query3 = "INSERT INTO discussion_tags (discussion_id,tag_id) VALUES ($discussion_id,$tag_id)";
+                        $result3 = mysqli_query($this->condb,$query3);
+                    }
+                }
+            }
+            catch (Exception $e)
+            {
+                $this->close_db();
+                throw $e;
+            }
         }
 
         public function show_data($paper_id){

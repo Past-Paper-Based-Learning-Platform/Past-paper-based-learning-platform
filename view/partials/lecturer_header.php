@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="libs/main.css" type="text/css">
     <link rel="stylesheet" href="libs/template.css" type="text/css">
     <link rel="stylesheet" href="libs/dnd.css">
+    <link rel="stylesheet" href="libs/css/upload_answer.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/alert.css" type="text/css">
     <link rel="stylesheet" href="libs/css/discussionForm.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -17,6 +19,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="libs/js/alert.js"></script>
     <script>
     $( function() {
         $( "#datepicker" ).datepicker();
@@ -75,7 +78,7 @@
                                 <?php
                                     foreach($result_paper as $row)
                                     {
-                                       echo "<a href='http://localhost/Main/lecturerindex.php?page=pastpaper.php&paper_id=".$row['paper_id']."' target='_blank'>".$row['subject_code']. "-" .$row['subject_name']. "-".$row['year']. "-" .$row['semester']. "-" .$row['part']. "</a><br>";
+                                       echo "<a href='http://localhost/Main/lecturerindex.php?page=pastpaper.php&paper_id=".$row['paper_id']."&subject_code=".$row['subject_code']."' target='_blank'>".$row['subject_code']. "-" .$row['subject_name']. "-".$row['year']. "-" .$row['semester']. "-" .$row['part']. "</a><br>";
                                     }
                                 ?>
                                 <button onclick="document.location='http://localhost/Main/lecturerindex.php?page=complain.php'" id="complian" style="display:none; background-color: midnightblue;">Complain</button>

@@ -52,12 +52,14 @@
 			$allSubjects = $this->objsm->getSubjects($userId);
 			$result_paper = $this->objsm->get_pastpapers();
             $result_lesson = $this->objsm->getLessons();
-            $result_user_discussion=$this->objsm->getUserDiscussion($userId);
-			if($page == 'pastpaper.php' or $page == 'discussion.php'){
+            if($page != 'pastpaper.php'){
+                $result_user_discussion=$this->objsm->getUserDiscussion($userId);
+            }
+
+            if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
                 $answer_result = $this->objsm->get_answerpath($userId);
                 $paper_id=$userId;
-				$result=$this->objsm->show_data($paper_id);
             }
             if($page=='userprofile.php'){
         		$row=$this->objsm->get_user($userId);
@@ -90,63 +92,62 @@
         {
             $paperid =$_POST['paper'];
             $target_dir = "answerscripts/";
-            $target_file = $target_dir . basename($_FILES["answer_script"]["name"]);
+            $target_file = basename($_FILES["answer_script"]["name"]);
             $uploadOk = 1;
             $FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
             //Check whether a valid pastpaper choosen
             if($paperid)
             {
-                $uploadOk = 1;
+                $uploadOk = 1;//*
                 //Check if there's a file
                 $check = filesize($_FILES['answer_script']['tmp_name']);
                 if($check !== false)
                 {
-                    $uploadOk = 1;
+                    $uploadOk = 1;//*
                     //check if the file is a pdf
                     if($FileType != "pdf") 
                     {
-                        echo "<script language='javascript'> alert('Sorry, only PDF files are allowed.'); </script>";
+                        $error=3; //not a pdf
                     }
                     else{
-                        //Cheack if file already exists
-                        if (file_exists($target_file))
+                        //Cheack if file already exists,if exists - rename the file
+                        while(file_exists($target_dir .$target_file)){
+							$target_file = "copy-" . $target_file;
+						}
+                       
+                        //upload answer script
+                        if(move_uploaded_file($_FILES['answer_script']['tmp_name'],$target_dir.$target_file))
                         {
-                            echo "<script language='javascript'> alert('You have already uploaded your file or Rename the file and try again'); </script>";
-                        }
-                        else{
-                            if($uploadOk == 0)
+                            $result = $this->objsm->uploadscript($target_file,$paperid);
+                            if($result)
                             {
-                                echo "<script language='javascript'> alert('Sorry, Failed to upload the file'); </script>";
+                                $error=0;
                             }
                             else
                             {
-                                //upload answer script
-                                if(move_uploaded_file($_FILES['answer_script']['tmp_name'],$target_file))
-                                {
-                                    $result = $this->objsm->uploadscript($target_file,$paperid);
-                                    if($result)
-                                    {
-                                        echo "<script language='javascript'> alert('The file ". htmlspecialchars( basename( $_FILES["answer_script"]["name"])). " has been uploaded.'); </script>";
-                                    }
-                                    else
-                                    {
-                                        echo "<script language='javascript'> alert('Sorry, Failed to upload the file'); </script>";
-                                    }
-                                }
+                                $error=4;//failed to upload
                             }
+                        }else{
+                            $error=4;//failed to upload
                         }
+                            
+                        
                     }
                 }
                 else
                 {
-                    echo "<script language='javascript'> alert('Please choose a file'); </script>";
+                    $error=2; //haven't u[ploaded a file
                 }
             }
             else
             {
-                echo "<script language='javascript'> alert('Please select a pastpaper'); </script>";
+                $error=1; //haven't selected a pastpaper
             }
+
+            
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=upload_answer.php&error='.$error.'")</script>';
+			
         }
 
         //logout user
@@ -155,27 +156,62 @@
 			echo '<script language="javascript">window.location.href ="http://localhost/Main/index.php"</script>';
         }
         
+        //ask question from past paper
         public function createDiscussion(){
             
-            $user_id=$_POST['user_id'];
-            $level1=$_POST['part'];
-            $level2=$_POST['main-question'];
-            $level3=$_POST['sub-question'];
-            $level4=$_POST['question'];
+            $user_id=$_SESSION['user_id'];
+            $paperID=$_GET['paper_id'];
+			$subject_code=$_GET['subject_code'];
+            $question=$_POST['question'];
+            $tags=$_POST['tags'];
 
-            $lesson=strtolower($_POST['lesson']);
-           
-            $content=$_POST['content'];
-            $type=$_POST['type'];
-            
-            $paper= $_POST['paper_id'] ; 
-            
-            
-            $result=$this->objsm->create_discussion($user_id,$level1,$level2,$level3,$level4,$lesson,$content,$type,$paper);
-         
-            
-           echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=discussion.php&paper_id='.$paper.'")</script>';
-           
+			$anonymous;
+			if(isset($_POST['anonymous'])){
+            	$anonymous=$_POST['anonymous'];
+			}
+			$anonymous='off';
+
+			//split into seperate tags
+			$extags = explode(" ,",$tags);
+			$error=0;
+			
+			$check = filesize($_FILES['image']['tmp_name']);
+
+			//check if there is a quesion written or uploaded
+			if($question == '' && empty($check)){
+					$error = 1; //neither image nor question
+			}else{
+				//check if there is a file uploaded
+				if(empty($check)){
+					$target_file='';
+				}else{
+					$target_dir = "questionattachments/";
+					$target_file =basename($_FILES["image"]["name"]);
+					$FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+					
+					//check if uploaded file is an image file
+					if($FileType == "jpeg" || $FileType == "jpg" || $FileType == "png"){
+						//avoid duplicates in the directory
+						while(file_exists($target_dir .$target_file)){
+							$target_file = "copy-" . $target_file;
+						}
+						if(!move_uploaded_file($_FILES['image']['tmp_name'],$target_dir .$target_file)){
+							$error = 3; //wrong with uploading
+						}
+					}else{
+						$error = 2; //not image type
+					}
+				}
+			}
+			if($error == 0){ 
+				$error = $this->objsm->create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id);
+			}
+			
+			if($error>0){ //pass error
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id='.$paperID.'&subject_code='.$subject_code.'&error='.$error.'")</script>';
+			}else{ //no errors
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id='.$paperID.'&subject_code='.$subject_code.'")</script>';
+			}
         }
         
         public function show_discussion(){

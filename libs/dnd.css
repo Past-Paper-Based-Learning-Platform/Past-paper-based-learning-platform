@@ -10,8 +10,9 @@
     font-size: 20px;
     cursor:pointer ;
     color: #cccccc;
-    border: 4px dashed #009578;
+    border: 4px dashed #3061bb;
     border-radius: 10px;
+    margin-left: 128px;
 }
 
 .dzone-over{
