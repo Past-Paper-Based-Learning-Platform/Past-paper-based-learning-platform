@@ -56,6 +56,10 @@
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         Failed to upload the image.!
     </div>
+    <div class="alert alert4" style="display:none;" id="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Already asked question.!
+    </div>
     <?php if(isset($_GET['error'])){
         if ($_GET['error']==1){
             echo '<script>var alert=document.querySelector(".alert1"); alert.style.display="block";</script>';
@@ -63,6 +67,8 @@
             echo '<script>var alert=document.querySelector(".alert2"); alert.style.display="block";</script>';
         }elseif($_GET['error']==3){
             echo '<script>var alert=document.querySelector(".alert3"); alert.style.display="block";</script>';
+        }elseif($_GET['error']==4){
+            echo '<script>var alert=document.querySelector(".alert4"); alert.style.display="block";</script>';
         }
     }?>
     <script src="libs/pastpaper.js"></script>

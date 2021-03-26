@@ -101,28 +101,21 @@
 
 		//ask question from past paper
 		public function createDiscussion(){
-	//		echo '<pre>'.print_r($_POST).'</pre>';
-	//		echo '<pre>'.print_r($_SESSION).'</pre>';
-	//		echo '<pre>'.print_r($_FILES).'</pre>';
-	//		echo '<pre>'.print_r($_GET).'</pre>';
 
-		//	echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>' 
-            
             $user_id=$_SESSION['user_id'];
             $paperID=$_GET['paper_id'];
 			$subject_code=$_GET['subject_code'];
             $question=$_POST['question'];
             $tags=$_POST['tags'];
 
+			$anonymous;
 			if(isset($_POST['anonymous'])){
             	$anonymous=$_POST['anonymous'];
-			}else{
-				$anonymous= 'off';
 			}
+			$anonymous='off';
 
 			//split into seperate tags
 			$extags = explode(" ,",$tags);
-		//	echo '<pre>'.print_r($extags).'</pre>';
 			$error=0;
 			
 			$check = filesize($_FILES['image']['tmp_name']);
@@ -153,13 +146,13 @@
 					}
 				}
 			}
-			if($error == 0){
-			//	$error = create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id);
+			if($error == 0){ 
+				$error = $this->objsm->create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id);
 			}
 			
-			if($error>0){
+			if($error>0){ //pass error
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id='.$paperID.'&subject_code='.$subject_code.'&error='.$error.'")</script>';
-			}else{
+			}else{ //no errors
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id='.$paperID.'&subject_code='.$subject_code.'")</script>';
 			}
 		}
