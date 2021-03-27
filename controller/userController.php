@@ -165,8 +165,40 @@
 			echo '<script language="javascript">window.location.href ="http://localhost/Main/view/user/resetPassword.php?email='.$mail.'"</script>';
 		}
 
+
+		function validateEmailExist($email){
+			return $this->objsm->validateEmailExist($email);
+		}
+
 		function sendRecoveryPassword($email, $password){
-			$this->objsm->resetPassword($email, $password);
+			return $this->objsm->resetPassword($email, $password);
+		}
+
+		function sendemail(){
+			require("../../composer/vendor/phpmailer/phpmailer/src/PHPMailer.php");
+			require("../../composer/vendor/phpmailer/phpmailer/src/SMTP.php");
+
+			$mail = new PHPMailer\PHPMailer\PHPMailer();
+			$mail->IsSMTP(); // enable SMTP
+
+			$mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
+			$mail->SMTPAuth = true; // authentication enabled
+			$mail->SMTPSecure = 'tls'; // secure transfer enabled REQUIRED for Gmail
+			$mail->Host = "smtp.gmail.com";
+			$mail->Port = 587; // or 587
+			$mail->IsHTML(true);
+			$mail->Username = "janadhi.stu@gmail.com";
+			$mail->Password = "Janadhi@123";
+			$mail->SetFrom($_POST['email']);
+			$mail->Subject = "Recover Password";
+			$mail->Body = "Please click below link to reset your password. http://localhost/Main/index.php?page=resetPassword.php&email=".$_POST['email'];
+			$mail->AddAddress($_POST['email']);
+
+			if(!$mail->Send()) {
+				return false;
+			}else{
+				return true;
+			}
 		}
 
 		function changePassword($username, $curpassword, $newpassword){

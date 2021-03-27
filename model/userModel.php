@@ -192,23 +192,30 @@
 		}
 
 		function resetPassword($email, $password){
+			try{
+				$this->open_db();
+				$encryptPW = $this->hashPassword($password);
 			
-			$this->open_db();
-			$encryptPW = $this->hashPassword($password);
-		
-			//get user id by email
-			$user = "";
-			$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
-			$sekectresult = mysqli_query($this->condb,$selectQuery);
-			if ($sekectresult->num_rows > 0) {
-				while($row = $sekectresult->fetch_assoc()) {
-					$user = $row["user_id"];
+				//get user id by email
+				$user = "";
+				$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
+				$sekectresult = mysqli_query($this->condb,$selectQuery);
+				if ($sekectresult->num_rows > 0) {
+					while($row = $sekectresult->fetch_assoc()) {
+						$user = $row["user_id"];
+					}
 				}
-			}
-			
-			$sql = "UPDATE registred_user SET password='".$encryptPW."' WHERE user_id=".$user;
-			mysqli_query($this->condb,$sql);
-			$this->close_db();     
+				
+				$sql = "UPDATE registred_user SET password='".$encryptPW."' WHERE user_id=".$user;
+				mysqli_query($this->condb,$sql);
+				$this->close_db(); 
+
+				return true;
+			}catch (Exception $e)
+			{
+				$this->close_db();
+				return false;
+			}    
 		}
 
 		function checkEmailIsExist($email){
@@ -286,6 +293,31 @@
 			{
 				$this->close_db();
             	throw $e;
+			}
+		}
+
+		function validateEmailExist($email){
+			try{
+				$this->open_db();
+			
+				//get user id by user
+				$user = null;
+				$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
+				$sekectresult = mysqli_query($this->condb,$selectQuery);
+				if ($sekectresult->num_rows > 0) {
+					while($row = $sekectresult->fetch_assoc()) {
+						$user = $row["user_id"];
+					}
+				}
+
+				return $user;
+				
+				$this->close_db();
+			}
+			catch (Exception $e)
+			{
+				$this->close_db();
+				throw $e;
 			}
 		}
 }

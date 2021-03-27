@@ -1,9 +1,30 @@
 <!DOCTYPE html>
+<?php
+include_once  'controller/userController.php';		
+$controller = new userController();	
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+   $success = $controller->sendRecoveryPassword($_GET['email'], $_POST["newPw"]);
+   
+   if(!$success) {
+    //echo "Mailer Error: " . $mail->ErrorInfo;
+    echo '<script type="text/javascript">'; 
+    echo 'alert("Recovery Password failed");'; 
+    echo 'window.location.href = "http://localhost/Main/index.php?page=resetPassword.php&email="'.$_GET['email'].';';
+    echo '</script>';
+ } else {
+    echo '<script type="text/javascript">'; 
+    echo 'alert("Recovery Password successful");'; 
+    echo 'window.location.href = "http://localhost/Main/index.php?page=login.php";';
+    echo '</script>';
+ }
+}
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="../../libs/main.css" type="text/css">
+    <link rel="stylesheet" href="libs/main.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onload="pageLoad()">
@@ -15,7 +36,7 @@
                 </div>
         </div>
         <div style="height: 500px;background-color: rgb(130, 150, 170)">
-        <form action="http://localhost/Main/index.php?page=login.php" method="POST" id="resetPWFormId">
+        <form action="" method="POST" id="resetPWFormId">
                 <div class="col-6-item">
                     <div class="col-2-item"></div>
                     <div class="col-1-item strong text-white">New Password</div> 
