@@ -48,6 +48,18 @@
 			if (isset($_POST['postquestion'])){
 				$this->postGeneralQuestion();
 			}
+
+			if (isset($_POST['lessonfilter'])){
+				$this->filterDiscussionLesson();
+			}
+
+			if (isset($_POST['interestfilter'])){
+				$this->filterDiscussionInterest();
+			}
+
+			if (isset($_POST['alldiscussions'])){
+				$this->showAllDiscussions();
+			}
 		}
 
 		//page view
@@ -65,7 +77,6 @@
 				$paper_result =$this->objsm->get_paperpath($userId);
 				$answer_result = $this->objsm->get_answerpath($userId);
 				$paper_id=$userId;
-			//	$result=$this->objsm->show_data($paper_id);
 			}
 			if($page=='userprofile.php'){
         		$row=$this->objsm->get_user($userId);
@@ -101,28 +112,21 @@
 
 		//ask question from past paper
 		public function createDiscussion(){
-	//		echo '<pre>'.print_r($_POST).'</pre>';
-	//		echo '<pre>'.print_r($_SESSION).'</pre>';
-	//		echo '<pre>'.print_r($_FILES).'</pre>';
-	//		echo '<pre>'.print_r($_GET).'</pre>';
 
-		//	echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>' 
-            
             $user_id=$_SESSION['user_id'];
             $paperID=$_GET['paper_id'];
 			$subject_code=$_GET['subject_code'];
             $question=$_POST['question'];
             $tags=$_POST['tags'];
 
+			$anonymous;
 			if(isset($_POST['anonymous'])){
             	$anonymous=$_POST['anonymous'];
-			}else{
-				$anonymous= 'off';
 			}
+			$anonymous='off';
 
 			//split into seperate tags
 			$extags = explode(" ,",$tags);
-		//	echo '<pre>'.print_r($extags).'</pre>';
 			$error=0;
 			
 			$check = filesize($_FILES['image']['tmp_name']);
@@ -153,13 +157,13 @@
 					}
 				}
 			}
-			if($error == 0){
-			//	$error = create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id);
+			if($error == 0){ 
+				$error = $this->objsm->create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id);
 			}
 			
-			if($error>0){
+			if($error>0){ //pass error
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id='.$paperID.'&subject_code='.$subject_code.'&error='.$error.'")</script>';
-			}else{
+			}else{ //no errors
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id='.$paperID.'&subject_code='.$subject_code.'")</script>';
 			}
 		}
@@ -232,10 +236,12 @@
 			$user_id=$_SESSION['user_id'];
 			$qcontent=trim($_POST['question']);
 			$subject_code=$_POST['subjectrelated'];
-			$attachment='';
+			$attachment='';	
+			$timestamp=date('Y-m-d H:i:s');
 			$upload_success=true;
-			if(isset($_FILES['picture'])){
-				$attachment = $_FILES['picture']['name'];
+			$tags=$_POST['taglist'];
+			if(!empty(filesize($_FILES['picture']['tmp_name']))){
+				$attachment = basename($_FILES['picture']['name']);
       			$file_tmp =$_FILES['picture']['tmp_name'];
       			$file_type=$_FILES['picture']['type'];
       			$file_ext=strtolower(end(explode('.',$_FILES['picture']['name'])));
@@ -244,26 +250,67 @@
 
 				if(in_array($file_ext,$extensions)=== false){
 					$upload_success=false;
+					echo "<script>alert('Only jpeg, jpg, png extentions are allowed! Create Discussion - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
 				}else{
-					move_uploaded_file($file_tmp,"questionattachments/".$attachment);
-				}
-			}
-			if($upload_success){
-				if ($this->objsm->create_general_question($user_id, $qcontent, $subject_code, $attachment)){
-					if(isset($_POST['anonymity'])){
-						$discussion_id=$this->objsm->get_dsicussion_id($user_id, $qcontent);
-						if(!$this->objsm->discussion_anonymous_name($discussion_id, $user_id)){
-							echo "<script>alert('Sorry! Could not create the discussion anonymously!'); window.location.href='view/registered user/feed.php';</script>";
-						}
+					while(file_exists("questionattachments/".$attachment)){
+						$attachment="copy-".$attachment;
 					}
-				}else{
-					unlink('questionattachments/'.$attachment);
-					echo "<script>alert('Create Discussion - Unuccess!'); window.location.href='view/registered user/feed.php';</script>";
+					$target_file="questionattachments/".$attachment;
+					move_uploaded_file($file_tmp,$target_file);
 				}
 			}else{
-				echo "<script>alert('Only jpeg, jpg, png ectentions are allowed! Create Discussion - Unuccess!'); window.location.href='view/registered user/feed.php';</script>";
+				$result=$this->objsm->existing_question($qcontent);
+				if($result->num_rows > 0){
+					$upload_success=false;
+					echo "<script>alert('Already Available Question! Create Discussion - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
+				}
+			} 
+			if($upload_success){
+				if ($this->objsm->create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp)){
+					if(isset($_POST['anonymity'])){
+						$result=$this->objsm->get_discussion_id($user_id, $timestamp);
+						$row = mysqli_fetch_array($result);
+						$discussion_id= $row['discussion_id'];
+						if(!$this->objsm->discussion_anonymous_name($discussion_id, $user_id)){
+							echo "<script>alert('Sorry! Could not create the discussion anonymously!'); window.location.href='view/registered user/feed.php';</script>";
+						}else{
+							echo "<script>alert('Successfully Created Discussion!'); window.location.href='view/registered user/feed.php';</script>";
+						}
+					}
+					if($tags!=""){
+						echo "<script>alert('Successfully Created Discussion!'); window.location.href='view/registered user/feed.php';</script>";
+					}else{
+						echo "<script>alert('Successfully Created Discussion! Empty Tags!'); window.location.href='view/registered user/feed.php';</script>";
+					}
+				}else{
+					unlink($target_file);
+					echo "<script>alert('Create Discussion - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
+				}
+			}else{
+				unlink($target_file);
+				echo "<script>alert('Create Discussion - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
 			}
+		}
 
+		public function filterDiscussionLesson(){
+			$lesson=trim($_POST['lesson']);
+			if ($lesson==""){
+				$result=$this->objsm->get_all_discussions();
+			}else{
+				$result=$this->objsm->get_lesson_discussions($lesson);
+			}
+			require_once "./view/registered user/feed.php";
+		}
+
+		public function filterDiscussionInterest(){
+			$user_id=$_SESSION['user_id'];
+			$result=$this->objsm->get_interest_discussions($user_id);
+			require_once "./view/registered user/feed.php";
+		}
+
+		public function showAllDiscussions(){
+			$result=$this->objsm->get_all_discussions();
+			require_once "./view/registered user/feed.php";
 		}
     }
 ?>

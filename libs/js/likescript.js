@@ -176,6 +176,7 @@ function openTab(evt, tabName) {
 //tags bar implementation
 const tagContainer = document.querySelector('.tag-container');
 const input = document.querySelector('.tag-container input');
+const taglist = document.querySelector('.tag-list');
 
 let tags = [];
 
@@ -212,6 +213,7 @@ input.addEventListener('keyup', (e) => {
       });
       
       addTags();
+      taglist.value=tags;
       input.value = '';
     }
 });
@@ -222,5 +224,6 @@ document.addEventListener('click', (e) => {
     const index = tags.indexOf(tagLabel);
     tags = [...tags.slice(0, index), ...tags.slice(index+1)];
     addTags();    
+    taglist.value=tags;
   }
 })
