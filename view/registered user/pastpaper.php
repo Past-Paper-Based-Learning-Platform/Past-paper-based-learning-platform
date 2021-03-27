@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <head>
-    <link rel="stylesheet" href="libs/pastpaper.css" type="text/css">
-    <link rel="stylesheet" href="libs/alert.css" type="text/css">
-    <script src="libs/alert.js"></script>
+    <link rel="stylesheet" href="libs/css/pastpaper.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/alert.css" type="text/css">
+    <script src="http://localhost/Main/libs/js/jquery.min.js"></script>
+    <script src="libs/js/alert.js"></script>
 </head>
 
 <body>
@@ -17,7 +18,7 @@
             <button type="button" class="answerscript">Answer Script</button>
         </div>
         <div class="discussionform" style="display:none;">
-            <form action="http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=<?php echo $paper_id; ?>&subject_code=<?php echo $_GET['subject_code']; ?>" method="post" enctype="multipart/form-data" >
+            <form action="http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=<?php echo $paper_id; ?>&subject_code=<?php echo $_GET['subject_code']; ?>" method="post" enctype="multipart/form-data" id="questionform" >
                 <h1 style="float:left;">Question:</h1>
                 <textarea name="question" id="question"></textarea>
 
@@ -71,7 +72,17 @@
             echo '<script>var alert=document.querySelector(".alert4"); alert.style.display="block";</script>';
         }
     }?>
-    <script src="libs/pastpaper.js"></script>
+    <script type="text/javascript">
+        $('#questionform').on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) { 
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+    <script src="libs/js/pastpaper.js"></script>
+    
 </body>
 
 </html>
