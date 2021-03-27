@@ -560,5 +560,24 @@
             	throw $e;
         	}
         }
+
+        public function create_report($user_id, $discussion_id, $cause, $timestamp){
+            try{
+                $success=true;
+				$this->open_db();
+                $query=$this->condb->prepare("INSERT INTO report_discussion (user_id, discussion_id, report_cause, timestamp) VALUES ($user_id, $discussion_id, $cause, '$timestamp')");
+                if(!$query->execute()){
+                    $success=false;
+                }
+				$query->close();
+				$this->close_db();
+				return $success;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
     }
 ?>

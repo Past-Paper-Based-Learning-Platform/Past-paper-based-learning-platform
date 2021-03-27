@@ -7,106 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
   <script src="http://localhost/Main/libs/js/jquery.min.js"></script>
   <link rel="stylesheet" href="http://localhost/Main/libs/main.css" type="text/css">
-  <style>
-        div.trans {
-            background: rgba(0, 0, 0, 0.5);
-        }
-        .scrollhide::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollhide {
-        -ms-overflow-style: none;  /* IE and Edge */
-        scrollbar-width: none;  /* Firefox */
-        }
-        ::-webkit-file-upload-button {
-            background: #344453;
-            color: #ffffff;
-            outline: none;
-        }
-
-        .white-upload input[type=file]{
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .black-upload input[type=file]{
-            color: rgb(27, 27, 36);
-            margin-bottom: 8px;
-        }
-        /* Button used to open the contact form - fixed at the bottom of the page */
-        .open-button {
-            background-color: #555;
-            color: white;
-            padding: 16px 20px;
-            border: none;
-            cursor: pointer;
-            opacity: 0.8;
-            position: fixed;
-            bottom: 23px;
-            right: 28px;
-            width: 280px;
-        }
-
-        /* The popup form - hidden by default */
-        .form-popup {
-            display: none;
-            position: absolute;
-            top:50%;
-            left:50%;
-            margin-left:-300px;
-            margin-top:-200px;
-            border: 3px solid #f1f1f1;
-            z-index: 9;
-        }
-
-        /* Add styles to the form container */
-        .form-container {
-            max-width: 600px;
-            padding: 10px;
-            background-color: white;
-        }
-
-        /* Full-width input fields */
-        .form-container input[type=text], .form-container input[type=password] {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            border: none;
-            background: #f1f1f1;
-        }
-
-        /* When the inputs get focus, do something */
-        .form-container input[type=text]:focus, .form-container input[type=password]:focus {
-            background-color: #ddd;
-            outline: none;
-        }
-
-        /* Set a style for the submit/login button */
-        .form-container .btn {
-            cursor: pointer;
-            width: 50%;
-            margin-bottom:10px;
-        }
-
-        /* Add a red background color to the cancel button */
-        .form-container .cancel {
-            background-color: rgb(223, 35, 35);
-            border:none;
-            color: white;
-        }
-
-        /* Add some hover effects to buttons */
-        .form-container .btn:hover, .open-button:hover {
-            opacity: 1;
-        }
-
-        .post-answer{
-            border-radius: 10px;
-            background-color: #344453;
-            color: white;
-            outline: none;
-        }
-    </style>
+  <link rel="stylesheet" href="http://localhost/Main/libs/css/feed.css" type="text/css">
 </head>
 <body>
 <div class="scrollhide" style="width:50%; height:100%; overflow:auto; margin:auto">
@@ -224,16 +125,46 @@
             
         </form>
     </div>
+
+    <div class="report-form-popup" id="reportDiscussionForm">
+        <form action="http://localhost/Main/homeindex.php?page=feed.php" method="post" class="form-container">
+        <span style="float:right"><input type="reset" class="cancel" value="&times;" onclick="closeReportForm()"></span>
+            
+            <h2>Report Discussion</h2>
+            <div style="font-size: 13px"><input type="radio" name="reportCause" value="1" checked>&nbsp;&nbsp;&nbsp;&nbsp;Duplicate Question&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div style="font-size: 13px"><input type="radio" name="reportCause" value="2">&nbsp;&nbsp;&nbsp;&nbsp;Inappropriate Content&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <div style="font-size: 13px"><input type="radio" name="reportCause" value="3">&nbsp;&nbsp;&nbsp;&nbsp;Irrelevant Question&nbsp;&nbsp;&nbsp;&nbsp;</div>
+            <input id="hiddenReportId" type="hidden" name="reportDiscussionId"></br></br>
+            <button type="submit" class="gradient-red border-red btn" name="reportDiscussion">Submit</button>
+            
+        </form>
+    </div>
     
     <div class="posts-wrapper">
     
    <?php $x=0;
    while($discussion = mysqli_fetch_array($resultdis)) {
     $disId=$discussion['discussion_id'];
-    $sql = "SELECT * FROM answer WHERE discussion_id=$disId";
-    $resultans = mysqli_query($conn, $sql);?>
-   	<div class="post gradient-lgray">
-      <?php echo $discussion['content']; ?>
+    $resultans = getDiscussionAnswers($disId);
+    $resulttags = getDiscussionTags($disId);
+    ?>
+   	<div class="post bg-white">
+       <span class="discussion-username"><?php echo getDiscussionDisplayName($disId);?></span>
+       <span style="float:right"><input class="report-discussion" type="button" value="Report Discussion" discussionId="<?php echo $disId; ?>" onclick="openReportForm()"></span>
+    <div class="row">
+      <?php echo $discussion['content'];?></div>
+      <?php if(!is_null($discussion['picture'])){?>
+            <div class="image-wrapper">
+            <img src="http://localhost/Main/questionattachments/<?php echo $discussion['picture']?>" alt="image" style="width:100%">
+            </div>
+      <?php } ?>
+      <?php while($tag = mysqli_fetch_array($resulttags)){?>
+      <div class="row">
+        <span class="tags">#<?php echo $tag['tag']?>&nbsp;&nbsp;</span>
+      </div>
+      <?php } ?>
+
+
       <div class="post-info">
 	    <!-- if user likes post, style button differently -->
       	<i <?php if (userLiked($discussion['discussion_id'])): ?>
@@ -263,7 +194,19 @@
             <div id="answers<?php echo $x; ?>" class="answerbox text-white" disId="<?php echo $x; ?>">
                 <?php while($answer = mysqli_fetch_array($resultans)) {?>
                     <div class="post trans">
-                        <?php echo $answer['content']; ?>
+                        <span class="answer-username"><?php echo getAnswerDisplayName($disId, $answer['answer_id']);?></span>
+                        <div class="row">
+                        <?php echo $answer['content'];?></div>
+                            <?php if(!is_null($answer['picture'])){?>
+                                <div class="image-wrapper">
+                                <img src="http://localhost/Main/answerattachments/<?php echo $answer['picture']?>" alt="image" style="width:100%">
+                                </div>
+                            <?php } ?>
+                        <?php if(!is_null($answer['url'])){?>
+                            <div class="row">
+                                <span><em>Reference:&nbsp;</em><a href="<?php echo $answer['url']?>" target="_blank" class="text-lblue"><?php echo $answer['url']?></a></span>
+                            </div>
+                        <?php } ?>
                         <div class="post-info">
                             <!-- if user likes post, style button differently -->
                             <i <?php if (userLikedAnswer($answer['answer_id'])): ?>
@@ -299,7 +242,7 @@
   </div>
 
   </div>
-  <script src="http://localhost/Main/libs/js/likescript.js"></script>
+  <script src="http://localhost/Main/libs/js/feed.js"></script>
  <script type="text/javascript">
     $( document ).ready(function(){
         var answer = document.getElementsByClassName("answerbox");
@@ -333,8 +276,10 @@
         var hiddenId = document.getElementById('hiddenId');
         hiddenId.value = discussionId;
     });
-    $(".cancel").click(function(){
-        $("#answerForm").trigger("reset");
+    $('input.report-discussion').click(function(){
+        var discussionId= $(this).attr('discussionId');
+        var hiddenId = document.getElementById('hiddenReportId');
+        hiddenId.value = discussionId;
     });
 
     function openForm() {
@@ -345,12 +290,12 @@
         document.getElementById("answerForm").style.display = "none";
     }
 
-    function resetQuestionForm() {
-        document.getElementById("general-form").reset();
+    function openReportForm() {
+        document.getElementById("reportDiscussionForm").style.display = "block";
     }
 
-    function resetAnswerForm() {
-        document.getElementById("answerForm").reset();
+    function closeReportForm() {
+        document.getElementById("reportDiscussionForm").style.display = "none";
     }
     
   </script>

@@ -53,6 +53,10 @@
 			if (isset($_POST['postquestion'])){
 				$this->postGeneralQuestion();
 			}
+
+			if (isset($_POST['reportDiscussion'])){
+				$this->reportDiscussion();
+			}			
 		}
 
 		//page view
@@ -348,6 +352,18 @@
 			}else{
 				unlink($target_file);
 				echo "<script>alert('Create Answer - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
+			}
+		}
+
+		public function reportDiscussion(){
+			$user_id=$_SESSION['user_id'];
+			$discussion_id=$_POST['reportDiscussionId'];
+			$cause=$_POST['reportCause'];
+			$timestamp=date('Y-m-d H:i:s');
+			if($this->objsm->create_report($user_id, $discussion_id, $cause, $timestamp)){
+				echo "<script>alert('Report Submit - Success!'); window.location.href='view/registered user/feed.php';</script>";
+			}else{
+				echo "<script>alert('Report Submit - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
 			}
 		}
     }

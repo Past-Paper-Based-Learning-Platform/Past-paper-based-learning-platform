@@ -209,6 +209,65 @@ function userDislikedAnswer($answer_id)
   }
 }
 
+//load answers for each discussion
+function getDiscussionAnswers($discussion_id){
+  global $conn;
+  $sql = "SELECT * FROM answer WHERE discussion_id=$discussion_id ORDER BY timestamp DESC";
+  $result = mysqli_query($conn, $sql);
+  return $result;
+}
+
+//load sicussion tags
+function getDiscussionTags($discussion_id){
+  global $conn;
+  $sql = "SELECT DISTINCT tag FROM tags WHERE tag_id IN (SELECT tag_id FROM discussion_tags WHERE discussion_id=$discussion_id)";
+  $result = mysqli_query($conn, $sql);
+  return $result;
+}
+
+//display name for discussion
+function getDiscussionDisplayName($discussion_id){
+  global $conn;
+  global $user_id;
+  $sql = "SELECT * FROM anonymous_names WHERE discussion_id=$discussion_id AND user_id IN (SELECT user_id FROM discussion WHERE discussion_id=$discussion_id)";
+  $result = mysqli_query($conn, $sql);
+  if(mysqli_num_rows($result) > 0){
+    $row = mysqli_fetch_array($result);
+    if($user_id==$row['user_id']){
+      $displayname="user_".$row['anonymous_number']." (Me)";
+    }else{
+      $displayname="user_".$row['anonymous_number'];
+    }
+  }else{
+    $sql = "SELECT * FROM registred_user WHERE user_id IN (SELECT user_id FROM discussion WHERE discussion_id=$discussion_id)";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $displayname = $row['user_name'];
+  }
+  return $displayname;
+}
+
+function getAnswerDisplayName($discussion_id, $answer_id){
+  global $conn;
+  global $user_id;
+  $sql = "SELECT * FROM anonymous_names WHERE discussion_id=$discussion_id AND user_id IN (SELECT user_id FROM answer WHERE answer_id=$answer_id)";
+  $result = mysqli_query($conn, $sql);
+  if(mysqli_num_rows($result) > 0){
+    $row = mysqli_fetch_array($result);
+    if($user_id==$row['user_id']){
+      $displayname="user_".$row['anonymous_number']." (Me)";
+    }else{
+      $displayname="user_".$row['anonymous_number'];
+    }
+  }else{
+    $sql = "SELECT * FROM registred_user WHERE user_id IN (SELECT user_id FROM answer WHERE answer_id=$answer_id)";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_array($result);
+    $displayname = $row['user_name'];
+  }
+  return $displayname;
+}
+
 $sql="SELECT subject_code, subject_name FROM subject";
 $subjects = mysqli_query($conn, $sql);
 $sql="SELECT DISTINCT tag FROM tags";
@@ -221,14 +280,14 @@ if(isset($_POST['lessonfilter']) && $_POST['lesson']!=""){
   $lesson=$_POST['lesson'];
   $sql = "SELECT * FROM discussion WHERE discussion_id IN 
     (SELECT discussion_id FROM discussion_tags WHERE tag_id IN 
-    (SELECT tag_id FROM tags WHERE tag='$lesson'))";
+    (SELECT tag_id FROM tags WHERE tag='$lesson')) ORDER BY timestamp DESC";
 }else if(isset($_POST['interestfilter'])){
   $sql = "SELECT * FROM discussion WHERE subject_code IN 
-    (SELECT subject_code FROM interest_list WHERE user_id=$user_id)";
+    (SELECT subject_code FROM interest_list WHERE user_id=$user_id) ORDER BY timestamp DESC";
 }else if(isset($_POST['alldiscussions'])){
-  $sql = "SELECT * FROM discussion";
+  $sql = "SELECT * FROM discussion ORDER BY timestamp DESC";
 }else{
-  $sql = "SELECT * FROM discussion";
+  $sql = "SELECT * FROM discussion ORDER BY timestamp DESC";
 }
 $resultdis = mysqli_query($conn, $sql);
 // fetch all posts from database
