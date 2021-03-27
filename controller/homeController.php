@@ -54,7 +54,7 @@
 			$allSubjects = $this->objsm->getSubjects($userId);
 			$result_paper = $this->objsm->getPastpapers();
 			$result_lesson = $this->objsm->getLessons();
-			$result_user_discussion=$this->objsm->getUserDiscussion($userId);
+			//$result_user_discussion=$this->objsm->getUserDiscussion($userId);
 			
 			if($page == 'pastpaper.php' or $page == 'discussion.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);

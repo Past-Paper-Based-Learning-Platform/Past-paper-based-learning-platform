@@ -1,11 +1,35 @@
 <!DOCTYPE html>
 <?php
-/*if($_SERVER["REQUEST_METHOD"] == "POST"){
-    //Register
-    include '../../controller/ForgotPassword.php';
-    $forgotPassword = new ForgotPassword();
-    $forgotPassword->sendRecoveryPassword($_POST["email"]);
-}*/
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    
+    include_once  'controller/userController.php';		
+    $controller = new userController();	
+    $user = $controller->validateEmailExist($_POST["email"]);
+    
+    if($user == null){
+        echo '<script type="text/javascript">'; 
+        echo 'alert("Invalid email");'; 
+        echo 'window.location.href = "http://localhost/Main/index.php?page=forgotPassword.php";';
+        echo '</script>';
+        return;
+    }
+
+    $success = $controller->sendemail($_POST["email"]);
+
+    if(!$success) {
+        //echo "Mailer Error: " . $mail->ErrorInfo;
+        echo '<script type="text/javascript">'; 
+        echo 'alert("Error sending recovery mail");'; 
+        echo 'window.location.href = "http://localhost/Main/index.php?page=forgotPassword.php";';
+        echo '</script>';
+     } else {
+        echo '<script type="text/javascript">'; 
+        echo 'alert("Email sent successfully");'; 
+        echo 'window.location.href = "http://localhost/Main/index.php?page=login.php";';
+        echo '</script>';
+     }
+
+    }
 ?>
 <html lang="en">
 <head>
