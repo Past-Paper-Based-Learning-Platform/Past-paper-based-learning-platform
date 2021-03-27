@@ -476,59 +476,5 @@
             	throw $e;
         	}
         }
-
-        public function get_lesson_discussions($lesson){
-            try{
-				$this->open_db();
-                $query=$this->condb->prepare("SELECT * FROM discussion WHERE discussion_id IN 
-                    (SELECT discussion_id FROM discussion_tags WHERE tag_id IN 
-                    (SELECT tag_id FROM tags WHERE tag='$lesson'))");
-				$query->execute();                
-				$res=$query->get_result();
-				$query->close();
-				$this->close_db();
-				return $res;
-			}
-			catch (Exception $e) 
-			{   
-            	$this->close_db();
-            	throw $e;
-        	}
-        }
-
-        public function get_all_discussions(){
-            try{
-				$this->open_db();
-                $query=$this->condb->prepare("SELECT * FROM discussion");
-				$query->execute();                
-				$res=$query->get_result();
-				$query->close();
-				$this->close_db();
-				return $res;
-			}
-			catch (Exception $e) 
-			{   
-            	$this->close_db();
-            	throw $e;
-        	}
-        }
-
-        public function get_interest_discussions($user_id){
-            try{
-				$this->open_db();
-                $query=$this->condb->prepare("SELECT * FROM discussion WHERE subject_code IN 
-                    (SELECT subject_code FROM interest_list WHERE user_id=$user_id)");
-				$query->execute();                
-				$res=$query->get_result();
-				$query->close();
-				$this->close_db();
-				return $res;
-			}
-			catch (Exception $e) 
-			{   
-            	$this->close_db();
-            	throw $e;
-        	}
-        }
     }
 ?>

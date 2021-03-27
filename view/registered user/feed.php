@@ -113,7 +113,7 @@
     </div>
     
     <div style="margin:auto; overflow:auto">
-    <form action="http://localhost/Main/homeindex.php?page=feed.php" method="post">
+    <form action="" method="post">
         <div class="col-1-item text-white">Filter by Lesson:</div>
         <div class="col-4-item">
         <input type="text" list="tags" name="lesson" style="border-radius:20px; padding: 15px;" placeholder="Enter lesson name..." value="">
@@ -133,7 +133,7 @@
     <div class="posts-wrapper">
     
    <?php $x=0;
-   while($discussion = mysqli_fetch_array($result)) {
+   while($discussion = mysqli_fetch_array($resultdis)) {
     $disId=$discussion['discussion_id'];
     $sql = "SELECT * FROM answer WHERE discussion_id=$disId";
     $resultans = mysqli_query($conn, $sql);?>
