@@ -1,122 +1,88 @@
 <!DOCTYPE html>
 <head>
-    <meta charset="UTF-8">
-    <title>View Past Paper</title>
-    <link rel="stylesheet" href="libs/main.css" type="text/css">
-    <link rel="stylesheet" href="libs/css/discussionForm.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/pastpaper.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/alert.css" type="text/css">
+    <script src="http://localhost/Main/libs/js/jquery.min.js"></script>
+    <script src="libs/js/alert.js"></script>
 </head>
 
-
 <body>
-    <div class='container'>
     <section class = 'logohead'>
-            <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
-            <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
-        </section>
-    <div class="tab" >
-        <div class="col-3-item"  style='margin:auto;'>
-        <a href='http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=<?php echo $paper_id; ?>'><button style="background:blue;">Past Paper</button></a>
+        <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
+        <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
+    </section>
+    <section class="pdf">
+        <div class="sidetab">
+            <button type="button" class="question">Ask Question</button>
+            <button type="button" class="pastpaper">Past Paper</button>
+            <button type="button" class="answerscript">Answer Script</button>
         </div>
-        <div class="col-3-item"  style='margin:auto;'>
-        <a href='http://localhost/Main/homeindex.php?page=discussion.php&paper_id=<?php echo $paper_id; ?>'><button>Discussion</button></a>
-        </div>
-    </div>
+        <div class="discussionform" style="display:none;">
+            <form action="http://localhost/Main/homeindex.php?page=pastpaper.php&paper_id=<?php echo $paper_id; ?>&subject_code=<?php echo $_GET['subject_code']; ?>" method="post" enctype="multipart/form-data" id="questionform" >
+                <h1 style="float:left;">Question:</h1>
+                <textarea name="question" id="question"></textarea>
 
-        <div class="col-3-item bg-gray" style="height: 95%; width:48.25%; margin:10px;">
-            <div class="tab">
-                <div class="col-3-item">
-                    <button id="secondary_defaulttab" class="secondary_tablinks" onclick="secondary_openTab(event, 'questionpaper')" >Question Paper</button>
+                <br><h1 style="float:left;">Attach Image:</h1>
+                <input type="file" name="image" id="image"></input>
+
+                <br style="clear:both;"><h1 style="float:left;">Tag lessons:</h1>
+                <div class="tag-container">   
+                    <input />
+                </div>
+                <div class="tag-input" style="display:none">
+                    <input type="text" name="tags"></input>
                 </div>
 
-                <div class="col-3-item">
-                    <button class="secondary_tablinks" onclick="secondary_openTab(event, 'answersheet')">Answer Sheet</button>
-                </div>
-            </div>
+                <br style="clear:both;"><h1 style="float:left; font-size:15px;">Ask Question Anonymously: </h1>
+                <input type="checkbox" name="anonymous" id="anonymous"></input>
 
-            <div  id="questionpaper" class="secondary_tabcontent" style="height: 400px; display: block;">
-                <h3>Past Paper</h3>
-                <iframe class="paper_frame" src="pastpapers/<?php echo $paper_result ?>"></iframe>
-            </div>
-            
-            <div id="answersheet" class="secondary_tabcontent" style="height: 400px; display: none;">
-                <h3>Answer sheet</h3>
-                <iframe class="paper_frame" src="<?php echo $answer_result ?>"></iframe>
-            </div>
-        </div> 
-
-        <div class="col-3-item bg-gray" style="height: 95%; width:48.25%; margin:10px;">
-            <h3>New discussion</h3>
-
-            <?php
-            
-        echo" <div class='container'>
-        
-
-        <form action='http://localhost/Main/homeindex.php?page=discussion.php&paper_id='".$paper_id."' method='POST'>
-            <input type='hidden' name=paper_id value='".$paper_id."'>
-            <input type='hidden' name=user_id value='".$_SESSION['user_id']."'>
-        <div class='part-selection'>
-            <select name='part' class='part-select' required>
-                <option disabled=''>PART</option>
-                <option >A</option>
-                <option >B</option>
-                <option >Other</option>
-            </select>
-
-           
-
-            <select name='main-question' class='part-select' required>
-                <option disabled=''>Main Question</option>
-                <option >01</option>
-                <option >02</option>
-                <option >03</option>
-                <option >04</option>
-            </select>
-
-            <select name='sub-question' class='part-select' required>
-                <option disabled=''>Sub Question</option>
-                <option >01</option>
-                <option >02</option>
-                <option >03</option>
-                <option >04</option>
-            </select>
-
-            <select name='question' class='part-select' required>
-                <option disabled=''>Main Question</option>
-                <option >a</option>
-                <option >b</option>
-                <option >c</option>
-                <option >d</option>
-            </select><br>
+                <br style="clear:both;">
+                <button type="submit" class="submitbtn" name="create_discussion">Ask Question</button>
+            </form>
         </div>
-
-        <button class='bg-dblue' style='width:20%'>CROP</button>
-
-        <div class='lesson-area'>
-            <label >Lesson</label><br>
-            <textarea style='height:50px; border-radius:10px;' class='lesson' name='lesson'></textarea><br>
+        <div class="content" id="content">
+            <iframe src="pastpapers/<?php echo $paper_result ?>" style="display:block;" id="pdfpp" frameborder="0"></iframe>
+            <iframe src="answerscripts/<?php echo $answer_result ?>" style="display:none;" id="pdfans" frameborder="0"></iframe>
         </div>
-        <div class='content-area'>
-            <label >Content</label><br>
-            <textarea class='content' style='height:70px; border-radius:10px;' name='content'></textarea><br>
-            
-        </div>
-        <div class='radio-btn'>
-            
-            <input type='hidden'  name='type' class='radio-type' value='Discussion'>
-        <br>
-        </div>
-        <div class='create-btn'>
-        <input  class='bg-blue border-blue btn' style='width: 20%;' type='submit' name='create_discussion' value='Create'>
-        </div>
-        </form>
-        </div>";
-
-    ?>
-        </div>    
+    </section>
+    <div class="alert alert1" style="display:none;" id="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Please type your Question in the question feild or Upload your question as an image.!
     </div>
-
-
-    <script src="libs/main.js"></script>
+    <div class="alert alert2" style="display:none;" id="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Uploaded file is not an image.!
+    </div>
+    <div class="alert alert3" style="display:none;" id="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Failed to upload the image.!
+    </div>
+    <div class="alert alert4" style="display:none;" id="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Already asked question.!
+    </div>
+    <?php if(isset($_GET['error'])){
+        if ($_GET['error']==1){
+            echo '<script>var alert=document.querySelector(".alert1"); alert.style.display="block";</script>';
+        }elseif($_GET['error']==2){
+            echo '<script>var alert=document.querySelector(".alert2"); alert.style.display="block";</script>';
+        }elseif($_GET['error']==3){
+            echo '<script>var alert=document.querySelector(".alert3"); alert.style.display="block";</script>';
+        }elseif($_GET['error']==4){
+            echo '<script>var alert=document.querySelector(".alert4"); alert.style.display="block";</script>';
+        }
+    }?>
+    <script type="text/javascript">
+        $('#questionform').on('keyup keypress', function(e) {
+            var keyCode = e.keyCode || e.which;
+            if (keyCode === 13) { 
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+    <script src="libs/js/pastpaper.js"></script>
+    
 </body>
+
 </html>

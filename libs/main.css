@@ -1,8 +1,10 @@
 html, body{
+    height: 100%;
+    width: 100%;
     box-sizing: border-box;
+    overflow: auto;
     margin: 0px;
     padding: 0px;
-    height: inherit;
     font-family: sans-serif;
     background-image: linear-gradient( rgb(40, 40, 53), rgb(189, 190, 216));
     background-color: rgb(0, 99, 165);
@@ -338,6 +340,58 @@ textarea {
     border: 1px solid #ccc;
     box-shadow: 1px 1px 1px #999;
 }
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #384552;
+  background-image: none;
+}
+/* Remove IE arrow */
+select::-ms-expand {
+  display: none;
+}
+/* Custom Select */
+.select {
+  position: relative;
+  display: flex;
+  width: 20em;
+  height: 3em;
+  line-height: 3;
+  background: #384552;
+  overflow: hidden;
+  border-radius: .25em;
+}
+select {
+  flex: 1;
+  padding: 0 .5em;
+  color: #fff;
+  cursor: pointer;
+}
+/* Arrow */
+.select::after {
+  content: '\25BC';
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: #495663;
+  cursor: pointer;
+  pointer-events: none;
+  -webkit-transition: .25s all ease;
+  -o-transition: .25s all ease;
+  transition: .25s all ease;
+}
+/* Transition */
+.select:hover::after {
+  color:rgb(51, 132, 219);
+}
+
 /* Style the tab */
 .tab{
     padding: 0px;
@@ -579,7 +633,7 @@ textarea {
 /*TOAST end*/
 
 .posts-wrapper {
-    width: 50%;
+    width: 100%;
     margin: 20px auto;
     border: 1px solid #eee;
   }
@@ -604,4 +658,42 @@ textarea {
   }
   i {
     color: rgb(65, 65, 255);
+  }
+
+  .tag-container {
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 6px;
+    overflow: auto;
+  }
+  .tag-container .tag {
+    font-size: 14px;
+    height: 30px;
+    margin: 5px;
+    padding: 5px 6px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    color: #333;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 1px 1px #fff;
+    cursor: default;
+  }
+  .tag i {
+    font-size: 16px;
+    color: #666;
+    margin-left: 5px;
+  }
+  .tag-container input {
+    padding: 5px;
+    font-size: 14px;
+    border: 0;
+    outline: none;
+    color: #333;
+    flex: 1;
   }

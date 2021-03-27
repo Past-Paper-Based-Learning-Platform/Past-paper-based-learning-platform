@@ -149,7 +149,7 @@
 			}
 			else
 			{
-				echo '<script>var alert=document.getElementById("alert"); alert.style.display="block";</script>';
+				echo '<script>var alert=document.querySelector(".alert1"); alert.style.display="block";</script>';
 			}
 		}
 
