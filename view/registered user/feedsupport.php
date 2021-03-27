@@ -1,9 +1,10 @@
 <?php 
+session_start();
 // connect to database
 $conn = new mysqli('localhost', 'root', '', 'systemppdb');
 
 // lets assume a user is logged in with id $user_id
-$user_id = 44;
+$user_id = $_SESSION['user_id'];
 
 if (!$conn) {
   die("Error connecting to database: " . mysqli_connect_error($conn));
@@ -216,10 +217,20 @@ $sql="SELECT past_paper.subject_code as subject_code, subject.subject_name as su
     FROM past_paper, subject 
     WHERE past_paper.subject_code=subject.subject_code";
 $papers = mysqli_query($conn, $sql);
-if(!(isset($_POST['interestfilter']) || isset($_POST['lessonfilter']) || isset($_POST['alldiscussions']))){
+if(isset($_POST['lessonfilter']) && $_POST['lesson']!=""){
+  $lesson=$_POST['lesson'];
+  $sql = "SELECT * FROM discussion WHERE discussion_id IN 
+    (SELECT discussion_id FROM discussion_tags WHERE tag_id IN 
+    (SELECT tag_id FROM tags WHERE tag='$lesson'))";
+}else if(isset($_POST['interestfilter'])){
+  $sql = "SELECT * FROM discussion WHERE subject_code IN 
+    (SELECT subject_code FROM interest_list WHERE user_id=$user_id)";
+}else if(isset($_POST['alldiscussions'])){
   $sql = "SELECT * FROM discussion";
-  $result = mysqli_query($conn, $sql);
+}else{
+  $sql = "SELECT * FROM discussion";
 }
+$resultdis = mysqli_query($conn, $sql);
 // fetch all posts from database
 // return them as an associative array called $posts
 ?>

@@ -48,18 +48,6 @@
 			if (isset($_POST['postquestion'])){
 				$this->postGeneralQuestion();
 			}
-
-			if (isset($_POST['lessonfilter'])){
-				$this->filterDiscussionLesson();
-			}
-
-			if (isset($_POST['interestfilter'])){
-				$this->filterDiscussionInterest();
-			}
-
-			if (isset($_POST['alldiscussions'])){
-				$this->showAllDiscussions();
-			}
 		}
 
 		//page view
@@ -290,27 +278,6 @@
 				unlink($target_file);
 				echo "<script>alert('Create Discussion - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
 			}
-		}
-
-		public function filterDiscussionLesson(){
-			$lesson=trim($_POST['lesson']);
-			if ($lesson==""){
-				$result=$this->objsm->get_all_discussions();
-			}else{
-				$result=$this->objsm->get_lesson_discussions($lesson);
-			}
-			require_once "./view/registered user/feed.php";
-		}
-
-		public function filterDiscussionInterest(){
-			$user_id=$_SESSION['user_id'];
-			$result=$this->objsm->get_interest_discussions($user_id);
-			require_once "./view/registered user/feed.php";
-		}
-
-		public function showAllDiscussions(){
-			$result=$this->objsm->get_all_discussions();
-			require_once "./view/registered user/feed.php";
 		}
     }
 ?>
