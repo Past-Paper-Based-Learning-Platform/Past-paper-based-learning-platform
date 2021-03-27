@@ -250,7 +250,7 @@
 
             $question_id= $this->condb->insert_id;
 
-*/
+
             $discussQuery="INSERT INTO discussion (paper_id,question_id)  VALUE ('$paper','$question_id')";
             $result2= $this->condb-> query($discussQuery);
 
@@ -357,33 +357,142 @@
             $this->condb->close();
         }
 
-        public function create_general_question($user_id, $qcontent, $subject_code, $attachment){
+        public function existing_question($content){
             try{
 				$this->open_db();
-                if($subject_code==""){
-                    if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content) VALUES ($user_id, '$qcontent')");
-                    }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture) VALUES ($user_id, '$qcontent', '$attachment')");
-                    }
-                }else{
-                    if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code) VALUES ($user_id, '$qcontent', '$subject_code')");
-                    }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment')");
-                    }
-                }
-				$query->execute();
+                $query=$this->condb->prepare("SELECT * FROM discussion WHERE content='$content'");
+				$query->execute();                
+				$res=$query->get_result();
 				$query->close();
 				$this->close_db();
-				return true;	
+				return $res;	
 			}
 			catch (Exception $e) 
 			{   
             	$this->close_db();
-            	throw false;
+            	throw $e;
+        	}	
+        }
+
+        public function create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp){
+            try{
+                $success=true;
+				$this->open_db();
+                if($subject_code==""){
+                    if($attachment==""){
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, timestamp) VALUES ($user_id, '$qcontent', '$timestamp')");
+                    }else{
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture, timestamp) VALUES ($user_id, '$qcontent', '$attachment', '$timestamp')");
+                    }
+                }else{
+                    if($attachment==""){
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp) VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp')");
+                    }else{
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture, timestamp) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp')");
+                    }
+                }
+				if(!$query->execute()){
+                    $success=false;
+                }
+				$query->close();
+				$this->close_db();
+				return $success;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
         	}	
         }
         
+        public function get_discussion_id($user_id, $timestamp){
+            try{
+				$this->open_db();
+                $query=$this->condb->prepare("SELECT * FROM discussion WHERE user_id=$user_id AND timestamp='$timestamp'");
+				$query->execute();                
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        public function discussion_anonymous_name($discussion_id, $user_id){
+            try{
+                $success=true;
+				$this->open_db();
+                $query=$this->condb->prepare("INSERT INTO anonymous_names (discussion_id, user_id, anonymous_number) VALUES ($discussion_id, $user_id, 1)");
+                if(!$query->execute()){
+                    $success=false;
+                }
+				$query->close();
+				$this->close_db();
+				return $success;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        public function get_lesson_discussions($lesson){
+            try{
+				$this->open_db();
+                $query=$this->condb->prepare("SELECT * FROM discussion WHERE discussion_id IN 
+                    (SELECT discussion_id FROM discussion_tags WHERE tag_id IN 
+                    (SELECT tag_id FROM tags WHERE tag='$lesson'))");
+				$query->execute();                
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        public function get_all_discussions(){
+            try{
+				$this->open_db();
+                $query=$this->condb->prepare("SELECT * FROM discussion");
+				$query->execute();                
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        public function get_interest_discussions($user_id){
+            try{
+				$this->open_db();
+                $query=$this->condb->prepare("SELECT * FROM discussion WHERE subject_code IN 
+                    (SELECT subject_code FROM interest_list WHERE user_id=$user_id)");
+				$query->execute();                
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
     }
 ?>

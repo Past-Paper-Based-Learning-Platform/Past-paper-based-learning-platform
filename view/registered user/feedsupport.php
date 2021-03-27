@@ -216,8 +216,10 @@ $sql="SELECT past_paper.subject_code as subject_code, subject.subject_name as su
     FROM past_paper, subject 
     WHERE past_paper.subject_code=subject.subject_code";
 $papers = mysqli_query($conn, $sql);
-$sql = "SELECT * FROM discussion WHERE user_id<>$user_id";
-$result = mysqli_query($conn, $sql);
+if(!(isset($_POST['interestfilter']) || isset($_POST['lessonfilter']) || isset($_POST['alldiscussions']))){
+  $sql = "SELECT * FROM discussion";
+  $result = mysqli_query($conn, $sql);
+}
 // fetch all posts from database
 // return them as an associative array called $posts
 ?>

@@ -18,10 +18,20 @@
         -ms-overflow-style: none;  /* IE and Edge */
         scrollbar-width: none;  /* Firefox */
         }
+        ::-webkit-file-upload-button {
+            background: #344453;
+            color: #ffffff;
+            outline: none;
+        }
+
+        input[type=file]{
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
-<div class="scrollhide" style="height: 100%; overflow: auto">
+<div class="scrollhide" style="width:50%; height:100%; overflow:auto; margin:auto">
   <div class="posts-wrapper">
     <div class="tab">
         <div class="col-3-item">
@@ -31,7 +41,6 @@
             <button id="pastpaperquestion" class="tablinks" onclick="openTab(event, 'ppquestion')">Ask a Past Paper-based Question</button>
         </div>
     </div>
-    
 
     <div id="genquestion" class="tabcontent" style="height: 345px; background: rgba(0, 0, 0, 0.5)">
         
@@ -64,13 +73,14 @@
                 <input type="file" name="picture" id="pictureupload" value="">
             </div>
             <div class="row">
-            <div class="col-1-item text-white">Tags:</div>
+            <div class="col-1-item text-white">Tags: (optional)</div>
             <div class="col-5-item tag-container" style="height:60px">
-                <input type="text" list="tags" name="tags"placeholder="(optional)">
+                <input type="text" list="tags" name="tags">
             </div>
+            <input type="hidden" class="tag-list" name="taglist" value="">
             <div class="col-2-item text-white">&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="anonymity" value="1">&nbsp;&nbsp;&nbsp;&nbsp;Ask Anonymously</div>
                 <div class="col-2-item">
-                    <button id="postquestion" class="gradient-green border-green" type="submit" name="postquestion">Post Question</button> 
+                    <button id="postquestion" class="gradient-blue border-blue" type="submit" name="postquestion">Post Question</button> 
                 </div>
             </div>
         </form>
@@ -95,13 +105,31 @@
             </div>
             <div class="row">
                 <div class="col-2-item">
-                    <button class="gradient-green border-green" type="submit" name="postquestion">Select Paper</button> 
+                    <button class="gradient-blue border-blue" type="submit" name="postquestion">Select Paper</button> 
                 </div>
             </div>
         </form>
     </div>
     </div>
-
+    
+    <div style="margin:auto; overflow:auto">
+    <form action="http://localhost/Main/homeindex.php?page=feed.php" method="post">
+        <div class="col-1-item text-white">Filter by Lesson:</div>
+        <div class="col-4-item">
+        <input type="text" list="tags" name="lesson" style="border-radius:20px; padding: 15px;" placeholder="Enter lesson name..." value="">
+        </div>
+        <div class="col-1-item">
+        <button class="gradient-blue border-blue" style="border-radius:20px; font-size:12px" type="submit" name="lessonfilter">Filter</button>
+        </div>
+        <div class="col-2-item" style="float: right">
+        <button class="gradient-blue border-blue" style="border-radius:20px; font-size:12px" type="submit" name="interestfilter">Filter by Interest List</button>
+        </div>
+        <div class="col-2-item" style="float: right">
+        <button class="gradient-blue border-blue" style="border-radius:20px; font-size:12px" type="submit" name="alldiscussions">Show All Discussions</button>
+        </div>
+    </form>
+    </div>
+    
     <div class="posts-wrapper">
     
    <?php $x=0;
