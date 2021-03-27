@@ -257,7 +257,7 @@
                         $row1 = mysqli_fetch_assoc($result);
 
                         if(empty($row1)){
-                            $query1 = "INSERT INTO tags (tag) VALUES (".$tag.")";
+                            $query1 = "INSERT INTO tags (tag) VALUES ('$tag')";
                             $result1 = mysqli_query($this->condb,$query1);
                         }
                         $query2 = "SELECT tag_id FROM tags WHERE tag='$tag' AND subject_code IS NULL";
@@ -265,7 +265,7 @@
 
                         $row = mysqli_fetch_assoc($result2);
                         $tag_id = $row['tag_id'];
-                        $query3 = "INSERT INTO discussion_tags (discussion_id,tag_id) VALUES (".$discussion_id.",".$tag_id.")";
+                        $query3 = "INSERT INTO discussion_tags (discussion_id,tag_id) VALUES ($discussion_id, $tag_id)";
                         $result3 = mysqli_query($this->condb,$query3);
                     }
                 }else{ //insert tags when subject is available 
@@ -458,7 +458,7 @@
         	}
         }
 
-        public function discussion_anonymous_name($discussion_id, $user_id){
+        public function initial_anonymous_name($discussion_id, $user_id){
             try{
                 $success=true;
 				$this->open_db();
@@ -469,6 +469,90 @@
 				$query->close();
 				$this->close_db();
 				return $success;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        public function last_anonymous_number($discussion_id){
+            try{
+				$this->open_db();
+                $query=$this->condb->prepare("SELECT anonymous_number FROM anonymous_names WHERE discussion_id=$discussion_id ORDER BY anonymous_number DESC LIMIT 1");
+				$query->execute();                
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        public function create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp){
+            try{
+                $success=true;
+				$this->open_db();
+                if($attachment==""){
+                    if($url==""){
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, discussion_id, timestamp) VALUES ($user_id, '$content', $discussion_id, '$timestamp')");
+                    }else{
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, discussion_id, timestamp) VALUES ($user_id, '$content', '$url', $discussion_id, '$timestamp')");
+                    }
+                }else{
+                    if($url==""){
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, picture, discussion_id, timestamp) VALUES ($user_id, '$content', '$attachment', $discussion_id, '$timestamp')");
+                    }else{
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, picture, discussion_id, timestamp) VALUES ($user_id, '$content', '$url', '$attachment', $discussion_id, '$timestamp')");
+                    }
+                }
+				if(!$query->execute()){
+                    $success=false;
+                }
+				$query->close();
+				$this->close_db();
+				return $success;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        public function assign_anonymous_name($discussion_id, $user_id, $anonymous_num){
+            try{
+                $success=true;
+				$this->open_db();
+                $query=$this->condb->prepare("INSERT INTO anonymous_names (discussion_id, user_id, anonymous_number) VALUES ($discussion_id, $user_id, $anonymous_num)");
+                if(!$query->execute()){
+                    $success=false;
+                }
+				$query->close();
+				$this->close_db();
+				return $success;	
+			}
+			catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        public function get_anonymous_number($user_id, $discussion_id){
+            try{
+				$this->open_db();
+                $query=$this->condb->prepare("SELECT * FROM anonymous_names WHERE user_id=$user_id AND discussion_id=$discussion_id");
+				$query->execute();                
+				$res=$query->get_result();
+				$query->close();
+				$this->close_db();
+				return $res;
 			}
 			catch (Exception $e) 
 			{   
