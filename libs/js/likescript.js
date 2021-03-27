@@ -173,6 +173,10 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
+function openForm() {
+    document.getElementById("myForm").style.display = "block";
+}  
+
 //tags bar implementation
 const tagContainer = document.querySelector('.tag-container');
 const input = document.querySelector('.tag-container input');
@@ -226,4 +230,4 @@ document.addEventListener('click', (e) => {
     addTags();    
     taglist.value=tags;
   }
-})
+});

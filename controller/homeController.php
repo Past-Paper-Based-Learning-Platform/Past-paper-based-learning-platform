@@ -44,6 +44,11 @@
 			if (isset($_POST['showquestions'])){
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=discussionlist.php")</script>';
 			}
+
+			if (isset($_POST['postAnswer'])){
+				echo "i'm here1";
+				$this->postAnswer();
+			}
 			
 			if (isset($_POST['postquestion'])){
 				$this->postGeneralQuestion();
@@ -255,17 +260,19 @@
 			} 
 			if($upload_success){
 				if ($this->objsm->create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp)){
-					if(isset($_POST['anonymity'])){
-						$result=$this->objsm->get_discussion_id($user_id, $timestamp);
-						$row = mysqli_fetch_array($result);
-						$discussion_id= $row['discussion_id'];
-						if(!$this->objsm->discussion_anonymous_name($discussion_id, $user_id)){
+					$result=$this->objsm->get_discussion_id($user_id, $timestamp);
+					$row = mysqli_fetch_array($result);
+					$discussion_id= $row['discussion_id'];
+					if(isset($_POST['anonymity'])){						
+						if(!$this->objsm->initial_anonymous_name($discussion_id, $user_id)){
 							echo "<script>alert('Sorry! Could not create the discussion anonymously!'); window.location.href='view/registered user/feed.php';</script>";
 						}else{
 							echo "<script>alert('Successfully Created Discussion!'); window.location.href='view/registered user/feed.php';</script>";
 						}
 					}
 					if($tags!=""){
+						$extags = explode(",", $tags);
+						$this->objsm->insert_tags($discussion_id, $extags, $subject_code);
 						echo "<script>alert('Successfully Created Discussion!'); window.location.href='view/registered user/feed.php';</script>";
 					}else{
 						echo "<script>alert('Successfully Created Discussion! Empty Tags!'); window.location.href='view/registered user/feed.php';</script>";
@@ -277,6 +284,70 @@
 			}else{
 				unlink($target_file);
 				echo "<script>alert('Create Discussion - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
+			}
+		}
+
+		public function postAnswer(){
+			$user_id=$_SESSION['user_id'];
+			$content=trim($_POST['answer']);
+			$url=trim($_POST['url']);
+			$attachment='';	
+			$discussion_id=$_POST['discussionId'];
+			$timestamp=date('Y-m-d H:i:s');
+			$upload_success=true;
+			if(!empty(filesize($_FILES['answerAttach']['tmp_name']))){
+				$attachment = basename($_FILES['answerAttach']['name']);
+      			$file_tmp =$_FILES['answerAttach']['tmp_name'];
+      			$file_type=$_FILES['answerAttach']['type'];
+      			$file_ext=strtolower(end(explode('.',$_FILES['answerAttach']['name'])));
+
+				$extensions= array("jpeg","jpg","png");
+
+				if(in_array($file_ext,$extensions)=== false){
+					$upload_success=false;
+					echo "<script>alert('Only jpeg, jpg, png extentions are allowed! Create Answer - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
+				}else{
+					while(file_exists("answerattachments/".$attachment)){
+						$attachment="copy-".$attachment;
+					}
+					$target_file="answerattachments/".$attachment;
+					if(!move_uploaded_file($file_tmp,$target_file)){
+						echo "<script>alert('Create Answer - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
+					}
+				}
+			}
+			if($upload_success){
+				if ($this->objsm->create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp)){
+					if(isset($_POST['anonymity'])){
+						$result=$this->objsm->get_anonymous_number($user_id, $discussion_id);
+						if($result->num_rows == 0){
+							$result=$this->objsm->last_anonymous_number($discussion_id);
+							if($result->num_rows > 0){
+								$row = mysqli_fetch_array($result);
+								$anonymous_num=(int)$row['anonymous_number']+1;
+								if(!$this->objsm->assign_anonymous_name($discussion_id, $user_id, $anonymous_num)){
+									echo "<script>alert('Sorry! Could not create the answer anonymously!'); window.location.href='view/registered user/feed.php';</script>";
+								}else{
+									echo "<script>alert('Successfully Created Answer!'); window.location.href='view/registered user/feed.php';</script>";
+								}
+							}else if (!$this->objsm->initial_anonymous_name($discussion_id, $user_id)){
+								echo "<script>alert('Sorry! Could not create the answer anonymously!'); window.location.href='view/registered user/feed.php';</script>";
+							}else{
+								echo "<script>alert('Successfully Created Answer!'); window.location.href='view/registered user/feed.php';</script>";
+							}
+						}else{
+							echo "<script>alert('Successfully Created Answer!'); window.location.href='view/registered user/feed.php';</script>";
+						}						
+					}else{
+						echo "<script>alert('Successfully Created Answer!'); window.location.href='view/registered user/feed.php';</script>";
+					}
+				}else{
+					unlink($target_file);
+					echo "<script>alert('Create Answer - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
+				}
+			}else{
+				unlink($target_file);
+				echo "<script>alert('Create Answer - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
 			}
 		}
     }
