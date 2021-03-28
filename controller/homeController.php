@@ -29,6 +29,30 @@
 				$this->userUpdate();
 			}
 
+			if (isset($_POST['uploadImage'])){
+				
+				require_once 'imageupload-composer/vendor/autoload.php';
+				
+				$file = new Bulletproof\Image($_FILES);
+				
+				$file->setLocation('uploads');
+				
+				if ($file["image"]) {
+					$upload = $file->upload();
+					
+					if ($upload) {
+					  $this->objsm->set_image($upload->getFullPath(), $_SESSION['user_id']);					 
+					  echo '<script language="javascript">';
+					  echo 'alert("Upload image successful"); window.location.href = "http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$_SESSION["user_id"].'";';
+					  echo '</script>';	
+					} else {
+					  echo '<script language="javascript">';
+					  echo 'alert('.$file->getError().')';
+					  echo '</script>';
+					}
+				}
+			}
+
 			if (isset($_POST['changepassword'])){
 				$this->passwordUpdate();
 			}
@@ -66,7 +90,7 @@
 			$result_paper = $this->objsm->getPastpapers();
 			$result_lesson = $this->objsm->getLessons();
 			if($page != 'pastpaper.php'){
-			$result_user_discussion=$this->objsm->getUserDiscussion($userId);
+			//$result_user_discussion=$this->objsm->getUserDiscussion($userId);
 			}
 			
 			if($page == 'pastpaper.php'){

@@ -597,5 +597,13 @@
             	throw $e;
         	}
         }
+
+        public function set_image($uploadedPath, $userId){
+            $this->open_db();
+            
+            $sql= "UPDATE registered_user SET image='$uploadedPath' WHERE user_id=$userId";            
+            $result= $this->condb-> query($sql);
+            return $result;
+        }
     }
 ?>

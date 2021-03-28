@@ -145,6 +145,7 @@
 							$svariable['user_name'] = $row["user_name"];
 							$svariable['user_id'] = $row["user_id"];
 							$svariable['user_role'] = $row["user_flag"];
+							$svariable['user_image'] = $row["image"];
 							return $svariable;
 
 						}

@@ -80,7 +80,13 @@
     ?>
     </div>
 
+    <form method="POST" enctype="multipart/form-data">
+      <p><input type="file" name="image" accept="image/*"  /></p>
+      <input type="submit" name="uploadImage" value="Upload" />
+    </form>
       
+ 
+
   </div>
   <div class="container">
     <div class="bg-gray">

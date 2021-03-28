@@ -61,7 +61,7 @@
 			$result_paper = $this->objsm->get_pastpapers();
             $result_lesson = $this->objsm->getLessons();
             if($page != 'pastpaper.php'){
-                $result_user_discussion=$this->objsm->getUserDiscussion($userId);
+               // $result_user_discussion=$this->objsm->getUserDiscussion($userId);
             }
 
             if($page == 'pastpaper.php'){

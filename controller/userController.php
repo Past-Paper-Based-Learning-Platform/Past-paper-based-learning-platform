@@ -129,6 +129,13 @@
 					$_SESSION['user_name'] = $svariable['user_name'];
 					$_SESSION['user_id'] = $svariable['user_id'];
 					$_SESSION['user_role'] = $svariable['user_role'];
+					if($svariable['user_image']){
+						$_SESSION['user_image'] = $svariable['user_image'];
+					}else{
+						$_SESSION['user_image'] = "uploads/default.png";
+					}
+					
+					
 
 				if($svariable['user_role'] == 'S')
 				{
