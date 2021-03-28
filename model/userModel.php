@@ -255,47 +255,7 @@
 			$this->close_db();
 		}
 
-		function checkCurrentPassword($username, $curpassword){
-			try{
-				$this->open_db();
-				$encryptPW = $this->hashPassword($curpassword);
-				
-				$query=$this->condb->prepare('SELECT * FROM registered_user where password= "'.$encryptPW.'" and user_name ="'.$username.'"');
-				$query->execute();
-				$res=$query->get_result();
-				$query->close();
-				$this->close_db();
-				
-				if ($res->num_rows > 0){
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			catch (Exception $e)
-			{
-				$this->close_db();
-            	throw $e;
-			}
-		}
-
-		function updateNewPassword($username, $newpassword){
-			try{
-				$this->open_db();
-				$encryptPW = $this->hashPassword($newpassword);
-				$query=$this->condb->prepare('UPDATE registered_user SET password="'.$encryptPW.'" WHERE user_name="'.$username.'"');
-				$query->execute();
-				$query->close();
-				$this->close_db();
-			}
-			catch (Exception $e)
-			{
-				$this->close_db();
-            	throw $e;
-			}
-		}
+		
 
 		function validateEmailExist($email){
 			try{

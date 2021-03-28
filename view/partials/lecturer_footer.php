@@ -15,7 +15,7 @@
 </table>
 
 </div>
-<script src="libs/dnd.js"></script>
+<script src="libs/js/dnd.js"></script>
 <script src="libs/main.js"></script>
 <script>
 

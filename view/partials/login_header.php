@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="libs/loginstylesheet.css" type="text/css">
-    <link rel="stylesheet" href="libs/signupstylesheet.css" type="text/css">
-    <script src="libs/alert.js"></script>
+    <link rel="stylesheet" href="libs/css/loginstylesheet.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/signupstylesheet.css" type="text/css">
+    <script src="libs/js/alert.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body onload="signupDisplay()">

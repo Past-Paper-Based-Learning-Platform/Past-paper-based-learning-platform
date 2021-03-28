@@ -23,12 +23,9 @@
         }
         elseif($svariable['user_role'] == 'E')
         {
-            echo '<script language="javascript">window.location.href ="http://localhost/Main/view/examinationdep/examhome.php"</script>';
+            echo '<script language="javascript">window.location.href ="http://localhost/Main/examindex.php"</script>';
         }
-        elseif($svariable['user_role'] == 'A')
-        {
-            echo '<script language="javascript">window.location.href ="http://localhost/Main/view/admin/adminhome.php"</script>';
-        }
+        
     }
     
 ?>

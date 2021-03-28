@@ -7,7 +7,6 @@
         $userId =$_SESSION['user_id'];
         $page='home.php';
         if($_SERVER["REQUEST_METHOD"]=="POST"){
-            
             $controller->mvchandler();
             
         }else{
@@ -25,7 +24,6 @@
             $controller->viewHome($userId,$page);
         }
         $controller->mvchandler();
-
     }
     }
     else

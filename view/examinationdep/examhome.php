@@ -1,15 +1,3 @@
-<?php 
-//    session_unset();
-  //  define('BASE_URL','http://localhost/Main/');
- //   session_start();
-//    $_SESSION['username']='examDep';
-    if (isset($_GET['enterbtn'])) {
-        $_SESSION['year']=$_GET['year'];
-        $_SESSION['semester']=$_GET['semester'];
-        $_SESSION['course']=$_GET['course'];
-        $_SESSION['studyyear']=$_GET['studyyear'];
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,8 +23,12 @@
         <div class="col-6-item page-title text-white">
             Examination Department
             <div style="float:right; font-size:16px">
-                <a href="http://localhost/Main/view/examinationdep/changepassword.php" style="text-decoration:none; color: white">change password</a>&nbsp;&nbsp;&nbsp;|
-                <a href="http://localhost/Main/examindex.php?action=logout" style="text-decoration:none; color: white">log-out</a>&nbsp;
+                <a href="http://localhost/Main/examindex.php?page=changepassword.php" style="text-decoration:none; color: white">change password</a>&nbsp;&nbsp;&nbsp;|
+                <div class="col-3-item" style="float:right;"> 
+                   <form action="http://localhost/Main/examindex.php" method="post">
+                    <button type="submit" name="logout" class="gradient-blue border-blue text-white">log-out</button>&nbsp;
+                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -48,137 +40,6 @@
                 </div>
                 <div class="col-3-item">
                     <button id="subjecttab" class="tablinks" onclick="openTab(event, 'managesubjects')">Subject Details</button>
-                </div>
-            </div>
-
-            <div id="examinationdetails" class="tabcontent" style="height: 600px; background: rgba(0, 0, 0, 0.5)">
-                <div class="container" style="width: 25%; float: left">
-                    <div class="col-2-item text-white">Year:</div>
-                    <div class="col-4-item">
-                        <input type="text" name="year" value="<?php echo date("Y"); ?>">
-                    </div>
-                </div>
-                <div class="container" style="width: 25%; float: left">
-                    <div class="col-2-item text-white">Semester:</div>
-                    <div class="col-4-item">
-                        <input type="text" list="semester" name="semester">
-                        <datalist id="semester">
-                            <option value="Semester-I">
-                            <option value="Semester-II">
-                            <option value="Semester I & II"> 
-                        </datalist>
-                    </div> 
-                </div>
-                <div class="container" style="width: 25%; float: left">
-                    <div class="col-2-item text-white">Course:</div>
-                    <div class="col-4-item">
-                        <input type="text" list="course" name="course">
-                        <datalist id="course">
-                            <option value="Computer Science">
-                            <option value="Information Systems">
-                        </datalist>
-                    </div> 
-                </div>
-                <div class="container" style="width: 25%; float: left">
-                    <div class="col-2-item text-white">Year of Study:</div>
-                    <div class="col-4-item">
-                        <input type="text" list="studyyear" name="studyyear">
-                        <datalist id="studyyear">
-                            <option value="First Year">
-                            <option value="Second Year">
-                            <option value="Third Year">
-                            <option value="Fourth Year">
-                        </datalist>
-                    </div>
-                </div>
-                <div class="col-5-item strong text-white" style="font-size: 26px">Update Details</div>
-                <div class="col-1-item">
-                    <button class="gradient-blue border-blue" type="submit">Show Details</button>
-                </div>
-                <div class="col-3-item"><hr>
-                    <div class="col-2-item text-white">Select Subject:</div>
-                    <div class="col-4-item">
-                        <input type="text" list="subject" name="subject">
-                    </div>
-                    <div class="col-2-item text-white"></br>Choose Examination Date:</div>                        
-                    <div class="col-4-item">
-                        <div class="date-picker">
-                            <div class="selected-date"></div>
-                            <div class="dates">
-                                <div class="month">
-                                    <div class="arrows prev-mth">&lt;</div>
-                                    <div class="mth"></div>
-                                    <div class="arrows next-mth">&gt;</div>
-                                </div>
-                                <div class="days"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2-item" style="float: right;">
-                        <button class="gradient-green border-green" type="submit">Update Record</button>
-                    </div>                        
-                </div>
-                <div class="col-3-item" style="height: 380px; overflow: auto;">
-                    <table>
-                        <thread>
-                            <tr>
-                                <th>Subject Code</th>
-                                <th>Subject Name</th>
-                                <th>Date of Examination</th>
-                                <th></th>
-                            </tr>
-                        </thread>
-                        <tbody>
-                            <tr>
-                                <td>SCS2201</td>
-                                <td>Subject-I</td>
-                                <td>01/01/2020</td>
-                                <td><button class="gradient-red border-red" type="submit">Delete Record</button></td>
-                            </tr>
-                            <tr>
-                                <td>SCS2202</td>
-                                <td>Subject-II</td>
-                                <td>02/01/2020</td>
-                                <td><button class="gradient-red border-red" type="submit">Delete Record</button></td>
-                            </tr>
-                            <tr>
-                                <td>SCS2203</td>
-                                <td>Subject-III</td>
-                                <td>03/01/2020</td>
-                                <td><button class="gradient-red border-red" type="submit">Delete Record</button></td>
-                            </tr>
-                            <tr>
-                                <td>SCS2204</td>
-                                <td>Subject-IV</td>
-                                <td>04/01/2020</td>
-                                <td><button class="gradient-red border-red" type="submit">Delete Record</button></td>
-                            </tr>
-                            <tr>
-                                <td>SCS2205</td>
-                                <td>Subject-V</td>
-                                <td>05/01/2020</td>
-                                <td><button class="gradient-red border-red" type="submit">Delete Record</button></td>
-                            </tr>
-                            <tr>
-                                <td>SCS2206</td>
-                                <td>Subject-VI</td>
-                                <td>06/01/2020</td>
-                                <td><button class="gradient-red border-red" type="submit">Delete Record</button></td>
-                            </tr>
-                            <tr>
-                                <td>SCS2207</td>
-                                <td>Subject-VII</td>
-                                <td>07/01/2020</td>
-                                <td><button class="gradient-red border-red" type="submit">Delete Record</button></td>
-                            </tr>
-                            <tr>
-                                <td>SCS2208</td>
-                                <td>Subject-VIII</td>
-                                <td>08/01/2020</td>
-                                <td><button class="gradient-red border-red" type="submit">Delete Record</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>  
             
@@ -268,21 +129,15 @@
                         </div>
                     </form>          
                 </div>
-                <datalist id="part">
-                    <option value="Part A">
-                    <option value="Part B">
-                    <option value="Part C">
-                    <option value="Full">
+                <datalist id="course">
+                    <option value="Computer Science">
+                    <option value="Information Systems">
                 </datalist> 
-                <datalist id="subjectpaper">
-                    <option value="SCS2201">
-                    <option value="SCS2202">
-                    <option value="SCS2203">
-                    <option value="SCS2204">
-                    <option value="SCS2205">
-                    <option value="SCS2206">
-                    <option value="SCS2207">
-                    <option value="SCS2208">
+                <datalist id="studyyear">
+                    <option value="First Year">
+                    <option value="Second Year">
+                    <option value="Third Year">
+                    <option value="Fourth Year">
                 </datalist>               
             </div>
 
@@ -409,7 +264,7 @@
     </div>
     
     <script src="http://localhost/Main/libs/main.js"></script>
-    <?php if ($_GET['tab']=="upload" || !isset($_GET['tab'])) { ?> <!--Select previously clicked tab when reloading.-->
+    <?php if (!isset($_GET['tab']) || $_GET['tab']=="upload") { ?> <!--Select previously clicked tab when reloading.-->
         <script type="text/javascript">
             $(document).ready(function() {
                 $("#uploadtab").click();
