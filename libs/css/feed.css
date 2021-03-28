@@ -203,7 +203,13 @@ i {
     color: #274057;
     font-size: 14px;
 }
-
+.lecturer-answer-label{
+    padding: 5px;
+    color: white;
+    border-radius: 20px;
+    background-color: #2b9e14;
+    font-size: 11px;
+}
 .answer-username{
     font-weight: bold;
     color: #e4e9b6;

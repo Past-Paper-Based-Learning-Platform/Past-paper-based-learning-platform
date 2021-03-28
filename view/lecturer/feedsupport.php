@@ -212,7 +212,7 @@ function userDislikedAnswer($answer_id)
 //load answers for each discussion
 function getDiscussionAnswers($discussion_id){
   global $conn;
-  $sql = "SELECT * FROM answer WHERE discussion_id=$discussion_id ORDER BY timestamp DESC";
+  $sql = "SELECT * FROM answer WHERE discussion_id=$discussion_id ORDER BY priority_flag DESC, timestamp DESC";
   $result = mysqli_query($conn, $sql);
   return $result;
 }

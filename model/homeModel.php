@@ -410,21 +410,21 @@
         	}	
         }
 
-        public function create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp){
+        public function create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp, $priority){
             try{
                 $success=true;
 				$this->open_db();
                 if($subject_code==""){
                     if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, timestamp) VALUES ($user_id, '$qcontent', '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$timestamp', $priority)");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture, timestamp) VALUES ($user_id, '$qcontent', '$attachment', '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$attachment', '$timestamp', $priority)");
                     }
                 }else{
                     if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp) VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp', $priority)");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture, timestamp) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp', $priority)");
                     }
                 }
 				if(!$query->execute()){

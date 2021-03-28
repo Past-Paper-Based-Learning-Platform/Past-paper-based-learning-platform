@@ -166,6 +166,9 @@
                     <div class="post bg-dgray">
                         <span class="answer-username"><?php echo getAnswerDisplayName($disId, $answer['answer_id']);?></span>&nbsp;&nbsp;&nbsp;
                         <span class="answer-timestamp"><?php echo trimTimestamp($answer['timestamp']);?></span>
+                        <?php if($answer['priority_flag']==1){?>
+                            <span class="lecturer-answer-label" style="float: right">Lecturer Answer</span>
+                        <?php } ?>
                         <div class="row">
                         <?php echo $answer['content'];?></div>
                             <?php if(!is_null($answer['picture'])){?>

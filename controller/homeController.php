@@ -326,6 +326,11 @@
 			$discussion_id=$_POST['discussionId'];
 			$timestamp=date('Y-m-d H:i:s');
 			$upload_success=true;
+			if($_SESSION['user_role']=="L"){
+				$priority=1;
+			}else{
+				$priority=0;
+			}
 			if(!empty(filesize($_FILES['answerAttach']['tmp_name']))){
 				$attachment = basename($_FILES['answerAttach']['name']);
       			$file_tmp =$_FILES['answerAttach']['tmp_name'];
@@ -348,7 +353,7 @@
 				}
 			}
 			if($upload_success){
-				if ($this->objsm->create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp)){
+				if ($this->objsm->create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp, $priority)){
 					if(isset($_POST['anonymity'])){
 						$result=$this->objsm->get_anonymous_number($user_id, $discussion_id);
 						if($result->num_rows == 0){
