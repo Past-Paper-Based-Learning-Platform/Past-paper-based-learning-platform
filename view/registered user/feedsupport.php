@@ -268,6 +268,11 @@ function getAnswerDisplayName($discussion_id, $answer_id){
   return $displayname;
 }
 
+function trimTimestamp($timestamp){
+  $trimTimestamp=date('g:ia Y-m-d', strtotime($timestamp));
+  return $trimTimestamp;
+}
+
 $sql="SELECT subject_code, subject_name FROM subject";
 $subjects = mysqli_query($conn, $sql);
 $sql="SELECT DISTINCT tag FROM tags";

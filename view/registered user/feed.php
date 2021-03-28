@@ -149,7 +149,8 @@
     $resulttags = getDiscussionTags($disId);
     ?>
    	<div class="post bg-white">
-       <span class="discussion-username"><?php echo getDiscussionDisplayName($disId);?></span>
+       <span class="discussion-username"><?php echo getDiscussionDisplayName($disId);?></span>&nbsp;&nbsp;&nbsp;
+       <span class="discussion-timestamp"><?php echo trimTimestamp($discussion['timestamp']);?></span>
        <span style="float:right"><input class="report-discussion" type="button" value="Report Discussion" discussionId="<?php echo $disId; ?>" onclick="openReportForm()"></span>
     <div class="row">
       <?php echo $discussion['content'];?></div>
@@ -193,8 +194,9 @@
             <span style="float:right"><a href="#" id="showAnswers<?php echo $x; ?>" class="shanswer" disId="<?php echo $x; ?>" style="text-decoration:none; color: gray"> <em> <?php echo $resultans->num_rows; ?>&nbsp;Answer(s)</em> </a></span>
             <div id="answers<?php echo $x; ?>" class="answerbox text-white" disId="<?php echo $x; ?>">
                 <?php while($answer = mysqli_fetch_array($resultans)) {?>
-                    <div class="post trans">
-                        <span class="answer-username"><?php echo getAnswerDisplayName($disId, $answer['answer_id']);?></span>
+                    <div class="post bg-dgray">
+                        <span class="answer-username"><?php echo getAnswerDisplayName($disId, $answer['answer_id']);?></span>&nbsp;&nbsp;&nbsp;
+                        <span class="answer-timestamp"><?php echo trimTimestamp($answer['timestamp']);?></span>
                         <div class="row">
                         <?php echo $answer['content'];?></div>
                             <?php if(!is_null($answer['picture'])){?>

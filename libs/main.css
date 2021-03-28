@@ -133,6 +133,9 @@ hr{
 .bg-blue{
     background-color: rgb(0, 99, 165);
 }
+.bg-dgray{
+    background-color: rgb(81, 93, 105);
+}
 .bg-gray{
     background-color: lightslategray;
 }
