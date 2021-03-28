@@ -19,7 +19,7 @@
         <div class="col-6-item page-title text-white">
             Examination Department
             <div style="float:right; font-size:16px">
-                <a href="http://localhost/Main/view/examinationdep/examhome.php" style="text-decoration:none; color: white">Back to Home Page</a>&nbsp;
+                <a href="http://localhost/Main/examindex.php" style="text-decoration:none; color: white">Back to Home Page</a>&nbsp;
             </div>
         </div>
     </div>

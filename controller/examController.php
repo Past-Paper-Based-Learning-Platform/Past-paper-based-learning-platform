@@ -38,10 +38,18 @@
 			if (isset($_POST['addsubjectbtn'])){
 				$this->add_subject();
 			}
-			if (isset($_GET['action']) && $_GET['action']=="logout"){
+			if (isset($_POST['logout'])){
 				$this->logout();
 			}
-		}	
+			if(isset($_POST['changepwd'])){
+				$this->changePassword($_SESSION['user_name'], trim($_POST['currentpass']), trim($_POST['newpass']));
+			}
+		}
+		
+		//page view
+		public function viewHome($page){
+			require_once 'view/examinationdep/'.$page.'';
+		}
 
 		public function show_papers()
 		{	
@@ -156,7 +164,7 @@
 			if($unsuccess){
 				echo "<script>alert('".$unsuccess." paper(s) failed to upload. (Reason: Existing papers cannot be replaced!)'); window.location.href='view/examinationdep/examhome.php';</script>";
 			}else{
-				echo "<script>alert('Successfully Uploaded Papers!'); window.location.href='view/examinationdep/examhome.php'; </script>";
+				echo "<script>alert('Successfully Uploaded Papers!'); window.location.href='http://localhost/Main/examindex.php'; </script>";
 			}			
 		}
 
@@ -267,6 +275,21 @@
 				echo '<script>alert("Update was Unsuccessful!")</script>';
 			}
 		}
+
+		//change password
+		public function changePassword($username, $curpassword, $newpassword){
+			if($this->objsm->checkCurrentPassword($username, $curpassword)){
+				$this->objsm->updateNewPassword($username, $newpassword);
+				session_destroy();
+				echo '<script> alert("Password Changed Successfully! Login Using New Password."); window.location.href="http://localhost/Main/index.php";</script>';
+			}
+			else
+			{
+				echo '<script> alert("Wrong Current Password!"); window.location.href="http://localhost/Main/view/examinationdep/changepassword.php";</script>';
+
+			}
+		}
+
 		public function logout(){
 			session_destroy();
 			echo '<script language="javascript">window.location.href ="http://localhost/Main/index.php"</script>';

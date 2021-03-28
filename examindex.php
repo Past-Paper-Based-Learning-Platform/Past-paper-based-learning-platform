@@ -1,15 +1,22 @@
 <?php
-	if(!isset($_SESSION)) session_start();
-    if($_GET['tag']=="user"){
-        require_once 'controller/userController.php';
-        $controller = new userController();
-        $controller->mvchandler();
+	session_start();
+    if(!empty($_SESSION['user_id'])){
+        require_once  'controller/examController.php';
+        $controller = new examController();	
+        $page='examhome.php';
+        if($_SERVER["REQUEST_METHOD"]=="POST"){
+            $controller->mvcHandler();
+        }else{
+            if(isset($_GET['page'])){
+                $page = $_GET['page'];
+            }
+            $controller->viewHome($page);
+       //     $controller->mvcHandler();
+        }
     }
     else
     {
-        require_once  'controller/examController.php';
-        $controller = new examController();	
-        $controller->mvcHandler();
+        header('location:http://localhost/Main/index.php');
     }
     
 

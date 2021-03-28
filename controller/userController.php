@@ -36,9 +36,7 @@
 			if(isset($_POST['resetPW'])){
 				$this->sendRecoveryPassword($_POST['emailtext'], $_POST['newPw']);
 			}
-			if(isset($_POST['changepwd'])){
-				$this->changePassword($_SESSION['user_name'], trim($_POST['currentpass']), trim($_POST['newpass']));
-			}
+			
 			
 			// if(isset($_POST['continueBtn'])){
 			// 	$this->checkEmailandUsernameExist($_POST['email'], $_POST['uname']);
@@ -140,11 +138,7 @@
 				}
 				elseif($svariable['user_role'] == 'E')
 				{
-					echo '<script language="javascript">window.location.href ="http://localhost/Main/view/examinationdep/examhome.php"</script>';
-				}
-				elseif($svariable['user_role'] == 'A')
-				{
-					echo '<script language="javascript">window.location.href ="http://localhost/Main/view/admin/adminhome.php"</script>';
+					echo '<script language="javascript">window.location.href ="http://localhost/Main/examindex.php"</script>';
 				}
 			}
 			else
@@ -198,19 +192,6 @@
 				return false;
 			}else{
 				return true;
-			}
-		}
-
-		function changePassword($username, $curpassword, $newpassword){
-			if($this->objsm->checkCurrentPassword($username, $curpassword)){
-				$this->objsm->updateNewPassword($username, $newpassword);
-				session_destroy();
-				echo '<script> alert("Password Changed Successfully! Login Using New Password."); window.location.href="http://localhost/Main/index.php";</script>';
-			}
-			else
-			{
-				echo '<script> alert("Wrong Current Password!"); window.location.href="http://localhost/Main/view/examinationdep/changepassword.php";</script>';
-
 			}
 		}
     }
