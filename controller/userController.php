@@ -175,8 +175,8 @@
 		}
 
 		function sendemail(){
-			require("../../composer/vendor/phpmailer/phpmailer/src/PHPMailer.php");
-			require("../../composer/vendor/phpmailer/phpmailer/src/SMTP.php");
+			require("composer/vendor/phpmailer/phpmailer/src/PHPMailer.php");
+			require("composer/vendor/phpmailer/phpmailer/src/SMTP.php");
 
 			$mail = new PHPMailer\PHPMailer\PHPMailer();
 			$mail->IsSMTP(); // enable SMTP

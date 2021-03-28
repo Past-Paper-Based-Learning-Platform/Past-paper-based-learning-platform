@@ -43,6 +43,14 @@
 			if (isset($_POST['showquestions'])){
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=discussionlist.php")</script>';
 			}
+
+			if(isset($_POST['setavailable'])){
+				$this->setAvailable();
+			}
+
+			if(isset($_POST['setnotavailable'])){
+				$this->setNotAvailable();
+			}
 		}
 
         //page view
@@ -67,10 +75,13 @@
 			}
 
 			if($page=='profilesetting.php' or $page=='privacysetting.php'){
-				$row=$this->objsm->get_user($userId);
-				
-				
+				$row=$this->objsm->get_user($userId);	
 			}
+
+			if($page=='meeting.php'){
+				$available=$this->objsm->getAvailabledays($userId);
+			}
+
 			if($page=='pastpaperedit.php' or $page=='privacysetting.php'){
 
 			}
@@ -172,7 +183,7 @@
 			$anonymous='off';
 
 			//split into seperate tags
-			$extags = explode(" ,",$tags);
+			$extags = explode(",",$tags);
 			$error=0;
 			
 			$check = filesize($_FILES['image']['tmp_name']);
@@ -278,5 +289,67 @@
 			require_once "./view/lecturer/pastpaperedit.php";
 		}
 
+		public function setAvailable(){
+			$user_id = $_SESSION['user_id'];
+
+			$available=[];
+
+			if(isset($_POST['Monday'])){
+				array_push($available,$_POST['Monday']);
+			}
+			if(isset($_POST['Tuesday'])){
+				array_push($available,$_POST['Tuesday']);
+			}
+			if(isset($_POST['Wednesday'])){
+				array_push($available,$_POST['Wednesday']);
+			}
+			if(isset($_POST['Thursday'])){
+				array_push($available,$_POST['Thursday']);
+			}
+			if(isset($_POST['Friday'])){
+				array_push($available,$_POST['Friday']);
+			}
+			if(isset($_POST['Saterday'])){
+				array_push($available,$_POST['Saterday']);
+			}
+			if(isset($_POST['Sunday'])){
+				array_push($available,$_POST['Sunday']);
+			}
+
+			$this->objsm->insertAvailableDays($user_id,$available);
+
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=meeting.php")</script>';
+		}
+		
+		public function setNotAvailable(){
+			$user_id = $_SESSION['user_id'];
+			$available=[];
+
+			if(isset($_POST['Monday'])){
+				array_push($available,$_POST['Monday']);
+			}
+			if(isset($_POST['Tuesday'])){
+				array_push($available,$_POST['Tuesday']);
+			}
+			if(isset($_POST['Wednesday'])){
+				array_push($available,$_POST['Wednesday']);
+			}
+			if(isset($_POST['Thursday'])){
+				array_push($available,$_POST['Thursday']);
+			}
+			if(isset($_POST['Friday'])){
+				array_push($available,$_POST['Friday']);
+			}
+			if(isset($_POST['Saterday'])){
+				array_push($available,$_POST['Saterday']);
+			}
+			if(isset($_POST['Sunday'])){
+				array_push($available,$_POST['Sunday']);
+			}
+
+			$this->objsm->deleteAvailableDays($user_id,$available);
+
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=meeting.php")</script>';
+		}
     }
 ?>

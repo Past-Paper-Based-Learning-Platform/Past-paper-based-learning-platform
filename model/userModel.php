@@ -59,7 +59,7 @@
 				$this->open_db();
 				$encryptPw = $this->hashPassword($password);
 				//print_r($subjects);
-				$sql = "INSERT INTO registred_user (email, user_name, password, first_name, middle_name, last_name, user_flag, activeStatus) 
+				$sql = "INSERT INTO registered_user (email, user_name, password, first_name, middle_name, last_name, user_flag, activeStatus) 
 				VALUES ('".$email."', '".$username."', '".$encryptPw."', '".$first_name."', '".$middle_name."', '".$last_name."', '".$user_flag."', '1')";
 			
 				$results = mysqli_query($this->condb,$sql);
@@ -72,7 +72,7 @@
 	
 				//get userId
 				$userId = '';
-				$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
+				$selectQuery = 'SELECT * FROM registered_user where email = "'.$email.'"';
 				$sekectresult = mysqli_query($this->condb,$selectQuery);
 				if ($sekectresult->num_rows > 0) {
 					while($row = $sekectresult->fetch_assoc()) {
@@ -132,7 +132,7 @@
 				$this->open_db();
 				$encryptPW = $this->hashPassword($password);
 		
-				$query = 'SELECT * FROM registred_user where password= "'.$encryptPW.'" and (email = "'.$username.'" or user_name ="'.$username.'")';
+				$query = 'SELECT * FROM registered_user where password= "'.$encryptPW.'" and (email = "'.$username.'" or user_name ="'.$username.'")';
 				
 				$result = mysqli_query($this->condb,$query);
 				
@@ -198,7 +198,7 @@
 			
 				//get user id by email
 				$user = "";
-				$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
+				$selectQuery = 'SELECT * FROM registered_user where email = "'.$email.'"';
 				$sekectresult = mysqli_query($this->condb,$selectQuery);
 				if ($sekectresult->num_rows > 0) {
 					while($row = $sekectresult->fetch_assoc()) {
@@ -206,7 +206,7 @@
 					}
 				}
 				
-				$sql = "UPDATE registred_user SET password='".$encryptPW."' WHERE user_id=".$user;
+				$sql = "UPDATE registered_user SET password='".$encryptPW."' WHERE user_id=".$user;
 				mysqli_query($this->condb,$sql);
 				$this->close_db(); 
 
@@ -223,7 +223,7 @@
 		
 			//get user id by email
 			$user = null;
-			$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
+			$selectQuery = 'SELECT * FROM registered_user where email = "'.$email.'"';
 			$sekectresult = mysqli_query($this->condb,$selectQuery);
 			if ($sekectresult->num_rows > 0) {
 				while($row = $sekectresult->fetch_assoc()) {
@@ -241,7 +241,7 @@
 		
 			//get user id by user
 			$user = null;
-			$selectQuery = 'SELECT * FROM registred_user where user_name = "'.$uname.'"';
+			$selectQuery = 'SELECT * FROM registered_user where user_name = "'.$uname.'"';
 			$sekectresult = mysqli_query($this->condb,$selectQuery);
 			if ($sekectresult->num_rows > 0) {
 				while($row = $sekectresult->fetch_assoc()) {
@@ -259,7 +259,7 @@
 				$this->open_db();
 				$encryptPW = $this->hashPassword($curpassword);
 				
-				$query=$this->condb->prepare('SELECT * FROM registred_user where password= "'.$encryptPW.'" and user_name ="'.$username.'"');
+				$query=$this->condb->prepare('SELECT * FROM registered_user where password= "'.$encryptPW.'" and user_name ="'.$username.'"');
 				$query->execute();
 				$res=$query->get_result();
 				$query->close();
@@ -284,7 +284,7 @@
 			try{
 				$this->open_db();
 				$encryptPW = $this->hashPassword($newpassword);
-				$query=$this->condb->prepare('UPDATE registred_user SET password="'.$encryptPW.'" WHERE user_name="'.$username.'"');
+				$query=$this->condb->prepare('UPDATE registered_user SET password="'.$encryptPW.'" WHERE user_name="'.$username.'"');
 				$query->execute();
 				$query->close();
 				$this->close_db();
@@ -302,7 +302,7 @@
 			
 				//get user id by user
 				$user = null;
-				$selectQuery = 'SELECT * FROM registred_user where email = "'.$email.'"';
+				$selectQuery = 'SELECT * FROM registered_user where email = "'.$email.'"';
 				$sekectresult = mysqli_query($this->condb,$selectQuery);
 				if ($sekectresult->num_rows > 0) {
 					while($row = $sekectresult->fetch_assoc()) {

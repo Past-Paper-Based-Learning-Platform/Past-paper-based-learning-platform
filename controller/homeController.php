@@ -46,7 +46,6 @@
 			}
 
 			if (isset($_POST['postAnswer'])){
-				echo "i'm here1";
 				$this->postAnswer();
 			}
 			
@@ -88,6 +87,10 @@
 			if($page=='pastpaperedit.php'){
 
 			}
+
+			if($page=='meeting.php'){
+				$lectureidname = $this->objsm->getlecturerdetails();
+			}
            require_once 'view/registered user/'.$page.'';
 		}
 		
@@ -123,7 +126,7 @@
 			$anonymous='off';
 
 			//split into seperate tags
-			$extags = explode(" ,",$tags);
+			$extags = explode(",",$tags);
 			$error=0;
 			
 			$check = filesize($_FILES['image']['tmp_name']);

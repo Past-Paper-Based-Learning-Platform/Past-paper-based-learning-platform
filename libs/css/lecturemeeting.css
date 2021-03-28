@@ -1,0 +1,23 @@
+.lecturemeetingcompnt{
+    display: flex;
+}
+
+.schedule{
+    width:50%;
+}
+
+.setavailable{
+    width:50%;
+}
+
+.setbusy{
+    all:unset;
+    background-color: #1a334b;
+    padding: 8px;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.setbusy:hover{
+    background-color: #214363;
+}
