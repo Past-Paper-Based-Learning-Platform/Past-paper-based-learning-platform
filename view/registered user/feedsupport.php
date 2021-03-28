@@ -239,7 +239,7 @@ function getDiscussionDisplayName($discussion_id){
       $displayname="user_".$row['anonymous_number'];
     }
   }else{
-    $sql = "SELECT * FROM registred_user WHERE user_id IN (SELECT user_id FROM discussion WHERE discussion_id=$discussion_id)";
+    $sql = "SELECT * FROM registered_user WHERE user_id IN (SELECT user_id FROM discussion WHERE discussion_id=$discussion_id)";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     $displayname = $row['user_name'];
@@ -260,7 +260,7 @@ function getAnswerDisplayName($discussion_id, $answer_id){
       $displayname="user_".$row['anonymous_number'];
     }
   }else{
-    $sql = "SELECT * FROM registred_user WHERE user_id IN (SELECT user_id FROM answer WHERE answer_id=$answer_id)";
+    $sql = "SELECT * FROM registered_user WHERE user_id IN (SELECT user_id FROM answer WHERE answer_id=$answer_id)";
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_array($result);
     $displayname = $row['user_name'];

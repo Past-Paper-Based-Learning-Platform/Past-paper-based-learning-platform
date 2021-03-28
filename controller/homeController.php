@@ -46,7 +46,6 @@
 			}
 
 			if (isset($_POST['postAnswer'])){
-				echo "i'm here1";
 				$this->postAnswer();
 			}
 			

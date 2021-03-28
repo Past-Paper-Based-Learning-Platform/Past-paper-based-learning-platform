@@ -301,7 +301,7 @@
         public function show_data($paper_id){
             $this->open_db();
             $discussionArray=array();
-            $sql="SELECT * FROM ((discussion INNER JOIN resources ON resources.discussion_id=discussion.discussion_id) INNER JOIN registred_user ON resources.user_id=registred_user.user_id)  WHERE paper_id=$paper_id  ORDER BY resource_id DESC";
+            $sql="SELECT * FROM ((discussion INNER JOIN resources ON resources.discussion_id=discussion.discussion_id) INNER JOIN registered_user ON resources.user_id=registered_user.user_id)  WHERE paper_id=$paper_id  ORDER BY resource_id DESC";
             $result= $this->condb-> query($sql);
                 while ($row_ah = mysqli_fetch_assoc($result)) {
                     array_push($discussionArray, $row_ah);
@@ -314,7 +314,7 @@
         public function getUserDiscussion($userId){
             $this->open_db();
             $discussionUserArray=array();
-            $sql="SELECT * FROM resources INNER JOIN registred_user ON registred_user.user_id = resources.user_id WHERE registred_user.user_id=$userId ORDER BY resource_id DESC";
+            $sql="SELECT * FROM resources INNER JOIN registered_user ON registered_user.user_id = resources.user_id WHERE registered_user.user_id=$userId ORDER BY resource_id DESC";
             $result= $this->condb-> query($sql);
                 while ($row_discussion = mysqli_fetch_assoc($result)) {
                     array_push($discussionUserArray, $row_discussion);
@@ -327,7 +327,7 @@
         public function get_user($user_id){
             $this->open_db();
           
-            $sql="SELECT * FROM registred_user WHERE user_id='$user_id' ";
+            $sql="SELECT * FROM registered_user WHERE user_id='$user_id' ";
             $result= $this->condb-> query($sql);
             $row= mysqli_fetch_assoc($result);
             
@@ -340,7 +340,7 @@
 
     public function user_update($user_id,$first_name,$middle_name, $last_name,$email,$password){
         $this->open_db();
-        $sql= "UPDATE registred_user SET email='$email' , first_name='$first_name' , middle_name='$middle_name' , last_name='$last_name' ,password='$password' WHERE user_id=$user_id";
+        $sql= "UPDATE registered_user SET email='$email' , first_name='$first_name' , middle_name='$middle_name' , last_name='$last_name' ,password='$password' WHERE user_id=$user_id";
         $result= $this->condb-> query($sql);
         return $result;
         }
@@ -354,7 +354,7 @@
     public function password_update($user_id,$password){
             $this->open_db();
             $hashPassword=$this->hashPassword($password);
-            $sql= "UPDATE registred_user SET password='$hashPassword' WHERE user_id=$user_id";
+            $sql= "UPDATE registered_user SET password='$hashPassword' WHERE user_id=$user_id";
             $result= $this->condb-> query($sql);
             return $result;
         }
