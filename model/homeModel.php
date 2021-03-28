@@ -325,9 +325,17 @@
     
 		
 
-    public function user_update($user_id,$first_name,$middle_name, $last_name,$email,$password){
+    public function user_update($user_id,$first_name,$middle_name, $last_name,$email,$password,$user_update){
         $this->open_db();
-        $sql= "UPDATE registered_user SET email='$email' , first_name='$first_name' , middle_name='$middle_name' , last_name='$last_name' ,password='$password' WHERE user_id=$user_id";
+
+        $userData = $this->get_user($user_id);
+        $slider = $userData['user_flag'];
+        
+        if($user_update=='D'){
+            $slider='D';
+        }
+
+        $sql= "UPDATE registered_user SET email='$email' , first_name='$first_name' , middle_name='$middle_name' , last_name='$last_name' ,password='$password' ,user_flag='$slider' WHERE user_id=$user_id";
         $result= $this->condb-> query($sql);
         return $result;
         }
@@ -338,7 +346,7 @@
 			return $hashedPW;
         }
         
-    public function password_update($user_id,$password){
+        public function password_update($user_id,$password){
             $this->open_db();
             $hashPassword=$this->hashPassword($password);
             $sql= "UPDATE registered_user SET password='$hashPassword' WHERE user_id=$user_id";

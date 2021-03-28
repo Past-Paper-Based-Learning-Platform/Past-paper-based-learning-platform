@@ -185,14 +185,23 @@
 			$last_name=$_POST['l_name'];
 			$email=$_POST['email'];
 			$password=$_POST['password'];
-	   
-	
+			$userActive='';
+			if(isset($_POST['checkboxslide'])){
+				$userActive=$_POST['checkboxslide'];
+			}
 		
-			$result=$this->objsm->user_update($user_id,$first_name,$middle_name, $last_name,$email,$password);
+			$result=$this->objsm->user_update($user_id,$first_name,$middle_name, $last_name,$email,$password,$userActive);
 	
-			
-			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$user_id.'")</script>';
-			   
+			if(isset($_POST['checkboxslide']) && $_POST['checkboxslide']=='D'){
+				session_destroy();
+				echo '<script type="text/javascript">'; 
+				echo 'alert("Account disabled successfully");'; 
+				echo 'window.location.assign("http://localhost/Main/index.php")';	
+				echo '</script>';
+				
+			}else{
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$user_id.'")</script>';
+			}		
 		
 		}
 
