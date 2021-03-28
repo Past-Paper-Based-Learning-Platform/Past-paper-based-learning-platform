@@ -3,12 +3,25 @@
 <td style="width:20%;border: none;">
 <div class="col-6-item bg-gray lefthometab" style="height: 100%">
     <div class="bg-gray" style="border-radius:0px;">
-        <h4 style="text-align:center;">Notification</h4>
+        <h4 style="text-align:center;">Upcomming Meetings</h4>
     <div>
-    <p>Date: <input type="text" id="datepicker"></p>
-    <div style="text-align:center;">
-      <a href="#">complain</a><br/><br/>
-    <div> 
+    <?php 
+        $flag=0;
+        if(!empty($meetingdetails)){
+            foreach($meetingdetails as $day){
+                echo '<ul>';
+                if(!empty($day['meeting_time'])){
+                    $flag=1;
+                    echo  '<li><p>You have a meeting with lecturer '.$day['first_name'].' '.$day['last_name'].' on '.$day['meeting_date'].' at '.$day['meeting_time'].' </li>';
+                }
+                echo '</ul>';
+            }
+        }
+
+        if($flag==0){
+            echo '<h6>No upcomming Meetings</h6>';
+        }
+    ?> 
 </div>
 </td>
 </tr>

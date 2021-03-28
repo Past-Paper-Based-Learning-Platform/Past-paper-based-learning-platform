@@ -64,9 +64,14 @@
                             <i class="fa fa-certificate" style="width:23%"></i>
                         </div>
 
-                        <!-- view past paper -->
+                        <!--profile-->
+                        <div class="verticlebtn" style="text-align:center;margin-top:8px;">
+                            <a href=""><button class="gradient-blue verticlebtn" >View My Profile</button></a>
+                        </div>
+
+                        <!-- Ask a Quesion From Past Paper -->
                         <div class="dropdown" style="text-align:center; width:100%; margin:0px;">
-                            <button onclick="dropdownpaper()" class="dropbtn verticlebtn">View PastPaper</button>
+                            <button onclick="dropdownpaper()" class="gradient-blue dropbtn verticlebtn">Ask a Quesion From Past Paper</button>
                             <div id="myDropdown" class="dropdown-content">
                                 <input type="text" placeholder="Search Pastpaper.." id="myInput" onkeyup="filterFunction()">
                                 <?php
@@ -77,33 +82,15 @@
                                 ?>
                             </div>
                         </div><br>
-
-                    <!-- view questions -->
-                    <form action="http://localhost/Main/lecturerindex.php?page=lecturerHome.php" method = "POST">
-                        <div style="margin: 0px; margin-top:8px;">
-                            <input list="lesson" name="lesson" placeholder="Select lesson" style="width:100%;font-weight: bold;height:50px;font-size:larger;">
-                            <datalist id="lesson">
-                                <?php
-                                while($row = mysqli_fetch_assoc($result_lesson))
-                                {
-                                    echo "<option value = ".$row['tag']." > ".$row['tag']. "-" .$row['subject_code']. "-".$row['subject_name']. "</option>";
-                                }
-                                ?>
-                            </datalist><br>
-                        </div>
-                        <div class="verticlebtn" >
-                            <button class="verticlebtn" type="submit"  name="showquestions">View questions</button>
-                        </div>
-                    </form>
                     
                     <!-- Scedule meeting -->
                     <div class="verticlebtn" style="text-align:center;margin-top:8px;">
-                    <a href="http://localhost/Main/lecturerindex.php?page=meeting.php"><button class="verticlebtn" >Scedule Meeting</button></a>
+                    <a href="http://localhost/Main/lecturerindex.php?page=meeting.php"><button class="gradient-blue verticlebtn" >Meetings</button></a>
                     </div>
 
                     <!-- Upload past paper -->
                     <div class="verticlebtn" style="text-align:center;margin-top:8px;">
-                    <a href="http://localhost/Main/lecturerindex.php?page=upload_answer.php"><button class="verticlebtn">Upload AnswerScript</button></a>
+                    <a href="http://localhost/Main/lecturerindex.php?page=upload_answer.php"><button class="gradient-blue verticlebtn">Upload AnswerScript</button></a>
                     </div>
                 <div>
                 </td>

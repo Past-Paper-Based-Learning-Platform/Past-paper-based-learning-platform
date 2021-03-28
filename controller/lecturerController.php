@@ -66,7 +66,16 @@
 
 			if (isset($_POST['reportDiscussion'])){
 				$this->reportDiscussion();
-			}	
+			}
+			
+			if (isset($_POST['confirm'])){
+				$this->confirmMeeting();
+			}
+
+			if (isset($_POST['deny'])){
+				$this->objsm->canclemeetingrequest($_POST['meetid']);
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=meeting.php")</script>';
+			}
 		}
 
         //page view
@@ -76,6 +85,7 @@
 			$allSubjects = $this->objsm->getSubjects($userId);
 			$result_paper = $this->objsm->get_pastpapers();
             $result_lesson = $this->objsm->getLessons();
+			$meetingdetails = $this->objsm->getmeetingdetails($userId);
 
             if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -536,5 +546,26 @@
 				echo "<script>alert('Report Submit - Unsuccess!'); window.location.href='view/lecturer/feed.php';</script>";
 			}
 		}
+
+		//confirm meeting
+		public function confirmMeeting(){
+			$error=0;
+			$meetid= $_POST['meetid'];
+
+			if(isset($_POST['meettime'])){
+				$time = $_POST['meettime'];
+				$this->objsm->confirmMeeting($meetid,$time);
+			}else{
+				$error=1; //no time defined
+			}
+
+			if($error == 0){
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=meeting.php")</script>';
+			}else{
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=meeting.php&error='.$error.'")</script>';
+			}
+		}
+
+		
     }
 ?>

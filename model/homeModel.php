@@ -610,5 +610,72 @@
             $result= $this->condb-> query($sql);
             return $result;
         }
+
+        public function availableDays($lecturerid){
+            try{
+                $this->open_db();
+
+                $available=[];
+
+                $query="SELECT day FROM available_day WHERE user_id=$lecturerid ORDER BY day ASC";
+                $result = mysqli_query($this->condb,$query);
+                if(!empty($result)){
+                    while($row = mysqli_fetch_assoc($result)){
+                        array_push($available,$row['day']);
+                    }
+                }
+                return $available;
+            }
+            catch (Exception $e)
+            {
+                $this->close_db();
+                throw $e;
+            }
+        }
+
+        public function requstmeeting($lecturerid, $date, $user_id){
+            try{
+                $this->open_db();
+                $query="INSERT INTO meeting (meeting_date,student_user_id,lecturer_user_id) VALUES ('$date','$user_id','$lecturerid')";
+                $result = mysqli_query($this->condb,$query);
+                if(empty($result)){
+                    echo '<h1>Please god</h1>';
+                }
+            }
+            catch (Exception $e)
+            {
+                $this->close_db();
+                throw $e;
+            }
+        }
+
+        //get meeting details
+		public function getmeetingdetails($userId){
+            try{
+                $this->open_db();
+                $meetings=[];
+
+                $today=date("Y-m-d");
+
+                $query1="DELETE FROM meeting WHERE meeting_date<'$today'";
+                $result1 = mysqli_query($this->condb,$query1);
+
+                $query="SELECT lecturer.user_id,registered_user.first_name,registered_user.last_name, meeting.meeting_date, meeting.meeting_time,meeting.deny FROM lecturer INNER JOIN meeting ON lecturer.user_id=meeting.lecturer_user_id INNER JOIN registered_user ON lecturer.user_id=registered_user.user_id WHERE meeting.student_user_id='$userId'";
+                $result = mysqli_query($this->condb,$query);
+                if(!empty($result)){
+                    while($row = mysqli_fetch_assoc($result)){
+                        array_push($meetings,$row);
+                    }
+                }
+
+                return $meetings;
+
+            }
+            catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
     }
 ?>

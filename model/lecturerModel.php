@@ -633,5 +633,67 @@
         	}
         }
 
+        //get meeting details
+		public function getmeetingdetails($userId){
+            try{
+                $this->open_db();
+                $meetings=[];
+
+                $today=date("Y-m-d");
+
+                $query1="DELETE FROM meeting WHERE meeting_date<'$today'";
+                $result1 = mysqli_query($this->condb,$query1);
+
+                $query="SELECT meeting.meeting_id,student.user_id,registered_user.first_name,registered_user.last_name, meeting.meeting_date, meeting.meeting_time,meeting.deny FROM student INNER JOIN meeting ON student.user_id=meeting.student_user_id INNER JOIN registered_user ON student.user_id=registered_user.user_id WHERE meeting.lecturer_user_id='$userId'";
+                $result = mysqli_query($this->condb,$query);
+                if(!empty($result)){
+                    while($row = mysqli_fetch_assoc($result)){
+                        array_push($meetings,$row);
+                    }
+                }
+
+                return $meetings;
+
+            }
+            catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        //confirm meeting
+        public function confirmMeeting($meetid,$time){
+            try{
+                $this->open_db();
+                $query = "UPDATE meeting SET meeting_time = '$time' WHERE meeting_id = '$meetid'";
+                $result = mysqli_query($this->condb,$query);
+
+                $query1 = "UPDATE meeting SET deny = '0' WHERE meeting_id = '$meetid'";
+                $result1 = mysqli_query($this->condb,$query1);
+            }
+            catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        //reject , cancle a meeting
+        public function canclemeetingrequest($meetid){
+            try{
+                $this->open_db();
+                $query = "UPDATE meeting SET deny = '1' WHERE meeting_id = '$meetid'";
+                $result = mysqli_query($this->condb,$query);
+                
+            }
+            catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+
 	}
 ?>
