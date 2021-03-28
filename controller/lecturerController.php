@@ -24,6 +24,10 @@
 				$this->createDiscussion();
 			}
 
+			if (isset($_POST['uploadImage'])){
+				$this->uploadProfilePicture();
+			}
+
 			if (isset($_POST['updateuser'])){
 				$this->userUpdate();
 			}
@@ -60,9 +64,6 @@
 			$allSubjects = $this->objsm->getSubjects($userId);
 			$result_paper = $this->objsm->get_pastpapers();
             $result_lesson = $this->objsm->getLessons();
-            if($page != 'pastpaper.php'){
-               // $result_user_discussion=$this->objsm->getUserDiscussion($userId);
-            }
 
             if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -350,6 +351,35 @@
 			$this->objsm->deleteAvailableDays($user_id,$available);
 
 			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=meeting.php")</script>';
+		}
+
+		public function uploadProfilePicture(){
+			$target_dir = "uploads/";
+			$target_file =basename($_FILES["image"]["name"]);
+			$FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+			$check = filesize($_FILES['image']['tmp_name']);
+
+			//check if there is a file uploaded
+			if(!empty($check)){
+			
+			//check if uploaded file is an image file
+			if($FileType == "jpeg" || $FileType == "jpg" || $FileType == "png"){
+				//avoid duplicates in the directory
+				while(file_exists($target_dir .$target_file)){
+					$target_file = "copy-" . $target_file;
+				}
+				if(!move_uploaded_file($_FILES['image']['tmp_name'],$target_dir.$target_file)){
+					$error = 3; //wrong with uploading
+				}else{
+					$this->objsm->set_image($target_dir.$target_file,$_SESSION['user_id']);
+				}
+			}else{
+				$error = 2; //not image type
+			}
+			}else{
+				$error=3;
+			}
 		}
     }
 ?>
