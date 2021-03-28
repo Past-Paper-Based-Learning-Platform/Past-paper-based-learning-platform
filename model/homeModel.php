@@ -311,19 +311,6 @@
             $this->condb->close();
         }
 
-        public function getUserDiscussion($userId){
-            $this->open_db();
-            $discussionUserArray=array();
-            $sql="SELECT * FROM resources INNER JOIN registered_user ON registered_user.user_id = resources.user_id WHERE registered_user.user_id=$userId ORDER BY resource_id DESC";
-            $result= $this->condb-> query($sql);
-                while ($row_discussion = mysqli_fetch_assoc($result)) {
-                    array_push($discussionUserArray, $row_discussion);
-                }
-            
-            return $discussionUserArray;
-            $this->condb->close();
-        }
-
         public function get_user($user_id){
             $this->open_db();
           
@@ -418,21 +405,21 @@
         	}	
         }
 
-        public function create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp){
+        public function create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp, $priority){
             try{
                 $success=true;
 				$this->open_db();
                 if($subject_code==""){
                     if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, timestamp) VALUES ($user_id, '$qcontent', '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$timestamp', $priority)");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture, timestamp) VALUES ($user_id, '$qcontent', '$attachment', '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$attachment', '$timestamp', $priority)");
                     }
                 }else{
                     if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp) VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp', $priority)");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture, timestamp) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp', $priority)");
                     }
                 }
 				if(!$query->execute()){

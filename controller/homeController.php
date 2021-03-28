@@ -30,27 +30,7 @@
 			}
 
 			if (isset($_POST['uploadImage'])){
-				
-				require_once 'imageupload-composer/vendor/autoload.php';
-				
-				$file = new Bulletproof\Image($_FILES);
-				
-				$file->setLocation('uploads');
-				
-				if ($file["image"]) {
-					$upload = $file->upload();
-					
-					if ($upload) {
-					  $this->objsm->set_image($upload->getFullPath(), $_SESSION['user_id']);					 
-					  echo '<script language="javascript">';
-					  echo 'alert("Upload image successful"); window.location.href = "http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$_SESSION["user_id"].'";';
-					  echo '</script>';	
-					} else {
-					  echo '<script language="javascript">';
-					  echo 'alert('.$file->getError().')';
-					  echo '</script>';
-					}
-				}
+				$this->uploadProfilePicture();
 			}
 
 			if (isset($_POST['changepassword'])){
@@ -89,9 +69,6 @@
 			$allSubjects = $this->objsm->getSubjects($userId);
 			$result_paper = $this->objsm->getPastpapers();
 			$result_lesson = $this->objsm->getLessons();
-			if($page != 'pastpaper.php'){
-			//$result_user_discussion=$this->objsm->getUserDiscussion($userId);
-			}
 			
 			if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -335,6 +312,11 @@
 			$discussion_id=$_POST['discussionId'];
 			$timestamp=date('Y-m-d H:i:s');
 			$upload_success=true;
+			if($_SESSION['user_role']=="L"){
+				$priority=1;
+			}else{
+				$priority=0;
+			}
 			if(!empty(filesize($_FILES['answerAttach']['tmp_name']))){
 				$attachment = basename($_FILES['answerAttach']['name']);
       			$file_tmp =$_FILES['answerAttach']['tmp_name'];
@@ -357,7 +339,7 @@
 				}
 			}
 			if($upload_success){
-				if ($this->objsm->create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp)){
+				if ($this->objsm->create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp, $priority)){
 					if(isset($_POST['anonymity'])){
 						$result=$this->objsm->get_anonymous_number($user_id, $discussion_id);
 						if($result->num_rows == 0){
@@ -401,6 +383,35 @@
 			}else{
 				echo "<script>alert('Report Submit - Unsuccess!'); window.location.href='view/registered user/feed.php';</script>";
 			}
+		}
+
+		public function uploadProfilePicture(){
+					$target_dir = "uploads/";
+					$target_file =basename($_FILES["image"]["name"]);
+					$FileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+					$check = filesize($_FILES['image']['tmp_name']);
+
+					//check if there is a file uploaded
+					if(!empty($check)){
+					
+					//check if uploaded file is an image file
+					if($FileType == "jpeg" || $FileType == "jpg" || $FileType == "png"){
+						//avoid duplicates in the directory
+						while(file_exists($target_dir .$target_file)){
+							$target_file = "copy-" . $target_file;
+						}
+						if(!move_uploaded_file($_FILES['image']['tmp_name'],$target_dir.$target_file)){
+							$error = 3; //wrong with uploading
+						}else{
+							$this->objsm->set_image($target_dir.$target_file,$_SESSION['user_id']);
+						}
+					}else{
+						$error = 2; //not image type
+					}
+				}else{
+					$error=3;
+				}
 		}
     }
 ?>
