@@ -308,19 +308,6 @@
             return $discussionArray;
             $this->condb->close();
 		}
-		
-		public function getUserDiscussion($userId){
-            $this->open_db();
-            $discussionUserArray=array();
-            $sql="SELECT * FROM resources INNER JOIN registered_user ON registered_user.user_id = resources.user_id WHERE registered_user.user_id=$userId ORDER BY resource_id DESC";
-            $result= $this->condb-> query($sql);
-                while ($row_discussion = mysqli_fetch_assoc($result)) {
-                    array_push($discussionUserArray, $row_discussion);
-                }
-            
-            return $discussionUserArray;
-            $this->condb->close();
-        }
 
         public function get_user($user_id){
             $this->open_db();
@@ -439,6 +426,14 @@
                 $this->close_db();
                 throw $e;
             }
+        }
+
+        public function set_image($uploadedPath, $userId){
+            $this->open_db();
+            
+            $sql= "UPDATE registered_user SET image='$uploadedPath' WHERE user_id=$userId";            
+            $result= $this->condb-> query($sql);
+            return $result;
         }
 
 	}
