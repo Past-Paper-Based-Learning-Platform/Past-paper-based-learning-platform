@@ -20,12 +20,8 @@
         <div class="container text-white"style="font-size: 24px">
             Insert Paper Details<hr>
         </div>
-            <?php
-                session_start();
-                $_SESSION['files']=$files;
-                $_SESSION['year']=$_POST['year'];
-                echo "<form action='http://localhost/Main/examindex.php?page=upload.php&count=".$fileCount."' method='post'>";
-                    echo "<table>";
+            <form action='http://localhost/Main/examindex.php?page=upload.php&count=<?php echo $fileCount; ?>&filearr=<?PHP echo serialize($files); ?>&year=<?PHP echo $_POST['year']; ?>' method='post'>
+            <?php   echo "<table>";
                     for ($i = 0; $i < $fileCount; $i++){
                         echo "<tr>";
                             echo "<td>" . ($i+1) . "</td>";

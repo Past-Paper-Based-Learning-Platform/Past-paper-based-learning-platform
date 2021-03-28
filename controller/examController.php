@@ -146,8 +146,9 @@
 		public function paper_details(){
 			$unsuccess=0;
 			for ($i = 0; $i < $_GET['count']; $i++){
-				if(!$this->objsm->paper_upload($_POST['subject'][$i], $_SESSION['year'], $_POST['part'][$i], basename($_SESSION['files'][$i]), date('Y-m-d'))){
-					unlink('pastpapers/'.basename($_SESSION['files'][$i]));
+				$files = unserialize($_GET["filearr"]);
+				if(!$this->objsm->paper_upload($_POST['subject'][$i], $_GET['year'], $_POST['part'][$i], basename($files[$i]), date('Y-m-d'))){
+					unlink('pastpapers/'.basename($_GET['files'][$i]));
 					$unsuccess++;
 				}
 			}
