@@ -273,6 +273,18 @@ function trimTimestamp($timestamp){
   return $trimTimestamp;
 }
 
+function getPaperName($paperId){
+  global $conn;
+  $sql = "SELECT past_paper.year as year, subject.subject_name as subject 
+    FROM past_paper INNER JOIN subject 
+    ON past_paper.subject_code=subject.subject_code 
+    WHERE past_paper.paper_id=$paperId";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_array($result);
+  $paperName = $row['subject']." - ".$row['year'];
+  return $paperName;
+}
+
 $sql="SELECT subject_code, subject_name FROM subject";
 $subjects = mysqli_query($conn, $sql);
 $sql="SELECT DISTINCT tag FROM tags";

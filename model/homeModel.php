@@ -397,21 +397,25 @@
         	}	
         }
 
-        public function create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp, $priority){
+        public function create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp){
             try{
                 $success=true;
 				$this->open_db();
                 if($subject_code==""){
                     if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$timestamp', $priority)");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, timestamp) 
+                        VALUES ($user_id, '$qcontent', '$timestamp')");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$attachment', '$timestamp', $priority)");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture, timestamp) 
+                        VALUES ($user_id, '$qcontent', '$attachment', '$timestamp')");
                     }
                 }else{
                     if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp', $priority)");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp) 
+                        VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp')");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp', $priority)");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture, timestamp) 
+                        VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp')");
                     }
                 }
 				if(!$query->execute()){
@@ -481,21 +485,25 @@
         	}
         }
 
-        public function create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp){
+        public function create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp, $priority){
             try{
                 $success=true;
 				$this->open_db();
                 if($attachment==""){
                     if($url==""){
-                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, discussion_id, timestamp) VALUES ($user_id, '$content', $discussion_id, '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, discussion_id, timestamp, priority_flag) 
+                        VALUES ($user_id, '$content', $discussion_id, '$timestamp', $priority)");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, discussion_id, timestamp) VALUES ($user_id, '$content', '$url', $discussion_id, '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, discussion_id, timestamp, priority_flag) 
+                        VALUES ($user_id, '$content', '$url', $discussion_id, '$timestamp', $priority)");
                     }
                 }else{
                     if($url==""){
-                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, picture, discussion_id, timestamp) VALUES ($user_id, '$content', '$attachment', $discussion_id, '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, picture, discussion_id, timestamp, priority_flag) 
+                        VALUES ($user_id, '$content', '$attachment', $discussion_id, '$timestamp', $priority)");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, picture, discussion_id, timestamp) VALUES ($user_id, '$content', '$url', '$attachment', $discussion_id, '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, picture, discussion_id, timestamp, priority_flag) 
+                        VALUES ($user_id, '$content', '$url', '$attachment', $discussion_id, '$timestamp', $priority)");
                     }
                 }
 				if(!$query->execute()){
@@ -552,7 +560,9 @@
             try{
                 $success=true;
 				$this->open_db();
-                $query=$this->condb->prepare("INSERT INTO report_discussion (user_id, discussion_id, report_cause, timestamp) VALUES ($user_id, $discussion_id, $cause, '$timestamp')");
+                $query=$this->condb->prepare("INSERT INTO report_discussion (user_id, discussion_id, report_cause, timestamp) 
+                    VALUES ($user_id, $discussion_id, $cause, '$timestamp') 
+                    ON DUPLICATE KEY UPDATE report_cause=$cause, timestamp='$timestamp'");
                 if(!$query->execute()){
                     $success=false;
                 }

@@ -176,6 +176,16 @@ i {
     outline: none;
 }
 
+.pastpaper-tag{
+    padding: 7px;
+    border-radius: 5px;
+    background-color: #344453;
+    color: white;
+    outline: none;
+    font-style: italic;
+    font-size: 13px;
+}
+
 .report-discussion{
     border-radius: 10px;
     background-color: #b42b2b;

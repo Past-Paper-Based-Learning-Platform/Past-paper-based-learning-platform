@@ -217,7 +217,7 @@ function getDiscussionAnswers($discussion_id){
   return $result;
 }
 
-//load sicussion tags
+//load dicussion tags
 function getDiscussionTags($discussion_id){
   global $conn;
   $sql = "SELECT DISTINCT tag FROM tags WHERE tag_id IN (SELECT tag_id FROM discussion_tags WHERE discussion_id=$discussion_id)";
@@ -271,6 +271,18 @@ function getAnswerDisplayName($discussion_id, $answer_id){
 function trimTimestamp($timestamp){
   $trimTimestamp=date('g:ia Y-m-d', strtotime($timestamp));
   return $trimTimestamp;
+}
+
+function getPaperName($paperId){
+  global $conn;
+  $sql = "SELECT past_paper.year as year, subject.subject_name as subject 
+    FROM past_paper INNER JOIN subject 
+    ON past_paper.subject_code=subject.subject_code 
+    WHERE past_paper.paper_id=$paperId";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_array($result);
+  $paperName = $row['subject']." - ".$row['year'];
+  return $paperName;
 }
 
 $sql="SELECT subject_code, subject_name FROM subject";
