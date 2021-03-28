@@ -50,7 +50,7 @@
                 <input type="text" list="tags" name="tags">
             </div>
             <input type="hidden" class="tag-list" name="taglist" value="">
-            <div class="col-2-item text-white">&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="anonymity" value="1">&nbsp;&nbsp;&nbsp;&nbsp;Ask Anonymously</div>
+            
                 <div class="col-2-item">
                     <button id="postquestion" class="gradient-blue border-blue" type="submit" name="postquestion">Post Question</button> 
                 </div>

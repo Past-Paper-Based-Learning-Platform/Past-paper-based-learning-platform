@@ -10,11 +10,14 @@
     <title>Home</title>
     <link rel="stylesheet" href="libs/main.css" type="text/css">
     <link rel="stylesheet" href="libs/css/template.css" type="text/css">
+    <link rel="stylesheet" href="http://localhost/Main/libs/css/feed.css" type="text/css">
     <link rel="stylesheet" href="libs/css/discussionForm.css" type="text/css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="http://localhost/Main/libs/js/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
 <body>
     <div class="row container" style="background-color:rgb(0, 99, 165);">
         <section class = 'logohead'>
@@ -59,9 +62,14 @@
                             <i class="fa fa-certificate" style="width:23%"></i>
                         </div>
 
+                        <!--profile-->
+                        <div class="verticlebtn" style="text-align:center;margin-top:8px;">
+                            <a href=""><button class="gradient-blue verticlebtn" >View My Profile</button></a>
+                        </div>
+
                         <!-- view past paper -->
                         <div class="dropdown" style="text-align:center; width:100%; margin:0px;">
-                            <button onclick="dropdownpaper()" class="dropbtn verticlebtn">View PastPaper</button>
+                            <button onclick="dropdownpaper()" class="gradient-blue dropbtn verticlebtn">View PastPaper</button>
                             <div id="myDropdown" class="dropdown-content">
                                 <input type="text" placeholder="Search Pastpaper.." id="myInput" onkeyup="filterFunction()">
                                 <?php
@@ -72,29 +80,14 @@
                                 ?>
                             </div>
                         </div><br>
-
-                    <!-- view questions -->
-                    <form action="http://localhost/Main/homeindex.php?page=home.php" method = "POST">
-                        <div style="margin: 0px; margin-top:8px;">
-                            <input list="lesson" name="lesson" placeholder="Select lesson" style="width:100%;font-weight: bold;height:50px;font-size:larger;">
-                            <datalist id="lesson">
-                                <?php
-                                while($row = mysqli_fetch_assoc($result_lesson))
-                                {
-                                    echo "<option value = ".$row['tag']." > ".$row['tag']. "-" .$row['subject_code']. "-".$row['subject_name']. "</option>";
-                                }
-                                ?>
-                            </datalist><br>
-                        </div>
-                        <div class="verticlebtn" >
-                            <button class="verticlebtn" type="submit"  name="showquestions">View questions</button>
-                        </div>
-                    </form>
                     
                     <!-- Scedule meeting -->
                     <div class="verticlebtn" style="text-align:center;margin-top:8px;">
-                    <a href="http://localhost/Main/homeindex.php?page=meeting.php"><button class="verticlebtn" >Scedule Meeting</button></a>
+                        <a href="http://localhost/Main/homeindex.php?page=meeting.php"><button class="gradient-blue verticlebtn" >Scedule Meeting</button></a>
                     </div>
+
+
+
                 <div>
                 </td>
                 
