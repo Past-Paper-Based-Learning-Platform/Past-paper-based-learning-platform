@@ -451,6 +451,7 @@
 				$error=2; //not picked a date
 			}
 			else{
+				date_default_timezone_set("Asia/Colombo");
 				$today = date("Y-m-d");
 				if($today>$date){
 					$error=3;

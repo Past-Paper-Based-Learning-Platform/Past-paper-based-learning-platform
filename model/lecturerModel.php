@@ -184,6 +184,7 @@
 		
         //create questoin related to past paper
 		public function create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id){
+            date_default_timezone_set("Asia/Colombo");
             $timestamp = date('Y-m-d H:i:s');
 
             $error = 0;
@@ -639,6 +640,7 @@
                 $this->open_db();
                 $meetings=[];
 
+                date_default_timezone_set("Asia/Colombo");
                 $today=date("Y-m-d");
 
                 $query1="DELETE FROM meeting WHERE meeting_date<'$today'";
