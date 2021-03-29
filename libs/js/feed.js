@@ -108,6 +108,54 @@ $(document).ready(function(){
       
       });
       
+      // if the user clicks on the post comment ...
+      $('.comment-post').on('click', function(){
+        var answer_id = $(this).data('id');
+        var comment = document.getElementById(`comment${answer_id}`).value;
+        document.getElementById(`comment${answer_id}`).value = "";
+        $.ajax({
+            url: 'feed.php',
+            type: 'post',
+            data: {
+                'comment_answer_id': answer_id,
+                'comment': comment
+            },
+            success: function(data){
+                res = JSON.parse(data);
+                var comments = "";
+                var item = "";
+
+                var list = $("<ul class='outer-comment'>");
+                var item = $("<li>").html(comments);
+
+                for(var i = 0; (i < res.length); i++){
+                    // display the posted comment
+                    if (res[i]['anonymous_number']==null){
+                        comments = "<div class='row'>"
+                            + res[i]['comment']
+                            + " "
+                            + res[i]['timestamp']
+                            + " "
+                            + res[i]['user_name']
+                            + "</div>";
+                    }else{
+                        comments = "<div class='row'>"
+                        + res[i]['comment']
+                        + " "
+                        + res[i]['timestamp']
+                        + " user_"
+                        + res[i]['anonymous_number']
+                        + "</div>";
+                    }
+                    var item = $("<li>").html(comments);
+                    list.append(item);
+                }
+                $(`#comment-content${answer_id}`).html(list);
+            }
+        });	
+      
+      });
+
       // if the user clicks on the dislike button ...
       $('.dislike-btn-answer').on('click', function(){
         var answer_id = $(this).data('id');

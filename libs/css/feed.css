@@ -171,9 +171,12 @@ i {
 
 .post-answer{
     border-radius: 10px;
-    background-color: #344453;
+    background-color: #2fa85d;
     color: white;
     outline: none;
+    border: none;
+    font-size: 13px;
+    padding: 5px;
 }
 
 .pastpaper-tag{
@@ -236,4 +239,20 @@ i {
     font-size: 12px;
     color: rgb(255, 255, 255);
     font-style: italic;
+}
+
+.comment-box{
+    border-radius: 10px;
+}
+
+.comment-post{
+    font-size: 14px;
+    padding: 6px;
+    margin: 5px 20px auto;
+    border-radius: 5px;
+    background-color: #0796d8;
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 12px;
 }
