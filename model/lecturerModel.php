@@ -696,6 +696,36 @@
         	}
         }
 
+        //set notification on/off
+        public function setnotification($block,$user_id){
+            try{
+                $this->open_db();
+                $query = "UPDATE registered_user SET block_notifcation_flag = $block WHERE user_id='$user_id'";
+                $result = mysqli_query($this->condb,$query);
+            }
+            catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        //Get notification status
+        public function getNotification($user_id){
+            try{
+                $this->open_db();
+                $query = "SELECT block_notifcation_flag FROM registered_user WHERE user_id='$user_id'";
+                $result = mysqli_query($this->condb,$query);
+                $row = mysqli_fetch_assoc($result);
+                return $row['block_notifcation_flag'];
+            }
+            catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
 
 	}
 ?>

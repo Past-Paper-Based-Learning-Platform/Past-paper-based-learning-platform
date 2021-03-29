@@ -72,9 +72,13 @@
 			if (isset($_POST['editDiscussion'])){
 				$this->editDiscussion();
 			}
+			
 			if (isset($_POST['deleteDiscussion'])){
 				$this->deleteDiscussion();
+			}
 				
+			if(isset($_POST['setnofication'])){
+				$this->setNotification();
 			}
 		}
 
@@ -100,7 +104,7 @@
 
 			if($page=='profilesetting.php' or $page=='privacysetting.php'){
 				$row=$this->objsm->get_user($userId);
-				
+				$notification = $this->objsm->getNotification($userId);
 				
 			}
 			if($page=='pastpaperedit.php'){
@@ -426,6 +430,9 @@
 				}else{
 					$error=3;
 				}
+
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$_SESSION['user_id'].'")</script>';
+
 		}
 
 		//get available days of lecturer
@@ -470,6 +477,19 @@
 			}else{
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=meeting.php&error='.$error.'")</script>';
 			}
+		}
+
+		//notification seetings on/off
+		public function setNotification(){
+			if($_POST['notificationon']=='on'){
+				$block=0;
+			}else{
+				$block=1;
+			}
+
+			$this->objsm->setnotification($block,$_SESSION['user_id']);
+
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$_SESSION['user_id'].'$x='.$block.'")</script>';
 		}
     }
 ?>

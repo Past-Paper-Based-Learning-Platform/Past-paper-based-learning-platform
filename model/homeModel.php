@@ -625,9 +625,6 @@
                 $this->open_db();
                 $query="INSERT INTO meeting (meeting_date,student_user_id,lecturer_user_id) VALUES ('$date','$user_id','$lecturerid')";
                 $result = mysqli_query($this->condb,$query);
-                if(empty($result)){
-                    echo '<h1>Please god</h1>';
-                }
             }
             catch (Exception $e)
             {
@@ -711,6 +708,36 @@
                 $sql5="DELETE FROM anonymous_names Where discussion_id='$discussion_id'";
                 $result5= $this->condb-> query($sql5);
                  $this->close_db();
+        }
+        
+        //set notification on/off
+        public function setnotification($block,$user_id){
+            try{
+                $this->open_db();
+                $query = "UPDATE registered_user SET block_notifcation_flag = $block WHERE user_id='$user_id'";
+                $result = mysqli_query($this->condb,$query);
+            }
+            catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
+        }
+
+        //Get notification status
+        public function getNotification($user_id){
+            try{
+                $this->open_db();
+                $query = "SELECT block_notifcation_flag FROM registered_user WHERE user_id='$user_id'";
+                $result = mysqli_query($this->condb,$query);
+                $row = mysqli_fetch_assoc($result);
+                return $row['block_notifcation_flag'];
+            }
+            catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
         }
     }
 ?>
