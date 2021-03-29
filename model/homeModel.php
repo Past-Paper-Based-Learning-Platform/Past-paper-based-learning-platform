@@ -355,21 +355,7 @@
             return $result;
         }
 
-        public function delete_data($resource_id,$discussion_id,$parent_resource_id){
-            $this->open_db();
-                if($discussion_id!=null and $parent_resource_id==null){
     
-                $sql="DELETE FROM resources Where discussion_id='$discussion_id'";
-                $result= $this->condb-> query($sql);
-                
-                $sql2="DELETE FROM discussion Where discussion_id='$discussion_id'";
-                $result2= $this->condb-> query($sql2);
-            }else{
-                $sql="DELETE FROM resources Where resource_id='$resource_id'";
-                $result= $this->condb-> query($sql);
-            }
-            $this->condb->close();
-        }
 
         public function get_question_details($discussion_id){
             $this->open_db();
@@ -678,6 +664,32 @@
             	$this->close_db();
             	throw $e;
         	}
+        }
+
+        public function updateDiscussion($discussionId,$content){
+            $this->open_db();
+            $sql="UPDATE discussion SET content='$content' WHERE discussion_id=$discussionId";
+            $result= $this->condb-> query($sql);
+           
+            
+            $this->close_db();
+        }
+
+        public function deleteDiscussion($discussion_id){
+            $this->open_db();
+             
+                
+                $sql1="DELETE FROM discussion Where discussion_id='$discussion_id'";
+                $result1= $this->condb-> query($sql1);
+                $sql2="DELETE FROM discussion_feedback Where discussion_id='$discussion_id'";
+                $result2= $this->condb-> query($sql2);
+                $sql3="DELETE FROM answer Where discussion_id='$discussion_id'";
+                $result3= $this->condb-> query($sql3);
+                $sql4="DELETE FROM answer_feedback Where discussion_id='$discussion_id'";
+                $result4= $this->condb-> query($sql4);
+                $sql5="DELETE FROM anonymous_names Where discussion_id='$discussion_id'";
+                $result5= $this->condb-> query($sql5);
+                 $this->close_db();
         }
     }
 ?>
