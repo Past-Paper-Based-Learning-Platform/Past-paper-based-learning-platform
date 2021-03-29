@@ -68,6 +68,14 @@
 			if(isset($_POST['requestmeeting'])){
 				$this->requestMeeting();
 			}
+
+			if (isset($_POST['editDiscussion'])){
+				$this->editDiscussion();
+			}
+			if (isset($_POST['deleteDiscussion'])){
+				$this->deleteDiscussion();
+				
+			}
 		}
 
 		//page view
@@ -233,23 +241,18 @@
 		}
 
 		public function deleteDiscussion(){
-			$resource_id=$_POST['uid'];
-			$discusssion_id=$_POST['dis_id'];
-			$parent_resource_id=$_POST['res_id'];
-			$paper_id=$_POST['paper_id'];
+			$discussionId=$_POST['discussionId'];
 			
-			$result=$this->objsm->delete_data($resource_id,$discusssion_id,$parent_resource_id);
-			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=discussion.php&paper_id='.$paper_id.'")</script>';
+			$result=$this->objsm->deleteDiscussion($discussionId);
+			echo "<script>alert(Delete success!'); window.location.href='view/registered user/filter.php';</script>";
 		}
 
 		public function editDiscussion(){
-			$user_id=$_POST['uid'];
-			$discussion_id=$_POST['discussion_id'];
-			$paper_id=$_POST['paper_id'];
-			$content=$_POST['message'];
-			$result=$this->objsm->get_question_details($discussion_id);
-			$result2=$this->objsm->get_lesson_details($result['question_id'],$paper_id);
-			require_once "./view/registered user/pastpaperedit.php";
+
+			$discussionId=$_POST['discussionId'];
+			$content=$_POST['content'];
+			$result=$this->objsm->updateDiscussion($discussionId,$content);
+			echo "<script>alert('Edit Discussion - success!'); window.location.href='view/registered user/filter.php';</script>";
 		}
 
 		public function postGeneralQuestion(){

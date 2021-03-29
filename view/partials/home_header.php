@@ -66,7 +66,7 @@
 
                         <!--profile-->
                         <div class="verticlebtn" style="text-align:center;margin-top:8px;">
-                            <a href=""><button class="gradient-blue verticlebtn" >View My Profile</button></a>
+                            <a href="http://localhost/Main/view/registered%20user/filter.php"><button class="gradient-blue verticlebtn" >View My Profile</button></a>
                         </div>
 
                         <!-- Ask a quesion from past paper -->
