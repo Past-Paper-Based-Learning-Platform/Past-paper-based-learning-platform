@@ -552,7 +552,7 @@
 			$error=0;
 			$meetid= $_POST['meetid'];
 
-			if(isset($_POST['meettime'])){
+			if($_POST['meettime'] != 0){
 				$time = $_POST['meettime'];
 				$this->objsm->confirmMeeting($meetid,$time);
 			}else{

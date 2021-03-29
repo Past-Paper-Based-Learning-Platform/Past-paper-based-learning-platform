@@ -66,5 +66,16 @@
                                 </form>
                                 </div>
                             </div>
+                            <div class="alert alert1" style="display:none;" id="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                Plese Select a Time to Confirm.!
+                            </div>
+                            <?php 
+                            if(isset($_GET['error'])){
+                                if ($_GET['error']==1){
+                                    echo '<script>var alert=document.querySelector(".alert1"); alert.style.display="block";</script>';
+                                }
+                            }
+                            ?>
                         </div>  
 <?php include 'view/partials/lecturer_footer.php';?>  
