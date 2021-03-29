@@ -409,7 +409,7 @@
                         $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp) 
                         VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp')");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture, timestamp) 
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, picture, timestamp) 
                         VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp')");
                     }
                 }
