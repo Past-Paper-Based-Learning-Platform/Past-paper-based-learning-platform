@@ -28,7 +28,7 @@
             <h2 class="text-white">Ask a Question</h2>
             <div class="col-1-item text-white">Question:</div>
             <div class="col-5-item">
-                <textarea id="question" name="question" rows="3" cols="90" placeholder="Make it short and clear..."></textarea>
+                <textarea id="question" name="question" rows="3" cols="80" placeholder="Make it short and clear..."></textarea>
             </div>
             <div class="col-3-item select"> 
             <select name="subjectrelated" class="scrollhide"> 
@@ -40,8 +40,8 @@
                 ?>
             </select>
             </div>
-            <div class="col-1-item text-white" style="font-size:14px">Attach a Photo: (optional)</div>
-            <div class="col-2-item white-upload">
+            <div class="col-2-item text-white" style="font-size:14px">Attach a Photo: (optional)</div>
+            <div class="col-1-item white-upload">
                 <input type="file" name="picture" id="pictureupload" value="">
             </div>
             <div class="row">
