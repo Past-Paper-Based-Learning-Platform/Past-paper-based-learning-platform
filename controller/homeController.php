@@ -78,6 +78,7 @@
 			$result_paper = $this->objsm->getPastpapers();
 			$result_lesson = $this->objsm->getLessons();
 			$meetingdetails = $this->objsm->getmeetingdetails($userId);
+			$image = $this->objsm->getUserImage($userId);
 			
 			if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -414,6 +415,7 @@
 							$error = 3; //wrong with uploading
 						}else{
 							$this->objsm->set_image($target_dir.$target_file,$_SESSION['user_id']);
+							echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=home.php")</script>';
 						}
 					}else{
 						$error = 2; //not image type

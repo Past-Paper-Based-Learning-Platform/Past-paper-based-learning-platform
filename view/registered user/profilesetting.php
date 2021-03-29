@@ -155,7 +155,7 @@
 
     </div>
 
-    <form action="http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $_SESSION['user_id']; ?>" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data">
       <p><input type="file" name="image"/></p>
       <input type="submit" name="uploadImage" value="Upload" />
     </form>

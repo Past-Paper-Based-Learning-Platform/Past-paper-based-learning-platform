@@ -2,7 +2,6 @@
 <?php
     $username = $_SESSION['user_name'];
     $userId =$_SESSION['user_id'];
-    $image = $_SESSION['user_image'];
 ?>
 <html lang="en">
 <head>
