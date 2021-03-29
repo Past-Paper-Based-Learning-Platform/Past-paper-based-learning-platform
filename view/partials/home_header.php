@@ -21,12 +21,12 @@
 </head>
 
 <body>
-    <div class="row container" style="background-color:rgb(0, 99, 165);">
+    <div class="row">
         <section class = 'logohead'>
             <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
             <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
         </section>
-        <div class="col-6-item bg-gray homeheadtab" style="width:100%;">
+        <div class="row" style="width:100%;">
             <div class="col-1-item" style="color:white;">
             <a href='http://localhost/Main/homeindex.php?page=home.php'class='usernametag'>Hi <?php echo $username ?></a>
             </div>
@@ -36,23 +36,23 @@
                             <a href="http://localhost/Main/homeindex.php"><input type="text" placeholder="Search.." name="search"></a>
                         </div>
                         <div class='searchbtn'>
-                            <a href="http://localhost/Main/homeindex.php" ><button class="bg-blue border-dblue" type="submit"><i class="fa fa-search"></i></button></a>   
+                            <a href="http://localhost/Main/homeindex.php" ><button class="bg-white" type="submit"><i class="fa fa-search"></i></button></a>   
                         </div>
                 </form>
             </div>
             <div class="col-1-item" style="float:right;">
                 <form action="http://localhost/Main/homeindex.php" method = "POST">
-                    <button class="bg-blue border-dblue logoutbtn" type="submit" name="logout">Log out</button>
+                    <button class="gradient-blue border-blue logoutbtn" type="submit" name="logout">Log out</button>
                 </form>
                 <a href="http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>">
-                    <button class="bg-blue border-dblue settingsbtn" type="submit" name="logout">
+                    <button class="gradient-blue border-blue settingsbtn" type="submit" name="logout">
                         <i class="fa fa-cog fa-lg"></i>
                     </button>
                 </a>
             </div>
         </div>
 
-        <table class="hometable" style="width:100%;height:88%;table-layout: fixed;">
+        <table class="hometable" style="width:100%;height:600px;table-layout: fixed;">
             <tr>
                 <td style="width:20%;text-align:center;">
                     <div class="col-6-item bg-gray lefthometab" style="height: 100%;margin:0px;">

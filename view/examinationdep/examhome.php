@@ -22,14 +22,15 @@
     <div class="container">
         <div class="col-6-item page-title text-white">
             Examination Department
-            <div style="float:right; font-size:16px">
-                <a href="http://localhost/Main/examindex.php?page=changepassword.php" style="text-decoration:none; color: white">change password</a>&nbsp;&nbsp;&nbsp;|
-                <div class="col-3-item" style="float:right;"> 
+            <span style="float:right; font-size:16px">
+                <a href="http://localhost/Main/examindex.php?page=changepassword.php" style="text-decoration:none; color: white">change password</a>
+                &nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                <span style="float:right;"> 
                    <form action="http://localhost/Main/examindex.php" method="post">
                     <button type="submit" name="logout" class="gradient-blue border-blue text-white">log-out</button>&nbsp;
                 </form>
-                </div>
-            </div>
+                   </span>
+                   </span>
         </div>
     </div>
     <div class="row container"><hr>
