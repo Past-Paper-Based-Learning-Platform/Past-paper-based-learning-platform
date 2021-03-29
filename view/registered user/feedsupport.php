@@ -72,26 +72,33 @@ if (isset($_POST['answer_action'])) {
   exit(0);
 }
 
-if (isset($_POST['comment']) && trim($_POST['comment'])!=""){
+if (isset($_POST['comment'])){
   $comanswer_id = $_POST['comment_answer_id'];
-  $comment = $_POST['comment'];
-  $comment_timestamp = date('Y-m-d H:i:s');
-  $sql="SELECT * FROM anonymous_names 
-    WHERE user_id=$user_id AND discussion_id IN 
-    (SELECT discussion_id FROM answer WHERE answer_id=$comanswer_id)";
-  $res=mysqli_query($conn, $sql);
-  if(mysqli_num_rows($res) > 0){
-    $row = mysqli_fetch_assoc($res);
-    $comanonymous = $row['anonymous_number'];
-    $sql="INSERT INTO comment (user_id, answer_id, comment, timestamp, anonymous_number) 
-    VALUES ($user_id, $comanswer_id, '$comment', '$comment_timestamp', $comanonymous)";
-  }else{
-    $sql="INSERT INTO comment (user_id, answer_id, comment, timestamp) 
-    VALUES ($user_id, $comanswer_id, '$comment', '$comment_timestamp')";
+  if(trim($_POST['comment'])!=""){    
+    $comment = $_POST['comment'];
+    $comment_timestamp = date('Y-m-d H:i:s');
+    $sql="SELECT * FROM anonymous_names 
+      WHERE user_id=$user_id AND discussion_id IN 
+      (SELECT discussion_id FROM answer WHERE answer_id=$comanswer_id)";
+    $res=mysqli_query($conn, $sql);
+    if(mysqli_num_rows($res) > 0){
+      $row = mysqli_fetch_assoc($res);
+      $comanonymous = $row['anonymous_number'];
+      $sql="INSERT INTO comment (user_id, answer_id, comment, timestamp, anonymous_number) 
+      VALUES ($user_id, $comanswer_id, '$comment', '$comment_timestamp', $comanonymous)";
+    }else{
+      $sql="INSERT INTO comment (user_id, answer_id, comment, timestamp) 
+      VALUES ($user_id, $comanswer_id, '$comment', '$comment_timestamp')";
+    }
+    // execute query to effect changes in the database ...
+    mysqli_query($conn, $sql);
   }
+  echo getComments($comanswer_id);
+  exit(0);
+}
 
-  // execute query to effect changes in the database ...
-  mysqli_query($conn, $sql);
+if (isset($_POST['comment_show_id'])){
+  $comanswer_id = $_POST['comment_show_id'];
   echo getComments($comanswer_id);
   exit(0);
 }
@@ -110,30 +117,6 @@ function getComments($answer_id){
       array_push($record_set, $row);
   }
   return json_encode($record_set);
-}
-
-function getLastComment($answer_id, $timestamp)
-{ 
-  global $conn;
-  global $user_id;
-  $sql="SELECT * FROM comment WHERE user_id=$user_id AND timestamp='$timestamp'";
-  $rs1 = mysqli_query($conn, $sql);
-  $result1 = mysqli_fetch_array($rs1);
-  $sql="SELECT * FROM anonymous_names WHERE user_id=$user_id AND discussion_id IN (SELECT discussion_id FROM answer WHERE answer_id=$answer_id)";
-  $rs2 = mysqli_query($conn, $sql);
-  if(mysqli_num_rows($rs2) > 0){
-    $result2 = mysqli_fetch_array($rs2);
-    $displayname="user_".$result2['anonymous_number']." (Me)";
-  }else{
-    $displayname=$_SESSION['user_name'];
-  }
-  $trimmedtimestamp=trimTimestamp($timestamp);
-  $comment = [
-  	'username' => $displayname,
-  	'comment' => $result1['comment'],
-    'timestamp' => $trimmedtimestamp
-  ];
-  return json_encode($comment);
 }
 
 // Get total number of likes for a particular post

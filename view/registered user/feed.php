@@ -209,9 +209,10 @@
                             <span class="dislikes-answer"><?php echo getDislikesAnswer($answer['answer_id']); ?></span>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             <span style="width: 75%"><input id="comment<?php echo $answer['answer_id']; ?>" style=" border-radius:20px; padding: 15px; outline: none" type="text" class="comment-box" name="comment" placeholder="Comment..."></span>
-                            <span><input id="postcomment<?php echo $answer['answer_id']; ?>" class="comment-post" type="button" value="Post Comment" data-id=<?php echo $answer['answer_id'] ?>></span>
+                            <span><input id="postcomment<?php echo $answer['answer_id']; ?>" class="comment-post" type="button" value="Post" data-id=<?php echo $answer['answer_id'] ?>></span>
+                            <span><input id="showcomment<?php echo $answer['answer_id']; ?>" class="comment-show" type="button" value="Show Comments" data-id=<?php echo $answer['answer_id'] ?>></span>
                         </div>
-                        <div><span id="comment-content<?php echo $answer['answer_id']; ?>"></span></div>
+                        <div class="row" id="comment-content<?php echo $answer['answer_id']; ?>"></div>
                     </div>
                 <?php }?>
             </div>
