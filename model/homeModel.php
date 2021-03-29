@@ -625,9 +625,6 @@
                 $this->open_db();
                 $query="INSERT INTO meeting (meeting_date,student_user_id,lecturer_user_id) VALUES ('$date','$user_id','$lecturerid')";
                 $result = mysqli_query($this->condb,$query);
-                if(empty($result)){
-                    echo '<h1>Please god</h1>';
-                }
             }
             catch (Exception $e)
             {
