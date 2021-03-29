@@ -76,6 +76,10 @@
 				$this->objsm->canclemeetingrequest($_POST['meetid']);
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=meeting.php")</script>';
 			}
+
+			if(isset($_POST['setnofication'])){
+				$this->setNotification();
+			}
 		}
 
         //page view
@@ -98,7 +102,8 @@
 			}
 
 			if($page=='profilesetting.php' or $page=='privacysetting.php'){
-				$row=$this->objsm->get_user($userId);	
+				$row=$this->objsm->get_user($userId);
+				$notification = $this->objsm->getNotification($userId);
 			}
 
 			if($page=='meeting.php'){
@@ -402,6 +407,9 @@
 			}else{
 				$error=3;
 			}
+
+
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=profilesetting.php&user_id='.$_SESSION['user_id'].'")</script>';
 		}
 
 		public function postGeneralQuestion(){
@@ -564,6 +572,19 @@
 			}else{
 				echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=meeting.php&error='.$error.'")</script>';
 			}
+		}
+
+		//notification seetings on/off
+		public function setNotification(){
+			if($_POST['notificationon']==''){
+				$block=1;
+			}else{
+				$block=0;
+			}
+
+			$this->objsm->setnotification($block,$_SESSION['user_id']);
+
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=profilesetting.php&user_id='.$_SESSION['user_id'].'")</script>';
 		}
 
 		
