@@ -107,7 +107,7 @@ $(document).ready(function(){
         });		
       
       });
-      
+
       // if the user clicks on the dislike button ...
       $('.dislike-btn-answer').on('click', function(){
         var answer_id = $(this).data('id');
@@ -143,6 +143,97 @@ $(document).ready(function(){
         });	
       
       });
+      
+      // if the user clicks on the post comment ...
+      $('.comment-post').on('click', function(){
+        var answer_id = $(this).data('id');
+        var comment = document.getElementById(`comment${answer_id}`).value;
+        document.getElementById(`comment${answer_id}`).value = "";
+        $.ajax({
+            url: 'feed.php',
+            type: 'post',
+            data: {
+                'comment_answer_id': answer_id,
+                'comment': comment
+            },
+            success: function(data){
+                res = JSON.parse(data);
+                var comments = "";
+
+                var list = $('<div>');
+
+                for(var i = 0; (i < res.length); i++){
+                    // display the posted comment
+                    if (res[i]['anonymous_number']==null){
+                        comments = "<div class='display-comment'><span class='discussion-username'>"
+                            + res[i]['user_name']
+                            + "</span>&nbsp;&nbsp;&nbsp;<span>"
+                            + res[i]['comment']
+                            + "</span>&nbsp;&nbsp;&nbsp;<span class='discussion-timestamp' style='float:right'>"
+                            + res[i]['timestamp']
+                            + "</span></div>";
+                    }else{
+                        comments = "<div class='display-comment'><span class='discussion-username'>user_"
+                        + res[i]['anonymous_number']
+                        + "</span>&nbsp;&nbsp;&nbsp;<span>"
+                        + res[i]['comment']
+                        + "</span>&nbsp;&nbsp;&nbsp;<span class='discussion-timestamp' style='float:right'>"
+                        + res[i]['timestamp']
+                        + "</span></div>";
+                    }
+                    list.append(comments);
+                }
+                $(`#comment-content${answer_id}`).html(list);
+            }
+        });
+    });	
+      
+      });
+       // if the user clicks on the show comment ...
+       $('.comment-show').on('click', function(){
+        var answer_id = $(this).data('id');
+        $.ajax({
+            url: 'feed.php',
+            type: 'post',
+            data: {
+                'comment_show_id': answer_id,
+            },
+            success: function(data){
+                res = JSON.parse(data);
+                var comments = "";
+
+                var list = $('<div>');
+
+                if(res.length==0){
+                    $(`#comment-content${answer_id}`).html("No comments");
+                }else{
+                    for(var i = 0; (i < res.length); i++){
+                        // display the posted comment
+                        if (res[i]['anonymous_number']==null){
+                            comments = "<div class='display-comment'><span class='discussion-username'>"
+                                + res[i]['user_name']
+                                + "</span>&nbsp;&nbsp;&nbsp;<span>"
+                                + res[i]['comment']
+                                + "</span>&nbsp;&nbsp;&nbsp;<span class='discussion-timestamp' style='float:right'>"
+                                + res[i]['timestamp']
+                                + "</span></div>";
+                        }else{
+                            comments = "<div class='display-comment'><span class='discussion-username'>user_"
+                            + res[i]['anonymous_number']
+                            + "</span>&nbsp;&nbsp;&nbsp;<span>"
+                            + res[i]['comment']
+                            + "</span>&nbsp;&nbsp;&nbsp;<span class='discussion-timestamp' style='float:right'>"
+                            + res[i]['timestamp']
+                            + "</span></div>";
+                        }
+                        list.append(comments);
+                    }
+                    $(`#comment-content${answer_id}`).html(list);
+                }
+
+            }
+        });	
+      
     
 });
 

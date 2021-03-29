@@ -41,8 +41,18 @@
             </form>
         </div>
         <div class="content" id="content">
-            <iframe src="pastpapers/<?php echo $paper_result ?>" style="display:block;" id="pdfpp" frameborder="0"></iframe>
-            <iframe src="answerscripts/<?php echo $answer_result ?>" style="display:none;" id="pdfans" frameborder="0"></iframe>
+            <?php
+            if(!empty($paper_result)){
+                echo '<iframe src="pastpapers/'.$paper_result.'" style="display:block;" id="pdfpp" frameborder="0"></iframe>';
+            }else{
+                echo '<h1 style="display:block;" id="pdfpp">Past Paper is not available</h1>';
+            }
+            if(!empty($answer_result)){
+                echo  '<iframe src="answerscripts/'.$answer_result.'" style="display:none;" id="pdfans" frameborder="0"></iframe>';
+            }else{
+                echo '<h1 style="display:block;" id="pdfans">Answer Script is not available</h1>';
+            }
+            ?>
         </div>
     </section>
     <div class="alert alert1" style="display:none;" id="alert">

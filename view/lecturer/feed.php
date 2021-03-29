@@ -121,6 +121,11 @@
        <span class="discussion-username"><?php echo getDiscussionDisplayName($disId);?></span>&nbsp;&nbsp;&nbsp;
        <span class="discussion-timestamp"><?php echo trimTimestamp($discussion['timestamp']);?></span>
        <span style="float:right"><input class="report-discussion" type="button" value="Report Discussion" discussionId="<?php echo $disId; ?>" onclick="openReportForm()"></span>
+    <?php if(!is_null($discussion['paper_id'])){?>
+      <div class="row">
+        <span class="pastpaper-tag">From past paper: <?php echo getPaperName($discussion['paper_id']);?></span>
+      </div>
+    <?php } ?>
     <div class="row">
       <?php echo $discussion['content'];?></div>
       <?php if(!is_null($discussion['picture'])){?>

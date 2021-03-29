@@ -59,7 +59,15 @@
 
 			if (isset($_POST['reportDiscussion'])){
 				$this->reportDiscussion();
-			}			
+			}
+			
+			if(isset($_POST['selectlecturer'])){
+				$this->getavailabledays();
+			}
+
+			if(isset($_POST['requestmeeting'])){
+				$this->requestMeeting();
+			}
 		}
 
 		//page view
@@ -69,6 +77,7 @@
 			$allSubjects = $this->objsm->getSubjects($userId);
 			$result_paper = $this->objsm->getPastpapers();
 			$result_lesson = $this->objsm->getLessons();
+			$meetingdetails = $this->objsm->getmeetingdetails($userId);
 			
 			if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -412,6 +421,50 @@
 				}else{
 					$error=3;
 				}
+		}
+
+		//get available days of lecturer
+		public function getavailabledays(){
+			$error = 0;
+			$lecturerid=$_POST['lecturer'];
+			$days=[];
+			if(!empty($lecturerid)){
+			$days=$this->objsm->availableDays($lecturerid);
+			}else{
+				$error = 1; //not selected a lecturer
+			}
+			
+			if($error == 0){
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=meeting.php&lecturer='.$lecturerid.'&days='.urlencode(serialize($days)).'")</script>';
+			}else{
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=meeting.php&error='.$error.'")</script>';
+			}
+		}
+
+		//request meeting
+		public function	requestMeeting(){
+			$error=0;
+			$lecturerid = $_POST['lecturerid'];
+			$user_id =  $_SESSION['user_id'];
+			$date = $_POST['reqdate'];
+			if(empty($date)){
+				$error=2; //not picked a date
+			}
+			else{
+				date_default_timezone_set("Asia/Colombo");
+				$today = date("Y-m-d");
+				if($today>$date){
+					$error=3;
+				}else{
+					$this->objsm->requstmeeting($lecturerid, $date, $user_id);
+				}
+			}
+
+			if($error == 0){
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=meeting.php")</script>';
+			}else{
+				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=meeting.php&error='.$error.'")</script>';
+			}
 		}
     }
 ?>

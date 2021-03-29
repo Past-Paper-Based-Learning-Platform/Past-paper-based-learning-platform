@@ -72,6 +72,53 @@ if (isset($_POST['answer_action'])) {
   exit(0);
 }
 
+if (isset($_POST['comment'])){
+  $comanswer_id = $_POST['comment_answer_id'];
+  if(trim($_POST['comment'])!=""){    
+    $comment = $_POST['comment'];
+    $comment_timestamp = date('Y-m-d H:i:s');
+    $sql="SELECT * FROM anonymous_names 
+      WHERE user_id=$user_id AND discussion_id IN 
+      (SELECT discussion_id FROM answer WHERE answer_id=$comanswer_id)";
+    $res=mysqli_query($conn, $sql);
+    if(mysqli_num_rows($res) > 0){
+      $row = mysqli_fetch_assoc($res);
+      $comanonymous = $row['anonymous_number'];
+      $sql="INSERT INTO comment (user_id, answer_id, comment, timestamp, anonymous_number) 
+      VALUES ($user_id, $comanswer_id, '$comment', '$comment_timestamp', $comanonymous)";
+    }else{
+      $sql="INSERT INTO comment (user_id, answer_id, comment, timestamp) 
+      VALUES ($user_id, $comanswer_id, '$comment', '$comment_timestamp')";
+    }
+    // execute query to effect changes in the database ...
+    mysqli_query($conn, $sql);
+  }
+  echo getComments($comanswer_id);
+  exit(0);
+}
+
+if (isset($_POST['comment_show_id'])){
+  $comanswer_id = $_POST['comment_show_id'];
+  echo getComments($comanswer_id);
+  exit(0);
+}
+
+//get posted comment ...
+function getComments($answer_id){
+  global $conn;
+  global $user_id;
+  $sql = "SELECT user_name, comment, timestamp, anonymous_number 
+    FROM comment c INNER JOIN registered_user r 
+    ON c.user_id=r.user_id WHERE answer_id=$answer_id ORDER BY timestamp DESC";
+
+  $result = mysqli_query($conn, $sql);
+  $record_set = array();
+  while ($row = mysqli_fetch_assoc($result)) {
+      array_push($record_set, $row);
+  }
+  return json_encode($record_set);
+}
+
 // Get total number of likes for a particular post
 function getLikes($id)
 {
@@ -217,7 +264,7 @@ function getDiscussionAnswers($discussion_id){
   return $result;
 }
 
-//load sicussion tags
+//load dicussion tags
 function getDiscussionTags($discussion_id){
   global $conn;
   $sql = "SELECT DISTINCT tag FROM tags WHERE tag_id IN (SELECT tag_id FROM discussion_tags WHERE discussion_id=$discussion_id)";
@@ -271,6 +318,18 @@ function getAnswerDisplayName($discussion_id, $answer_id){
 function trimTimestamp($timestamp){
   $trimTimestamp=date('g:ia Y-m-d', strtotime($timestamp));
   return $trimTimestamp;
+}
+
+function getPaperName($paperId){
+  global $conn;
+  $sql = "SELECT past_paper.year as year, subject.subject_name as subject 
+    FROM past_paper INNER JOIN subject 
+    ON past_paper.subject_code=subject.subject_code 
+    WHERE past_paper.paper_id=$paperId";
+  $result = mysqli_query($conn, $sql);
+  $row = mysqli_fetch_array($result);
+  $paperName = $row['subject']." - ".$row['year'];
+  return $paperName;
 }
 
 $sql="SELECT subject_code, subject_name FROM subject";

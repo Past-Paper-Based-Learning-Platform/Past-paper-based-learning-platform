@@ -24,7 +24,7 @@
             }
             ?> 
         </datalist>
-        <form id="general-form" action="http://localhost/Main/homeindex.php?page=feed.php" method="post" enctype="multipart/form-data" onSubmit="return validateForm()"> 
+        <form id="general-form" action="http://localhost/Main/homeindex.php" method="post" enctype="multipart/form-data" onSubmit="return validateForm()"> 
             <h2 class="text-white">Ask a Question</h2>
             <div class="col-1-item text-white">Question:</div>
             <div class="col-5-item">
@@ -121,7 +121,12 @@
        <span class="discussion-username"><?php echo getDiscussionDisplayName($disId);?></span>&nbsp;&nbsp;&nbsp;
        <span class="discussion-timestamp"><?php echo trimTimestamp($discussion['timestamp']);?></span>
        <span style="float:right"><input class="report-discussion" type="button" value="Report Discussion" discussionId="<?php echo $disId; ?>" onclick="openReportForm()"></span>
-    <div class="row">
+    <?php if(!is_null($discussion['paper_id'])){?>
+      <div class="row">
+        <span class="pastpaper-tag">From past paper: <?php echo getPaperName($discussion['paper_id']);?></span>
+      </div>
+    <?php } ?>
+   <div class="row">
       <?php echo $discussion['content'];?></div>
       <?php if(!is_null($discussion['picture'])){?>
             <div class="image-wrapper">
@@ -181,7 +186,7 @@
                                 <span><em>Reference:&nbsp;</em><a href="<?php echo $answer['url']?>" target="_blank" class="text-lblue"><?php echo $answer['url']?></a></span>
                             </div>
                         <?php } ?>
-                        <div class="post-info">
+                        <div class="post-info" style="display: flex">
                             <!-- if user likes post, style button differently -->
                             <i <?php if (userLikedAnswer($answer['answer_id'])): ?>
                                 class="fa fa-thumbs-up like-btn-answer"
@@ -203,7 +208,11 @@
                             data-id="<?php echo $answer['answer_id'] ?>"></i>
                             <span class="dislikes-answer"><?php echo getDislikesAnswer($answer['answer_id']); ?></span>
                             &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="width: 75%"><input id="comment<?php echo $answer['answer_id']; ?>" style=" border-radius:20px; padding: 15px; outline: none" type="text" class="comment-box" name="comment" placeholder="Comment..."></span>
+                            <span><input id="postcomment<?php echo $answer['answer_id']; ?>" class="comment-post" type="button" value="Post" data-id=<?php echo $answer['answer_id'] ?>></span>
+                            <span><input id="showcomment<?php echo $answer['answer_id']; ?>" class="comment-show" type="button" value="Show Comments" data-id=<?php echo $answer['answer_id'] ?>></span>
                         </div>
+                        <div class="row" id="comment-content<?php echo $answer['answer_id']; ?>"></div>
                     </div>
                 <?php }?>
             </div>

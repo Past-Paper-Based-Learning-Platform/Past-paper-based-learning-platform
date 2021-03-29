@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="libs/css/template.css" type="text/css">
     <link rel="stylesheet" href="http://localhost/Main/libs/css/feed.css" type="text/css">
     <link rel="stylesheet" href="libs/css/discussionForm.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/alert.css" type="text/css">
+    <link rel="stylesheet" href="libs/css/studentmeeting.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="libs/js/alert.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="http://localhost/Main/libs/js/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -67,9 +70,9 @@
                             <a href=""><button class="gradient-blue verticlebtn" >View My Profile</button></a>
                         </div>
 
-                        <!-- view past paper -->
+                        <!-- Ask a quesion from past paper -->
                         <div class="dropdown" style="text-align:center; width:100%; margin:0px;">
-                            <button onclick="dropdownpaper()" class="gradient-blue dropbtn verticlebtn">View PastPaper</button>
+                            <button onclick="dropdownpaper()" class="gradient-blue dropbtn verticlebtn">Ask a Quesion From Past Paper</button>
                             <div id="myDropdown" class="dropdown-content">
                                 <input type="text" placeholder="Search Pastpaper.." id="myInput" onkeyup="filterFunction()">
                                 <?php

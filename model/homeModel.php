@@ -186,6 +186,7 @@
 
         public function create_discussion($question,$target_file,$extags,$anonymous,$paperID,$subject_code,$user_id){ 
 
+            date_default_timezone_set("Asia/Colombo");
             $timestamp = date('Y-m-d H:i:s');
 
             $error = 0;
@@ -405,21 +406,25 @@
         	}	
         }
 
-        public function create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp, $priority){
+        public function create_general_question($user_id, $qcontent, $subject_code, $attachment, $timestamp){
             try{
                 $success=true;
 				$this->open_db();
                 if($subject_code==""){
                     if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$timestamp', $priority)");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, timestamp) 
+                        VALUES ($user_id, '$qcontent', '$timestamp')");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$attachment', '$timestamp', $priority)");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, picture, timestamp) 
+                        VALUES ($user_id, '$qcontent', '$attachment', '$timestamp')");
                     }
                 }else{
                     if($attachment==""){
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp', $priority)");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, timestamp) 
+                        VALUES ($user_id, '$qcontent', '$subject_code', '$timestamp')");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, ,subject_code, picture, timestamp, priority_flag) VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp', $priority)");
+                        $query=$this->condb->prepare("INSERT INTO discussion (user_id, content, subject_code, picture, timestamp) 
+                        VALUES ($user_id, '$qcontent', '$subject_code', '$attachment', '$timestamp')");
                     }
                 }
 				if(!$query->execute()){
@@ -489,21 +494,25 @@
         	}
         }
 
-        public function create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp){
+        public function create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp, $priority){
             try{
                 $success=true;
 				$this->open_db();
                 if($attachment==""){
                     if($url==""){
-                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, discussion_id, timestamp) VALUES ($user_id, '$content', $discussion_id, '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, discussion_id, timestamp, priority_flag) 
+                        VALUES ($user_id, '$content', $discussion_id, '$timestamp', $priority)");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, discussion_id, timestamp) VALUES ($user_id, '$content', '$url', $discussion_id, '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, discussion_id, timestamp, priority_flag) 
+                        VALUES ($user_id, '$content', '$url', $discussion_id, '$timestamp', $priority)");
                     }
                 }else{
                     if($url==""){
-                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, picture, discussion_id, timestamp) VALUES ($user_id, '$content', '$attachment', $discussion_id, '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, picture, discussion_id, timestamp, priority_flag) 
+                        VALUES ($user_id, '$content', '$attachment', $discussion_id, '$timestamp', $priority)");
                     }else{
-                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, picture, discussion_id, timestamp) VALUES ($user_id, '$content', '$url', '$attachment', $discussion_id, '$timestamp')");
+                        $query=$this->condb->prepare("INSERT INTO answer (user_id, content, url, picture, discussion_id, timestamp, priority_flag) 
+                        VALUES ($user_id, '$content', '$url', '$attachment', $discussion_id, '$timestamp', $priority)");
                     }
                 }
 				if(!$query->execute()){
@@ -560,7 +569,9 @@
             try{
                 $success=true;
 				$this->open_db();
-                $query=$this->condb->prepare("INSERT INTO report_discussion (user_id, discussion_id, report_cause, timestamp) VALUES ($user_id, $discussion_id, $cause, '$timestamp')");
+                $query=$this->condb->prepare("INSERT INTO report_discussion (user_id, discussion_id, report_cause, timestamp) 
+                    VALUES ($user_id, $discussion_id, $cause, '$timestamp') 
+                    ON DUPLICATE KEY UPDATE report_cause=$cause, timestamp='$timestamp'");
                 if(!$query->execute()){
                     $success=false;
                 }
@@ -599,6 +610,74 @@
             $sql= "UPDATE registered_user SET image='$uploadedPath' WHERE user_id=$userId";            
             $result= $this->condb-> query($sql);
             return $result;
+        }
+
+        public function availableDays($lecturerid){
+            try{
+                $this->open_db();
+
+                $available=[];
+
+                $query="SELECT day FROM available_day WHERE user_id=$lecturerid ORDER BY day ASC";
+                $result = mysqli_query($this->condb,$query);
+                if(!empty($result)){
+                    while($row = mysqli_fetch_assoc($result)){
+                        array_push($available,$row['day']);
+                    }
+                }
+                return $available;
+            }
+            catch (Exception $e)
+            {
+                $this->close_db();
+                throw $e;
+            }
+        }
+
+        public function requstmeeting($lecturerid, $date, $user_id){
+            try{
+                $this->open_db();
+                $query="INSERT INTO meeting (meeting_date,student_user_id,lecturer_user_id) VALUES ('$date','$user_id','$lecturerid')";
+                $result = mysqli_query($this->condb,$query);
+                if(empty($result)){
+                    echo '<h1>Please god</h1>';
+                }
+            }
+            catch (Exception $e)
+            {
+                $this->close_db();
+                throw $e;
+            }
+        }
+
+        //get meeting details
+		public function getmeetingdetails($userId){
+            try{
+                $this->open_db();
+                $meetings=[];
+
+                date_default_timezone_set("Asia/Colombo");
+                $today=date("Y-m-d");
+
+                $query1="DELETE FROM meeting WHERE meeting_date<'$today'";
+                $result1 = mysqli_query($this->condb,$query1);
+
+                $query="SELECT lecturer.user_id,registered_user.first_name,registered_user.last_name, meeting.meeting_date, meeting.meeting_time,meeting.deny FROM lecturer INNER JOIN meeting ON lecturer.user_id=meeting.lecturer_user_id INNER JOIN registered_user ON lecturer.user_id=registered_user.user_id WHERE meeting.student_user_id='$userId'";
+                $result = mysqli_query($this->condb,$query);
+                if(!empty($result)){
+                    while($row = mysqli_fetch_assoc($result)){
+                        array_push($meetings,$row);
+                    }
+                }
+
+                return $meetings;
+
+            }
+            catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+        	}
         }
     }
 ?>

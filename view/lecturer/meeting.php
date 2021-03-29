@@ -2,13 +2,30 @@
                         <!-- Scedule meeting Content -->
                         <div class="lecturemeetingcompnt">
                             <div class = "schedule">
-                                <h2>Schedule Meeting</h2>
-                                <ul>
-                                    <li><p>meeting request 1 <a href="#">confirm</a> <a href="#">deny</a></p></li>
-                                    <li><p>meeting request 2 <a href="#">confirm</a> <a href="#">deny</a></p></li>
-                                    <li><p>meeting request 3 <a href="#">confirm</a> <a href="#">deny</a></p></li>
-                                    <li><p>meeting request 4 <a href="#">confirm</a> <a href="#">deny</a></p></li>
-                                </ul>
+                                <h2>Meetings</h2>
+                                    <?php //echo '<pre>'.print_r($meetingdetails).'</pre>'; ?>
+                                    <?php 
+                                    $flag=0;
+                                        if(!empty($meetingdetails)){
+                                            foreach($meetingdetails as $day){
+                                                
+                                                if(empty($day['deny']) && empty($day['meeting_time'])){
+                                                    $flag=1;
+                                                    echo  '<form action="http://localhost/Main/lecturerindex.php?page=meeting.php" method="post">';
+                                                    echo  '<li><p>Student '.$day['first_name'].' '.$day['last_name'].' requested a meeting on '.$day['meeting_date'].' </li>';
+                                                    echo  '<input type="text" name="meetid" value="'.$day['meeting_id'].'" style="display:none;"/>';
+                                                    echo  '<input type="time" name="meettime"/><br>';
+                                                    echo  '<button name="confirm" type="submit" class="settime">Confirm</button>';
+                                                    echo  '<button name="deny" type="submit" class="settime">Deny</button>';
+                                                    echo  '</form>';
+                                                }
+                                            }
+                                        }
+
+                                        if($flag==0){
+                                            echo '<h3>No pending requests</h3>';
+                                        }
+                                    ?>
                             </div>
                             <div class="setavailable" style="display:block">
                                 <div id="available">
@@ -49,5 +66,16 @@
                                 </form>
                                 </div>
                             </div>
+                            <div class="alert alert1" style="display:none;" id="alert">
+                                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                Plese Select a Time to Confirm.!
+                            </div>
+                            <?php 
+                            if(isset($_GET['error'])){
+                                if ($_GET['error']==1){
+                                    echo '<script>var alert=document.querySelector(".alert1"); alert.style.display="block";</script>';
+                                }
+                            }
+                            ?>
                         </div>  
 <?php include 'view/partials/lecturer_footer.php';?>  
