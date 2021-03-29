@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!empty($_SESSION['user_id']))
+    if(!empty($_SESSION['user_id']) && $_SESSION['user_role']=='L')
     {
         require 'controller/lecturerController.php';
         $controller = new lecturerController();
