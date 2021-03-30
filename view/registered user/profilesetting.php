@@ -35,7 +35,7 @@
             </tr>
   
             <tr>
-              <td>Middel Name</td>
+              <td>Middle Name</td>
               <td>
                 <input type='text' name='m_name'required value='".$row['middle_name']."'>
               </td>
