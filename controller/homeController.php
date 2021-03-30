@@ -94,6 +94,9 @@
 			if(isset($_POST['setnofication'])){
 				$this->setNotification();
 			}
+			if (isset($_POST['filter'])){
+				$this->filterDiscussion();
+			}
 		}
 
 		//page view
@@ -519,6 +522,17 @@
 			
 			$result=$this->objsm->deleteDiscussion($discussionId);
 			echo "<script>alert('Delete - success!'); window.location.href='view/registered user/filter.php';</script>";
+		}
+
+		public function filterDiscussion(){
+			$user_id=$_SESSION['user_id'];
+			if(true){
+				echo "Hello";
+			$resultdis=$this->objsm->filterdiscussion($user_id);
+			}elseif(isset($_POST['answereddiscussion'])){
+			$resultdis=$this->objsm->filteranswered($user_id);
+			}
+			require_once "./view/registered user/filterdiscussion.php";
 		}
     }
 ?>
