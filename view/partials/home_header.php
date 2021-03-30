@@ -66,7 +66,7 @@
 
                         <!--profile-->
                         <div>
-                            <a href="http://localhost/Main/view/registered%20user/filter.php"><button class="verticlebtn" >View My Profile</button></a>
+                            <a href="http://localhost/Main/homeindex.php?page=filterpage.php"><button class="verticlebtn" >View My Profile</button></a>
                             <a href='http://localhost/Main/homeindex.php?page=home.php'><button class="verticlebtn" id="feed-refresh">Go to Feed</button></a>
 
                         <!-- Ask a quesion from past paper -->

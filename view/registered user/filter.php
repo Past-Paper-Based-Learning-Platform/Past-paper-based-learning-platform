@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="http://localhost/Main/libs/css/feed.css" type="text/css">
 </head>
 <body>
-<div class="scrollhide" style="width:50%; height:100%; overflow:auto; margin:auto">
+<div class="scrollhide" style="width:100%; height:100%; overflow:auto; margin:auto">
 
     
     <div style="margin:auto; overflow:auto;">
