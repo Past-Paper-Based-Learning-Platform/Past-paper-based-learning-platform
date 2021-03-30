@@ -9,7 +9,6 @@
 
 <section class = 'logohead'>
   <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
-  <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
 </section>
 
 <h2 class="navigation">Profile Setting</h2>
