@@ -56,7 +56,7 @@
             <tr>
                 <td style="width:20%;text-align:center;">
                     <div class="col-6-item bg-gray lefthometab" style="height: 100%;margin:0px;">
-                        <img src="pictures/thumbnail.PNG" class="profilepic" alt="Profile Picture" style="text-align:center;">
+                        <img src="<?php echo $image; ?>" class="profilepic" alt="Profile Picture" style="text-align:center;">
                         <div style="text-align:center;">
                             <i class="fa fa-trophy" style="width:23%"></i>
                             <i class="fa fa-heart" style="width:23%"></i>
