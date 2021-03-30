@@ -157,6 +157,7 @@
 			//check if there is a quesion written or uploaded
 			if($question == '' && empty($check)){
 					$error = 1; //neither image nor question
+					echo '<script> alert("You\'re trying to add an invalid type to discussion"); </script>';
 			}else{
 				//check if there is a file uploaded
 				if(empty($check)){
@@ -420,15 +421,18 @@
 						}
 						if(!move_uploaded_file($_FILES['image']['tmp_name'],$target_dir.$target_file)){
 							$error = 3; //wrong with uploading
+							echo '<script> alert("Uploaded file is not successful! Error in target directory"); </script>';
 						}else{
 							$this->objsm->set_image($target_dir.$target_file,$_SESSION['user_id']);
 							echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=home.php")</script>';
 						}
 					}else{
 						$error = 2; //not image type
+						echo '<script> alert("Uploaded file is not an image"); </script>';
 					}
 				}else{
 					$error=3;
+					echo '<script> alert("File cannot be empty"); </script>';
 				}
 
 			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$_SESSION['user_id'].'")</script>';
@@ -444,6 +448,7 @@
 			$days=$this->objsm->availableDays($lecturerid);
 			}else{
 				$error = 1; //not selected a lecturer
+				echo '<script> alert("Please select a lecturer"); </script>';
 			}
 			
 			if($error == 0){
