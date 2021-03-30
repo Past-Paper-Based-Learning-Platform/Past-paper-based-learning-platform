@@ -29,10 +29,10 @@
             </div>
             <div class="col-1-item" style="float:right;">
                 <form action="http://localhost/Main/homeindex.php" method = "POST">
-                    <button class="gradient-blue border-blue logoutbtn" type="submit" name="logout">Log out</button>
+                    <button class=" logoutbtn btncolor" type="submit" name="logout">Log out</button>
                 </form>
                 <a href="http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $userId; ?>">
-                    <button class="gradient-blue border-blue settingsbtn" type="submit" name="logout">
+                    <button class=" settingsbtn btncolor" type="submit" name="logout">
                         <i class="fa fa-cog fa-lg"></i>
                     </button>
                 </a>
@@ -40,7 +40,7 @@
         </section>
             
 
-        <table class="hometable" style="width:100%;height:600px;table-layout: fixed;">
+        <table class="hometable" style="width:100%;height:690px;table-layout: fixed;">
             <tr>
                 <td style="width:20%;text-align:center;">
                     <div class="col-6-item bg-gray lefthometab" style="height: 100%;margin:0px;">

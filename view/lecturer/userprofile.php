@@ -62,7 +62,6 @@
     <div class="container" >
     <section class = 'logohead'>
             <a href='http://localhost/Main/lecturerindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
-            <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
         </section>
         <div class=".flex-container ">
         
