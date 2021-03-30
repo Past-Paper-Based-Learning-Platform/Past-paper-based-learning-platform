@@ -76,6 +76,7 @@ if (isset($_POST['comment'])){
   $comanswer_id = $_POST['comment_answer_id'];
   if(trim($_POST['comment'])!=""){    
     $comment = $_POST['comment'];
+    date_default_timezone_set("Asia/Colombo");
     $comment_timestamp = date('Y-m-d H:i:s');
     $sql="SELECT * FROM anonymous_names 
       WHERE user_id=$user_id AND discussion_id IN 
@@ -316,6 +317,7 @@ function getAnswerDisplayName($discussion_id, $answer_id){
 }
 
 function trimTimestamp($timestamp){
+  date_default_timezone_set("Asia/Colombo");
   $trimTimestamp=date('g:ia Y-m-d', strtotime($timestamp));
   return $trimTimestamp;
 }

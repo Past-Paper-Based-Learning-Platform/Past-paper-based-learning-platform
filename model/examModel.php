@@ -210,9 +210,13 @@
             	throw $e;
         	}	
 		}
+		function hashPassword($password){ 
+        	$hashedPW = sha1($password); 
+			return $hashedPW;
+        }
 
 		//change password
-		function checkCurrentPassword($username, $curpassword){
+		public function checkCurrentPassword($username, $curpassword){
 			try{
 				$this->open_db();
 				$encryptPW = $this->hashPassword($curpassword);
