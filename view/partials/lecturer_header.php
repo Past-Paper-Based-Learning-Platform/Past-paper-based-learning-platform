@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <table class="hometable" style="width:100%;height:600px;table-layout: fixed;">
+        <table class="hometable" style="width:100%;height:650px;table-layout: fixed;">
             <tr>
                 <td style="width:20%;text-align:center;">
                     <div class="col-6-item bg-gray lefthometab" style="height: 100%;margin:0px;">
@@ -65,13 +65,13 @@
                         </div>
 
                         <!--profile-->
-                        <div class="verticlebtn" style="text-align:center;margin-top:8px;">
-                            <a href=""><button class="gradient-blue verticlebtn" >View My Profile</button></a>
-                        </div>
+                        <div>
+                            <a href=""><button class="verticlebtn" >My Contributions</button></a>
+                            <a href='http://localhost/Main/lecturerindex.php?page=lecturerHome.php'><button class="verticlebtn" >Go to Feed</button></a>
 
                         <!-- Ask a Quesion From Past Paper -->
                         <div class="dropdown" style="text-align:center; width:100%; margin:0px;">
-                            <button onclick="dropdownpaper()" class="gradient-blue dropbtn verticlebtn">Ask a Quesion From Past Paper</button>
+                            <button onclick="dropdownpaper()" class="verticlebtn">Ask a Quesion From Past Paper</button>
                             <div id="myDropdown" class="dropdown-content">
                                 <input type="text" placeholder="Search Pastpaper.." id="myInput" onkeyup="filterFunction()">
                                 <?php
@@ -83,14 +83,12 @@
                             </div>
                         </div><br>
                     
-                    <!-- Scedule meeting -->
-                    <div class="verticlebtn" style="text-align:center;margin-top:8px;">
-                    <a href="http://localhost/Main/lecturerindex.php?page=meeting.php"><button class="gradient-blue verticlebtn" >Meetings</button></a>
-                    </div>
+                    <!-- Schedule meeting -->
+                    <a href="http://localhost/Main/lecturerindex.php?page=meeting.php"><button class="verticlebtn" >Meetings</button></a>
+                    
 
                     <!-- Upload past paper -->
-                    <div class="verticlebtn" style="text-align:center;margin-top:8px;">
-                    <a href="http://localhost/Main/lecturerindex.php?page=upload_answer.php"><button class="gradient-blue verticlebtn">Upload AnswerScript</button></a>
+                    <a href="http://localhost/Main/lecturerindex.php?page=upload_answer.php"><button class="verticlebtn">Upload AnswerScript</button></a>
                     </div>
                 <div>
                 </td>

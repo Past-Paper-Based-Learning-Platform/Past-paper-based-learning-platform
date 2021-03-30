@@ -80,6 +80,10 @@
 			if(isset($_POST['setnofication'])){
 				$this->setNotification();
 			}
+
+			if(isset($_POST['deactivate'])){
+				$this->deactivateUser();
+			}
 		}
 
         //page view
@@ -91,6 +95,7 @@
             $result_lesson = $this->objsm->getLessons();
 			$meetingdetails = $this->objsm->getmeetingdetails($userId);
 			$image = $this->objsm->getUserImage($userId);
+			$notification = $this->objsm->getNotification($userId);
 
             if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -102,9 +107,8 @@
 				
 			}
 
-			if($page=='profilesetting.php' or $page=='privacysetting.php'){
+			if($page=='profilesetting.php'){
 				$row=$this->objsm->get_user($userId);
-				$notification = $this->objsm->getNotification($userId);
 			}
 
 			if($page=='meeting.php'){
@@ -422,6 +426,7 @@
 			$qcontent=trim($_POST['question']);
 			$subject_code=$_POST['subjectrelated'];
 			$attachment='';	
+			date_default_timezone_set("Asia/Colombo");
 			$timestamp=date('Y-m-d H:i:s');
 			$upload_success=true;
 			$tags=$_POST['taglist'];
@@ -455,13 +460,6 @@
 					$result=$this->objsm->get_discussion_id($user_id, $timestamp);
 					$row = mysqli_fetch_array($result);
 					$discussion_id= $row['discussion_id'];
-					if(isset($_POST['anonymity'])){						
-						if(!$this->objsm->initial_anonymous_name($discussion_id, $user_id)){
-							echo "<script>alert('Sorry! Could not create the discussion anonymously!'); window.location.href='view/lecturer/feed.php';</script>";
-						}else{
-							echo "<script>alert('Successfully Created Discussion!'); window.location.href='view/lecturer/feed.php';</script>";
-						}
-					}
 					if($tags!=""){
 						$extags = explode(",", $tags);
 						$this->objsm->insert_tags($discussion_id, $extags, $subject_code);
@@ -485,13 +483,10 @@
 			$url=trim($_POST['url']);
 			$attachment='';	
 			$discussion_id=$_POST['discussionId'];
+			date_default_timezone_set("Asia/Colombo");
 			$timestamp=date('Y-m-d H:i:s');
 			$upload_success=true;
-			if($_SESSION['user_role']=="L"){
-				$priority=1;
-			}else{
-				$priority=0;
-			}
+			$priority=1;
 			if(!empty(filesize($_FILES['answerAttach']['tmp_name']))){
 				$attachment = basename($_FILES['answerAttach']['name']);
       			$file_tmp =$_FILES['answerAttach']['tmp_name'];
@@ -515,29 +510,7 @@
 			}
 			if($upload_success){
 				if ($this->objsm->create_answer($user_id, $content, $url, $attachment, $discussion_id, $timestamp, $priority)){
-					if(isset($_POST['anonymity'])){
-						$result=$this->objsm->get_anonymous_number($user_id, $discussion_id);
-						if($result->num_rows == 0){
-							$result=$this->objsm->last_anonymous_number($discussion_id);
-							if($result->num_rows > 0){
-								$row = mysqli_fetch_array($result);
-								$anonymous_num=(int)$row['anonymous_number']+1;
-								if(!$this->objsm->assign_anonymous_name($discussion_id, $user_id, $anonymous_num)){
-									echo "<script>alert('Sorry! Could not create the answer anonymously!'); window.location.href='view/lecturer/feed.php';</script>";
-								}else{
-									echo "<script>alert('Successfully Created Answer!'); window.location.href='view/lecturer/feed.php';</script>";
-								}
-							}else if (!$this->objsm->initial_anonymous_name($discussion_id, $user_id)){
-								echo "<script>alert('Sorry! Could not create the answer anonymously!'); window.location.href='view/lecturer/feed.php';</script>";
-							}else{
-								echo "<script>alert('Successfully Created Answer!'); window.location.href='view/lecturer/feed.php';</script>";
-							}
-						}else{
-							echo "<script>alert('Successfully Created Answer!'); window.location.href='view/lecturer/feed.php';</script>";
-						}						
-					}else{
-						echo "<script>alert('Successfully Created Answer!'); window.location.href='view/lecturer/feed.php';</script>";
-					}
+					echo "<script>alert('Successfully Created Answer!'); window.location.href='view/lecturer/feed.php';</script>";					
 				}else{
 					unlink($target_file);
 					echo "<script>alert('Create Answer - Unsuccess!'); window.location.href='view/lecturer/feed.php';</script>";
@@ -552,6 +525,7 @@
 			$user_id=$_SESSION['user_id'];
 			$discussion_id=$_POST['reportDiscussionId'];
 			$cause=$_POST['reportCause'];
+			date_default_timezone_set("Asia/Colombo");
 			$timestamp=date('Y-m-d H:i:s');
 			if($this->objsm->create_report($user_id, $discussion_id, $cause, $timestamp)){
 				echo "<script>alert('Report Submit - Success!'); window.location.href='view/lecturer/feed.php';</script>";
@@ -592,6 +566,18 @@
 			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=profilesetting.php&user_id='.$_SESSION['user_id'].'")</script>';
 		}
 
+		//deactivate user
+		public function deactivateUser(){
+			if(isset($_POST['checkboxslide']) && $_POST['checkboxslide']=='D'){
+				$this->objsm->deactivateUser($_SESSION['user_id']);
+				session_destroy();
+				echo '<script type="text/javascript">'; 
+				echo 'alert("Account disabled successfully");'; 
+				echo 'window.location.assign("http://localhost/Main/index.php")';	
+				echo '</script>';
+				
+			}
+		}
 		
     }
 ?>

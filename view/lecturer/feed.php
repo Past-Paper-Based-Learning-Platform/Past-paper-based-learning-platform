@@ -11,7 +11,8 @@
 </head>
 <body>
 <div class="scrollhide" style="width:100%; height:100%; overflow:auto; margin:auto">
-  <div class="posts-wrapper">
+  
+    <button class="toggle-form" style="height: 50px">Ask a Question</button>
 
     <div id="genquestion" style="background : rgba(0, 0, 0, 0.5);padding: 6px 12px;">
         
@@ -24,11 +25,11 @@
             }
             ?> 
         </datalist>
-        <form id="general-form" action="http://localhost/Main/homeindex.php?page=feed.php" method="post" enctype="multipart/form-data" onSubmit="return validateForm()"> 
+        <form id="general-form" action="http://localhost/Main/lecturerindex.php" method="post" enctype="multipart/form-data" onSubmit="return validateForm()"> 
             <h2 class="text-white">Ask a Question</h2>
             <div class="col-1-item text-white">Question:</div>
             <div class="col-5-item">
-                <textarea id="question" name="question" rows="3" cols="90" placeholder="Make it short and clear..."></textarea>
+                <textarea id="question" name="question" rows="3" cols="80" placeholder="Make it short and clear..."></textarea>
             </div>
             <div class="col-3-item select"> 
             <select name="subjectrelated" class="scrollhide"> 
@@ -40,8 +41,9 @@
                 ?>
             </select>
             </div>
+            <div class="col-1-item"></div>
             <div class="col-1-item text-white" style="font-size:14px">Attach a Photo: (optional)</div>
-            <div class="col-2-item white-upload">
+            <div class="col-1-item white-upload">
                 <input type="file" name="picture" id="pictureupload" value="">
             </div>
             <div class="row">
@@ -50,7 +52,6 @@
                 <input type="text" list="tags" name="tags">
             </div>
             <input type="hidden" class="tag-list" name="taglist" value="">
-            
                 <div class="col-2-item">
                     <button id="postquestion" class="gradient-blue border-blue" type="submit" name="postquestion">Post Question</button> 
                 </div>
@@ -58,7 +59,6 @@
         </form>
     </div>
 
-    </div>
     
     <div style="margin:auto; overflow:auto">
     <form action="" method="post">
@@ -79,16 +79,15 @@
     </div>
 
     <div class="form-popup" id="answerForm">
-        <form action="http://localhost/Main/homeindex.php?page=feed.php" class="form-container" method="post" enctype="multipart/form-data">
+        <form action="http://localhost/Main/lecturerindex.php?page=feed.php" class="form-container" method="post" enctype="multipart/form-data">
         <span style="float:right"><input type="reset" class="cancel" value="&times;" onclick="closeForm()"></span>
             
             <h2>Create an Answer</h2>
             <label for="answer"><b>Answer:</b></label>
             <textarea id="answer" name="answer" rows="3" cols="70" placeholder="Make it short and clear..." required></textarea></br>
-            <label for="psw"><b>Web URL or Discussion Link</b></label>
+            <label for="psw"><b>Share Web URL</b></label>
             <input type="text" placeholder="Enter URL..." name="url">
             <input type="file" name="answerAttach" value="">
-            <span style="font-size: 13px"><input type="checkbox" name="anonymity" value="1">&nbsp;&nbsp;&nbsp;&nbsp;Answer Anonymously&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <input id="hiddenId" type="hidden" name="discussionId"></br></br>
             <button type="submit" class="gradient-blue border-blue btn" name="postAnswer">Post Answer</button>
             
@@ -126,7 +125,7 @@
         <span class="pastpaper-tag">From past paper: <?php echo getPaperName($discussion['paper_id']);?></span>
       </div>
     <?php } ?>
-    <div class="row">
+   <div class="row">
       <?php echo $discussion['content'];?></div>
       <?php if(!is_null($discussion['picture'])){?>
             <div class="image-wrapper">
@@ -186,7 +185,7 @@
                                 <span><em>Reference:&nbsp;</em><a href="<?php echo $answer['url']?>" target="_blank" class="text-lblue"><?php echo $answer['url']?></a></span>
                             </div>
                         <?php } ?>
-                        <div class="post-info">
+                        <div class="post-info" style="display: flex">
                             <!-- if user likes post, style button differently -->
                             <i <?php if (userLikedAnswer($answer['answer_id'])): ?>
                                 class="fa fa-thumbs-up like-btn-answer"
@@ -208,7 +207,11 @@
                             data-id="<?php echo $answer['answer_id'] ?>"></i>
                             <span class="dislikes-answer"><?php echo getDislikesAnswer($answer['answer_id']); ?></span>
                             &nbsp;&nbsp;&nbsp;&nbsp;
+                            <span style="width: 75%"><input id="comment<?php echo $answer['answer_id']; ?>" style=" border-radius:20px; padding: 15px; outline: none" type="text" class="comment-box" name="comment" placeholder="Comment..."></span>
+                            <span><input id="postcomment<?php echo $answer['answer_id']; ?>" class="comment-post" type="button" value="Post" data-id=<?php echo $answer['answer_id'] ?>></span>
+                            <span><input id="showcomment<?php echo $answer['answer_id']; ?>" class="comment-show" type="button" value="Show Comments" data-id=<?php echo $answer['answer_id'] ?>></span>
                         </div>
+                        <div class="row" id="comment-content<?php echo $answer['answer_id']; ?>"></div>
                     </div>
                 <?php }?>
             </div>
@@ -228,6 +231,12 @@
         for (var i=0; i< answer.length; i++){
             answer[i].style.display = "none";
         }
+        var questionform = document.getElementById("genquestion");
+        questionform.style.display = "none";
+    });
+
+    $(".toggle-form").click(function(){
+        $("#genquestion").toggle(300);
     });
 
     $('#general-form').on('keyup keypress', function(e) {

@@ -11,7 +11,8 @@
 </head>
 <body>
 <div class="scrollhide" style="width:100%; height:100%; overflow:auto; margin:auto">
-  <div class="posts-wrapper">
+  
+    <button class="toggle-form" style="height: 50px">Ask a Question</button>
 
     <div id="genquestion" style="background : rgba(0, 0, 0, 0.5);padding: 6px 12px;">
         
@@ -40,7 +41,8 @@
                 ?>
             </select>
             </div>
-            <div class="col-2-item text-white" style="font-size:14px">Attach a Photo: (optional)</div>
+            <div class="col-1-item"></div>
+            <div class="col-1-item text-white" style="font-size:14px">Attach a Photo: (optional)</div>
             <div class="col-1-item white-upload">
                 <input type="file" name="picture" id="pictureupload" value="">
             </div>
@@ -58,7 +60,6 @@
         </form>
     </div>
 
-    </div>
     
     <div style="margin:auto; overflow:auto">
     <form action="" method="post">
@@ -85,7 +86,7 @@
             <h2>Create an Answer</h2>
             <label for="answer"><b>Answer:</b></label>
             <textarea id="answer" name="answer" rows="3" cols="70" placeholder="Make it short and clear..." required></textarea></br>
-            <label for="psw"><b>Web URL or Discussion Link</b></label>
+            <label for="psw"><b>Share Web URL</b></label>
             <input type="text" placeholder="Enter URL..." name="url">
             <input type="file" name="answerAttach" value="">
             <span style="font-size: 13px"><input type="checkbox" name="anonymity" value="1">&nbsp;&nbsp;&nbsp;&nbsp;Answer Anonymously&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -232,6 +233,12 @@
         for (var i=0; i< answer.length; i++){
             answer[i].style.display = "none";
         }
+        var questionform = document.getElementById("genquestion");
+        questionform.style.display = "none";
+    });
+
+    $(".toggle-form").click(function(){
+        $("#genquestion").toggle(300);
     });
 
     $('#general-form').on('keyup keypress', function(e) {

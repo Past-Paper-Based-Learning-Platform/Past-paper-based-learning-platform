@@ -155,6 +155,7 @@
 			$unsuccess=0;
 			for ($i = 0; $i < $_GET['count']; $i++){
 				$files = unserialize($_GET["filearr"]);
+				date_default_timezone_set("Asia/Colombo");
 				if(!$this->objsm->paper_upload($_POST['subject'][$i], $_GET['year'], $_POST['part'][$i], basename($files[$i]), date('Y-m-d'))){
 					unlink('pastpapers/'.basename($_GET['files'][$i]));
 					$unsuccess++;
@@ -285,7 +286,7 @@
 			}
 			else
 			{
-				echo '<script> alert("Wrong Current Password!"); window.location.href="http://localhost/Main/view/examinationdep/changepassword.php";</script>';
+				echo '<script> alert("Wrong Current Password!"); window.location.href="http://localhost/Main/examindex.php?page=changepassword.php";</script>';
 
 			}
 		}

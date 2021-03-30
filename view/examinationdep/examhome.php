@@ -50,25 +50,25 @@
                     <div style="width: 50%; float: left">
                         <div class="col-2-item text-white">Year:</div>
                         <div class="col-4-item">
-                            <input type="text" name="year" id="inputyear" value="<?php echo isset($_POST['year']) ? $_POST['year'] : date('Y'); ?>">
+                            <input type="text" name="year" id="inputyear" value="<?php echo isset($_POST['year']) ? $_POST['year'] : date('Y'); ?>" required>
                         </div>
                     </div>
                     <div style="width: 50%; float: left">
                         <div class="col-2-item text-white">Semester:</div>
                         <div class="col-4-item">
-                            <input type="text" list="semester" name="semester" id="inputsemester" value="<?php echo isset($_POST['semester']) ? $_POST['semester'] : ''; ?>">
+                            <input type="text" list="semester" name="semester" id="inputsemester" value="<?php echo isset($_POST['semester']) ? $_POST['semester'] : ''; ?>" required>
                         </div> 
                     </div>
                     <div style="width: 50%; float: left">
                         <div class="col-2-item text-white">Course:</div>
                         <div class="col-4-item">
-                            <input type="text" list="course" name="course" id="inputcourse" value="<?php echo isset($_POST['course']) ? $_POST['course'] : ''; ?>">
+                            <input type="text" list="course" name="course" id="inputcourse" value="<?php echo isset($_POST['course']) ? $_POST['course'] : ''; ?>" required>
                         </div> 
                     </div>
                     <div style="width: 50%; float: left">
                         <div class="col-2-item text-white">Year of Study:</div>
                         <div class="col-4-item">
-                            <input type="text" list="studyyear" name="studyyear" id="inputstudyyear" value="<?php echo isset($_POST['studyyear']) ? $_POST['studyyear'] : ''; ?>">                        
+                            <input type="text" list="studyyear" name="studyyear" id="inputstudyyear" value="<?php echo isset($_POST['studyyear']) ? $_POST['studyyear'] : ''; ?>" required>                        
                         </div>
                     </div>
                     <div class="row">
@@ -116,11 +116,11 @@
                     <form action="http://localhost/Main/examindex.php?tag=exam" method="post" enctype="multipart/form-data"> 
                         <div class="col-1-item text-white">Year:</div>
                         <div class="col-2-item">
-                            <input type="text" name="year" value="<?php date('Y'); ?>">
+                            <input type="text" name="year" value="<?php date('Y'); ?>" required>
                         </div>
                         <div class="col-1-item text-white">Course:</div>
                         <div class="col-2-item">
-                            <input type="text" list="course" name="course" value="">
+                            <input type="text" list="course" name="course" value="" required>
                         </div>
                         <div class="container" style="height: 390px; overflow: auto">
                             <input type="file" name="files[]" id="filer_input" multiple="multiple">
@@ -147,7 +147,7 @@
                     <div class="container" style="width: 25%; float: left">
                         <div class="col-2-item text-white">Year:</div>
                         <div class="col-4-item">
-                            <input type="text" name="subjectyear" value="<?php echo isset($_POST['subjectyear']) ? $_POST['subjectyear'] : date('Y'); ?>">
+                            <input type="text" name="subjectyear" value="<?php echo isset($_POST['subjectyear']) ? $_POST['subjectyear'] : date('Y'); ?>" required>
                         </div>
                     </div>
                     <div class="container" style="width: 25%; float: left">
@@ -158,19 +158,19 @@
                             <option value="Semester I & II"> 
                         </datalist>
                         <div class="col-4-item">
-                            <input type="text" list="semesterNew" name="subjectsemester" value="<?php echo isset($_POST['subjectsemester']) ? $_POST['subjectsemester'] : ''; ?>">
+                            <input type="text" list="semesterNew" name="subjectsemester" value="<?php echo isset($_POST['subjectsemester']) ? $_POST['subjectsemester'] : ''; ?>" required>
                         </div> 
                     </div>
                     <div class="container" style="width: 25%; float: left">
                         <div class="col-2-item text-white">Course:</div>
                         <div class="col-4-item">
-                            <input type="text" list="course" name="subjectcourse" value="<?php echo isset($_POST['subjectcourse']) ? $_POST['subjectcourse'] : ''; ?>">
+                            <input type="text" list="course" name="subjectcourse" value="<?php echo isset($_POST['subjectcourse']) ? $_POST['subjectcourse'] : ''; ?>" required>
                         </div> 
                     </div>
                     <div class="container" style="width: 25%; float: left">
                         <div class="col-2-item text-white">Year of Study:</div>
                         <div class="col-4-item">
-                            <input type="text" list="studyyear" name="subjectstudyyear" value="<?php echo isset($_POST['subjectstudyyear']) ? $_POST['subjectstudyyear'] : ''; ?>">
+                            <input type="text" list="studyyear" name="subjectstudyyear" value="<?php echo isset($_POST['subjectstudyyear']) ? $_POST['subjectstudyyear'] : ''; ?>" required>
                         </div>
                     </div>
                     <div class="col-1-item">

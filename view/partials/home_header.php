@@ -65,13 +65,13 @@
                         </div>
 
                         <!--profile-->
-                        <div class="verticlebtn" style="text-align:center;margin-top:8px;">
-                            <a href="http://localhost/Main/view/registered%20user/filter.php"><button class="gradient-blue verticlebtn" >View My Profile</button></a>
-                        </div>
+                        <div>
+                            <a href="http://localhost/Main/homeindex.php?page=filterpage.php"><button class="verticlebtn" >My Contributions</button></a>
+                            <a href='http://localhost/Main/homeindex.php?page=home.php'><button class="verticlebtn" id="feed-refresh">Go to Feed</button></a>
 
                         <!-- Ask a quesion from past paper -->
                         <div class="dropdown" style="text-align:center; width:100%; margin:0px;">
-                            <button onclick="dropdownpaper()" class="gradient-blue dropbtn verticlebtn">Ask a Quesion From Past Paper</button>
+                            <button onclick="dropdownpaper()" class="verticlebtn">Ask a Quesion From Past Paper</button>
                             <div id="myDropdown" class="dropdown-content">
                                 <input type="text" placeholder="Search Pastpaper.." id="myInput" onkeyup="filterFunction()">
                                 <?php
@@ -84,10 +84,9 @@
                         </div><br>
                     
                     <!-- Scedule meeting -->
-                    <div class="verticlebtn" style="text-align:center;margin-top:8px;">
-                        <a href="http://localhost/Main/homeindex.php?page=meeting.php"><button class="gradient-blue verticlebtn" >Scedule Meeting</button></a>
+                        <a href="http://localhost/Main/homeindex.php?page=meeting.php"><button class="verticlebtn" >Schedule Meeting</button></a>
+                    
                     </div>
-
 
 
                 <div>

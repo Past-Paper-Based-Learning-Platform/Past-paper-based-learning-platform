@@ -68,17 +68,37 @@
 			if(isset($_POST['requestmeeting'])){
 				$this->requestMeeting();
 			}
-
+//edit and delete discussion 
 			if (isset($_POST['editDiscussion'])){
-				$this->editDiscussion();
+				if($_POST['temp']==0){
+					$this->editDiscussion();
+					echo $_POST['discussionId'];
+				}elseif($_POST['temp']==1){
+					echo $_POST['discussionId'];
+					$this->editanswer();
+				}
 			}
-			
 			if (isset($_POST['deleteDiscussion'])){
-				$this->deleteDiscussion();
+				
+				if($_POST['temp']==0){
+					$this->deleteDiscussion();
+					echo $_POST['discussionId'];
+				}elseif($_POST['temp']==1){
+					echo $_POST['discussionId'];
+					$this->deleteanswer();
+				}
+				
 			}
 				
 			if(isset($_POST['setnofication'])){
 				$this->setNotification();
+			}
+			if (isset($_POST['filter'])){
+				$this->filterDiscussion();
+			}
+
+			if(isset($_POST['deactivate'])){
+				$this->deactivateUser();
 			}
 		}
 
@@ -91,6 +111,7 @@
 			$result_lesson = $this->objsm->getLessons();
 			$meetingdetails = $this->objsm->getmeetingdetails($userId);
 			$image = $this->objsm->getUserImage($userId);
+			$notification = $this->objsm->getNotification($userId);
 			
 			if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -102,10 +123,8 @@
 				
 			}
 
-			if($page=='profilesetting.php' or $page=='privacysetting.php'){
+			if($page=='profilesetting.php'){
 				$row=$this->objsm->get_user($userId);
-				$notification = $this->objsm->getNotification($userId);
-				
 			}
 			if($page=='pastpaperedit.php'){
 
@@ -208,24 +227,11 @@
 			$last_name=$_POST['l_name'];
 			$email=$_POST['email'];
 			$password=$_POST['password'];
-			$userActive='';
-			if(isset($_POST['checkboxslide'])){
-				$userActive=$_POST['checkboxslide'];
-			}
+			
 		
-			$result=$this->objsm->user_update($user_id,$first_name,$middle_name, $last_name,$email,$password,$userActive);
-	
-			if(isset($_POST['checkboxslide']) && $_POST['checkboxslide']=='D'){
-				session_destroy();
-				echo '<script type="text/javascript">'; 
-				echo 'alert("Account disabled successfully");'; 
-				echo 'window.location.assign("http://localhost/Main/index.php")';	
-				echo '</script>';
-				
-			}else{
-				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$user_id.'")</script>';
-			}		
-		
+			$result=$this->objsm->user_update($user_id,$first_name,$middle_name, $last_name,$email,$password);
+
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=profilesetting.php&user_id='.$user_id.'")</script>';
 		}
 
 		public function passwordUpdate(){
@@ -245,13 +251,6 @@
 			}
 		}
 
-		public function deleteDiscussion(){
-			$discussionId=$_POST['discussionId'];
-			
-			$result=$this->objsm->deleteDiscussion($discussionId);
-			echo "<script>alert(Delete success!'); window.location.href='view/registered user/filter.php';</script>";
-		}
-
 		public function editDiscussion(){
 
 			$discussionId=$_POST['discussionId'];
@@ -265,6 +264,7 @@
 			$qcontent=trim($_POST['question']);
 			$subject_code=$_POST['subjectrelated'];
 			$attachment='';	
+			date_default_timezone_set("Asia/Colombo");
 			$timestamp=date('Y-m-d H:i:s');
 			$upload_success=true;
 			$tags=$_POST['taglist'];
@@ -328,6 +328,7 @@
 			$url=trim($_POST['url']);
 			$attachment='';	
 			$discussion_id=$_POST['discussionId'];
+			date_default_timezone_set("Asia/Colombo");
 			$timestamp=date('Y-m-d H:i:s');
 			$upload_success=true;
 			if($_SESSION['user_role']=="L"){
@@ -395,6 +396,7 @@
 			$user_id=$_SESSION['user_id'];
 			$discussion_id=$_POST['reportDiscussionId'];
 			$cause=$_POST['reportCause'];
+			date_default_timezone_set("Asia/Colombo");
 			$timestamp=date('Y-m-d H:i:s');
 			if($this->objsm->create_report($user_id, $discussion_id, $cause, $timestamp)){
 				echo "<script>alert('Report Submit - Success!'); window.location.href='view/registered user/feed.php';</script>";
@@ -495,6 +497,52 @@
 			$this->objsm->setnotification($block,$_SESSION['user_id']);
 
 			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$_SESSION['user_id'].'$x='.$block.'")</script>';
+		}
+
+		
+		public function editanswer(){
+			$discussionId=$_POST['discussionId'];
+			$content=$_POST['content'];
+			$result=$this->objsm->updateanswer($discussionId,$content);
+			echo "<script>alert('Edit Discussion - success!'); window.location.href='view/registered user/filter.php';</script>";
+		}
+
+		public function deleteanswer(){
+			$discussionId=$_POST['discussionId'];
+		
+			$result=$this->objsm->deleteanswer($discussionId);
+			echo "<script>alert('Delete - success!'); window.location.href='view/registered user/filter.php';</script>";
+		}
+
+		public function deleteDiscussion(){
+			$discussionId=$_POST['discussionId'];
+			
+			$result=$this->objsm->deleteDiscussion($discussionId);
+			echo "<script>alert('Delete - success!'); window.location.href='view/registered user/filter.php';</script>";
+		}
+
+		public function filterDiscussion(){
+			$user_id=$_SESSION['user_id'];
+			if(true){
+				echo "Hello";
+			$resultdis=$this->objsm->filterdiscussion($user_id);
+			}elseif(isset($_POST['answereddiscussion'])){
+			$resultdis=$this->objsm->filteranswered($user_id);
+			}
+			require_once "./view/registered user/filterdiscussion.php";
+		}
+
+		//deactivate user
+		public function deactivateUser(){
+			if(isset($_POST['checkboxslide']) && $_POST['checkboxslide']=='D'){
+				$this->objsm->deactivateUser($_SESSION['user_id']);
+				session_destroy();
+				echo '<script type="text/javascript">'; 
+				echo 'alert("Account disabled successfully");'; 
+				echo 'window.location.assign("http://localhost/Main/index.php")';	
+				echo '</script>';
+				
+			}
 		}
     }
 ?>

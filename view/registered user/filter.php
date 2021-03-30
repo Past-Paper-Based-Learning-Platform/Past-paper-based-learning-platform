@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="http://localhost/Main/libs/css/feed.css" type="text/css">
 </head>
 <body>
-<div class="scrollhide" style="width:50%; height:100%; overflow:auto; margin:auto">
+<div class="scrollhide" style="width:100%; height:100%; overflow:auto; margin:auto">
 
     
     <div style="margin:auto; overflow:auto;">
@@ -34,6 +34,7 @@
         
             <input id="hiddenId" type="hidden" value="discussionId" name="discussionId">
             <input id="hiddenContent" type="text" value="content" name="content">
+            <input id="hiddentemp" type="hidden" value="temp" name="temp">
             <button type="submit" class="gradient-blue border-blue btn edit-answer" data_id="discussionId" name="editDiscussion">Edit</button>
             
         </form>
@@ -48,10 +49,19 @@
             
         
             <input id="deleteId" type="hidden" value="discussionId" name="discussionId">
+            <input id="deletetemp" type="hidden" value="temp" name="temp">
             
             <button type="submit" class="gradient-blue border-blue btn edit-answer" name="deleteDiscussion">Delete</button>
             
         </form>
+
+
+
+
+       
+
+
+
 
     </div>
     
@@ -110,9 +120,9 @@ if($a==1){
         data-id="<?php echo $discussion['discussion_id'] ?>"></i>
         <span class="dislikes"><?php echo getDislikes($discussion['discussion_id']); ?></span>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <span><input class="post-answer"  type="button" value="Edit" discussionid="<?php echo $discussion['discussion_id'] ?> " content="<?php echo $discussion['dis_content'] ?> " onclick="openFormedit()"></span>
+        <span><input class="post-answer"  type="button" value="Edit" discussionid="<?php echo $discussion['discussion_id'] ?> " content="<?php echo $discussion['content'] ?> "  temp="0" onclick="openFormedit()"></span>
 
-        <span><input class="post-answer delete-discussion" type="button" value="Delete" discussionId="<?php echo $discussion['discussion_id'] ?>" onclick="openFormdelete()"></span>
+        <span><input class="post-answer delete-discussion" type="button" value="Delete" discussionId="<?php echo $discussion['discussion_id'] ?>" temp="0" onclick="openFormdelete()"></span>
         <?php if ($resultans->num_rows > 0){?>
             <span style="float:right"><a href="#" id="hideAnswers<?php echo $x; ?>" class="hdanswer" disId="<?php echo $x; ?>" style="text-decoration:none; color: gray">&nbsp;&nbsp;&nbsp;&nbsp; <em>Hide Answer(s)</em> </a></span>
             <span style="float:right"><a href="#" id="showAnswers<?php echo $x; ?>" class="shanswer" disId="<?php echo $x; ?>" style="text-decoration:none; color: gray"> <em> <?php echo $resultans->num_rows; ?>&nbsp;Answer(s)</em> </a></span>
@@ -251,9 +261,9 @@ if($a==1){
                             data-id="<?php echo $answer['answer_id'] ?>"></i>
                             <span class="dislikes-answer"><?php echo getDislikesAnswer($answer['answer_id']); ?></span>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <span><input class="post-answer"  type="button" value="Edit" discussionid="<?php echo $discussion['discussion_id'] ?> " content="<?php echo $discussion['ans_content'] ?> " onclick="openFormedit()"></span>
+                            <span><input class="post-answer"  type="button" value="Edit" discussionid="<?php echo $answer['answer_id'] ?> " content="<?php echo $discussion['ans_content'] ?> " temp="1" onclick="openFormedit()"></span>
 
-        <span><input class="post-answer delete-discussion" type="button" value="Delete" discussionId="<?php echo $discussion['discussion_id'] ?>" onclick="openFormdelete()"></span>
+        <span><input class="post-answer delete-discussion" type="button" value="Delete" discussionId="<?php echo $discussion['answer_id'] ?>" temp="1"  onclick="openFormdelete()"></span>
                         </div>
                     </div>
                 <?php }?>
@@ -307,11 +317,17 @@ if($a==1){
         hiddenId.value = discussionId;
         var hiddencontent = document.getElementById('hiddenContent');
         hiddenContent.value = content;
+        var temp=$(this).attr('temp');
+        var hiddentemp = document.getElementById('hiddentemp');
+        hiddentemp.value = temp;
     });
     $('input.delete-discussion').click(function(){
         var discussionId= $(this).attr('discussionId');
         var hiddenId = document.getElementById('deleteId');
         hiddenId.value = discussionId;
+        var temp=$(this).attr('temp');
+        var hiddentemp = document.getElementById('deletetemp');
+        hiddentemp.value = temp;
         
     });
     $('input.report-discussion').click(function(){
@@ -336,15 +352,13 @@ if($a==1){
         document.getElementById("deleteForm").style.display = "none";
     }
 
-    function openReportForm() {
-        document.getElementById("reportDiscussionForm").style.display = "block";
+    function openFormansweredit() {
+        document.getElementById("editanswerForm").style.display = "block";
     }
 
-    function closeReportForm() {
-        document.getElementById("reportDiscussionForm").style.display = "none";
+    function closeFormansweredit() {
+        document.getElementById("editanswerForm").style.display = "none";
     }
-
-
 
 
   </script>

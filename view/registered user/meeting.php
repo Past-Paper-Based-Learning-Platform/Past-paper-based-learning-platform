@@ -15,6 +15,7 @@
                                                 }else{
                                                     echo '<li>Meeting on '.$day['meeting_date'].' with lecturer '.$day['first_name'].' '.$day['last_name'].' - Pending request </li>';
                                                 }
+                                                echo '<hr>';
                                             }
                                         }else{
                                             echo '<h3>No Meetings Requested</h3>';

@@ -2,10 +2,12 @@
 
 <td style="width:20%;border: none;">
 <div class="col-6-item bg-gray lefthometab" style="height: 100%">
-    <div class="bg-gray" style="border-radius:0px;">
-        <h4 style="text-align:center;">Upcomming Meetings</h4>
-    <div>
-    <?php 
+<div class="bg-gray" style="border-radius:0px;">
+<?php
+if($notification == 1){
+    echo '<h3 style="margin-left:20px">You have Turned off Notification</h3>';
+}else{
+    echo '<h3 style="margin-left:20px">Upcomming Meetings</h3>';
         $flag=0;
         if(!empty($meetingdetails)){
             foreach($meetingdetails as $day){
@@ -19,9 +21,23 @@
         }
 
         if($flag==0){
-            echo '<h6>No upcomming Meetings</h6>';
+            echo '<h3 style="margin-left:20px">No upcomming Meetings</h3>';
         }
-    ?> 
+}
+?>
+</div>
+<hr>
+<div class="bg-gray" style="border-radius:0px;">
+    <h3 style="margin-left:20px">Interest List</h3>
+    <ul style="list-style-type: square;">
+    <?php
+        while($row = mysqli_fetch_assoc($subjects)) {
+        echo "<li>". $row['subject_name']. "</li>";
+        }
+    ?>
+    </ul> 
+</div>
+
 </div>
 </td>
 </tr>
@@ -31,7 +47,6 @@
 
 <script src="libs/main.js"></script>
 <script>
-
 //drop down button
 function dropdownpaper() {
 document.getElementById("myDropdown").classList.toggle("show");

@@ -326,17 +326,9 @@
     
 		
 
-    public function user_update($user_id,$first_name,$middle_name, $last_name,$email,$password,$user_update){
+    public function user_update($user_id,$first_name,$middle_name, $last_name,$email,$password){
         $this->open_db();
-
-        $userData = $this->get_user($user_id);
-        $slider = $userData['user_flag'];
-        
-        if($user_update=='D'){
-            $slider='D';
-        }
-
-        $sql= "UPDATE registered_user SET email='$email' , first_name='$first_name' , middle_name='$middle_name' , last_name='$last_name' ,password='$password' ,user_flag='$slider' WHERE user_id=$user_id";
+        $sql= "UPDATE registered_user SET email='$email' , first_name='$first_name' , middle_name='$middle_name' , last_name='$last_name' ,password='$password' WHERE user_id=$user_id";
         $result= $this->condb-> query($sql);
         return $result;
         }
@@ -738,6 +730,34 @@
             	$this->close_db();
             	throw $e;
         	}
+        }
+
+        public function updateanswer($discussionId,$content){
+            $this->open_db();
+            
+                $sql="UPDATE answer SET content='$content' WHERE answer_id=$discussionId";
+                $result= $this->condb-> query($sql);
+               
+                
+                $this->close_db();
+        }
+    
+        public function deleteanswer($discussionId){
+            $this->open_db();
+           
+                $sql="DELETE FROM answer Where answer_id='$discussionId'";
+                $result= $this->condb-> query($sql);
+               
+                
+                $this->close_db();
+        }
+
+        //deactivate user
+        public function deactivateUser($user_id){
+            $this->open_db();
+                $sql="UPDATE registered_user SET activeStatus = 0 WHERE user_id='$user_id'";
+                $result=$this->condb->query($sql);
+                return $result;
         }
     }
 ?>

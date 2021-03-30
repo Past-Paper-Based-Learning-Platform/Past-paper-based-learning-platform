@@ -35,7 +35,7 @@
             </tr>
   
             <tr>
-              <td>Middel Name</td>
+              <td>Middle Name</td>
               <td>
                 <input type='text' name='m_name'required value='".$row['middle_name']."'>
               </td>
@@ -52,16 +52,6 @@
               <td>Email</td>
               <td>
                 <input type='email' name='email' required value=".$row['email'].">
-              </td>
-            </tr>
-
-            <tr>
-              <td>Disable Account</td>
-              <td>
-              <label class='switch'>
-                <input name='checkboxslide' type='checkbox' value='D' >
-                <span class='slider round'></span>
-              </label>
               </td>
             </tr>
 
@@ -83,6 +73,18 @@
 
     ?>
     </div>
+
+    <!--deactivate account-->
+    <h3 class="topic">Deactiavte Account</h3>
+    <hr>
+    <form action="http://localhost/Main/homeindex.php?page=profilesetting.php&user_id=<?php echo $_SESSION['user_id']; ?>" method="POST" >
+      <label for="checkboxslide"> Deactivate:</label>
+      <label class='switch'>
+        <input name='checkboxslide' type='checkbox' value='D' >
+        <span class='slider round'></span>
+      </label>
+      <button type="submit" name="deactivate" class='submitbtn'>Deactivate</button>
+    </form>
     
     <!--Change password-->
   <div>

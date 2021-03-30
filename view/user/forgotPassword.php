@@ -37,44 +37,49 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Login</title>
     <link rel="stylesheet" href="libs/main.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+    div.trans {
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
 </head>
 <body onload="display()">
-    <div class="row container">
-        <div class="col-6-item bg-lblue" style="height: 600px;">
+    <div class="row">
+        <div class="trans" style="height: 600px; width:50%; margin:auto">
         <div class="tab">
                 <div class="col-6-item strong text-white text-center">
                     Forgot Password
                 </div>
         </div>
-        <div style="height: 500px;background-color: rgb(130, 150, 170)">
+        <div style="height: 500px;">
         <form action="http://localhost/Main/index.php?page=forgotPassword.php" method="POST" id="forgotPWFormId">
                 <div class="col-6-item">
-                    <div class="col-2-item"></div>
-                    <div class="col-1-item strong text-white">Email</div> 
-                    <div class="col-1-item"><input type="text" placeholder="Email" id="emailid" name="email"></div>
-                    <div class="col-2-item"><span style="color:red" id="emailValidationId">Invalid Email</span></div>
+                    <div class="col-1-item"></div>
+                    <div class="col-1-item text-white">Email</div> 
+                    <div class="col-3-item"><input type="text" placeholder="Email" id="emailid" name="email"></div>
+                    <div class="col-1-item"><span style="color:red" id="emailValidationId">Invalid Email</span></div>
                 </div>
                 <div class="col-6-item">
-                    <div class="col-2-item"></div>
-                    <div class="col-1-item strong text-white">Re-enter Email</div> 
-                    <div class="col-1-item"><input type="text" placeholder="Re-enter Email" id="confirmemailid" name="confirmEmail"></div>
-                    <div class="col-2-item"><span style="color:red" id="confirmemailValidationId">Invalid Re-enter Email</span></div>
+                    <div class="col-1-item"></div>
+                    <div class="col-1-item text-white">Re-enter Email</div> 
+                    <div class="col-3-item"><input type="text" placeholder="Re-enter Email" id="confirmemailid" name="confirmEmail"></div>
+                    <div class="col-1-item"><span style="color:red" id="confirmemailValidationId">Invalid Re-enter Email</span></div>
                 </div>
                 <div class="col-6-item">
-                    <div class="col-2-item"></div>
+                    <div class="col-1-item"></div>
+                    <div class="col-4-item">
+                        <button class="verticlebtn" type="submit" id="sendRecoverPW" name="sendRecoverPW">Send Recovery Password</button>
+                        <span style="float:right; margin:10px">Check your email account</span>
+                    </div>
+                </div>
+                <div class="col-6-item">
+                    <div class="col-1-item"></div>
                     <div class="col-2-item">
-                        <button class="bg-dblue border-dblue" type="submit" id="sendRecoverPW" name="sendRecoverPW">Send Recovery Password</button>
-                        <span>Check your email account</span>
+                        <a href="http://localhost/Main/index.php?page=login.php" style="color:white">>> Back to Login</a>
                     </div>
-                </div>
-                <div class="col-6-item">
-                    <div class="col-2-item"></div>
-                    <div class="col-1-item">
-                        <a href="http://localhost/Main/index.php?page=login.php">Login</a>
-                    </div>
-                    <div class="col-1-item">
+                    <div class="col-2-item">
                         <!-- <a href="#" type="submit" >To Resend Click Here</a>    -->
-                        <button class="bg-dblue border-dblue" type="submit" name="sendagain">To Resend Click Here</button>
+                        <button class="verticlebtn" type="submit" name="sendagain">To Resend Click Here</button>
                     </div>
                 </div>
              </form>
