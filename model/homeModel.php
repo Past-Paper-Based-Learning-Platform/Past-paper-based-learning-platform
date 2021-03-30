@@ -739,5 +739,25 @@
             	throw $e;
         	}
         }
+
+        public function updateanswer($discussionId,$content){
+            $this->open_db();
+            
+                $sql="UPDATE answer SET content='$content' WHERE answer_id=$discussionId";
+                $result= $this->condb-> query($sql);
+               
+                
+                $this->close_db();
+        }
+    
+        public function deleteanswer($discussionId){
+            $this->open_db();
+           
+                $sql="DELETE FROM answer Where answer_id='$discussionId'";
+                $result= $this->condb-> query($sql);
+               
+                
+                $this->close_db();
+        }
     }
 ?>

@@ -304,10 +304,11 @@ $sql="SELECT past_paper.subject_code as subject_code, subject.subject_name as su
     WHERE past_paper.subject_code=subject.subject_code";
 $papers = mysqli_query($conn, $sql);
 
-if(isset($_POST['askeddiscussions'])){
-  $sql = "SELECT * FROM discussion /*WHERE user_id=$user_id*/ ORDER BY timestamp DESC";
+$sql = "SELECT * FROM discussion WHERE user_id=$user_id ORDER BY timestamp DESC";
   $resultdis = mysqli_query($conn, $sql);
-  $a=1;
+$a=1;
+if(isset($_POST['askeddiscussions'])){
+   $a=1;
 }elseif(isset($_POST['answereddiscussion'])){
   $sql = "SELECT discussion.discussion_id AS discussion_id , discussion.user_id AS user_id , discussion.paper_id AS paper_id , discussion.subject_code AS subject_code , discussion.content AS dis_content , discussion.picture AS dis_picture , discussion.timestamp AS dis_time , answer.answer_id , answer.content AS ans_content ,answer.url ,answer.picture AS ans_picture ,answer.timestamp AS ans_time FROM discussion RIGHT JOIN answer ON discussion.discussion_id = answer.discussion_id WHERE answer.user_id=$user_id ORDER BY answer.timestamp DESC";
   $resultdis = mysqli_query($conn, $sql);
