@@ -3,27 +3,40 @@
 <td style="width:20%;border: none;">
 <div class="col-6-item bg-gray lefthometab" style="height: 100%">
 <div class="bg-gray" style="border-radius:0px;">
-        <h4 style="text-align:center;">Upcomming Meetings</h4>
-    <div>
-    <?php 
+<?php
+if($notification == 1){
+    echo '<h3 style="margin-left:20px">You have Turned off Notification</h3>';
+}else{
+    echo '<h3 style="margin-left:20px">Upcomming Meetings</h3>';
         $flag=0;
         if(!empty($meetingdetails)){
-            echo '<ul>';
             foreach($meetingdetails as $day){
-                
-                if(!empty($day['meeting_time']) ){
-                        $flag=1;
-                        echo  '<li><p>You have a meeting with student '.$day['first_name'].' '.$day['last_name'].' on '.$day['meeting_date'].' at '.$day['meeting_time'].' </li>';
+                echo '<ul>';
+                if(!empty($day['meeting_time'])){
+                    $flag=1;
+                    echo  '<li><p>You have a meeting with lecturer '.$day['first_name'].' '.$day['last_name'].' on '.$day['meeting_date'].' at '.$day['meeting_time'].' </li>';
                 }
-               
+                echo '</ul>';
             }
-            echo '</ul>';
         }
 
         if($flag==0){
-            echo '<h5>No upcomming Meetings</h5>';
+            echo '<h3 style="margin-left:20px">No upcomming Meetings</h3>';
         }
-    ?>  
+}
+?>
+</div>
+<hr>
+<div class="bg-gray" style="border-radius:0px;">
+    <h3 style="margin-left:20px">Interest List</h3>
+    <ul style="list-style-type: square;">
+    <?php
+        while($row = mysqli_fetch_assoc($subjects)) {
+        echo "<li>". $row['subject_name']. "</li>";
+        }
+    ?>
+    </ul> 
+</div>
 </div>
 </td>
 </tr>

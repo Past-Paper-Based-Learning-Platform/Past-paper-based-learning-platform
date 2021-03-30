@@ -108,6 +108,7 @@
 			$result_lesson = $this->objsm->getLessons();
 			$meetingdetails = $this->objsm->getmeetingdetails($userId);
 			$image = $this->objsm->getUserImage($userId);
+			$notification = $this->objsm->getNotification($userId);
 			
 			if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -119,10 +120,8 @@
 				
 			}
 
-			if($page=='profilesetting.php' or $page=='privacysetting.php'){
+			if($page=='profilesetting.php'){
 				$row=$this->objsm->get_user($userId);
-				$notification = $this->objsm->getNotification($userId);
-				
 			}
 			if($page=='pastpaperedit.php'){
 
