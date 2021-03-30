@@ -25,7 +25,7 @@
             }
             ?> 
         </datalist>
-        <form id="general-form" action="http://localhost/Main/homeindex.php" method="post" enctype="multipart/form-data" onSubmit="return validateForm()"> 
+        <form id="general-form" action="http://localhost/Main/lecturerindex.php" method="post" enctype="multipart/form-data" onSubmit="return validateForm()"> 
             <h2 class="text-white">Ask a Question</h2>
             <div class="col-1-item text-white">Question:</div>
             <div class="col-5-item">
@@ -41,7 +41,8 @@
                 ?>
             </select>
             </div>
-            <div class="col-2-item text-white" style="font-size:14px">Attach a Photo: (optional)</div>
+            <div class="col-1-item"></div>
+            <div class="col-1-item text-white" style="font-size:14px">Attach a Photo: (optional)</div>
             <div class="col-1-item white-upload">
                 <input type="file" name="picture" id="pictureupload" value="">
             </div>
@@ -51,7 +52,6 @@
                 <input type="text" list="tags" name="tags">
             </div>
             <input type="hidden" class="tag-list" name="taglist" value="">
-            <div class="col-2-item text-white">&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="anonymity" value="1">&nbsp;&nbsp;&nbsp;&nbsp;Ask Anonymously</div>
                 <div class="col-2-item">
                     <button id="postquestion" class="gradient-blue border-blue" type="submit" name="postquestion">Post Question</button> 
                 </div>
@@ -79,16 +79,15 @@
     </div>
 
     <div class="form-popup" id="answerForm">
-        <form action="http://localhost/Main/homeindex.php?page=feed.php" class="form-container" method="post" enctype="multipart/form-data">
+        <form action="http://localhost/Main/lecturerindex.php?page=feed.php" class="form-container" method="post" enctype="multipart/form-data">
         <span style="float:right"><input type="reset" class="cancel" value="&times;" onclick="closeForm()"></span>
             
             <h2>Create an Answer</h2>
             <label for="answer"><b>Answer:</b></label>
             <textarea id="answer" name="answer" rows="3" cols="70" placeholder="Make it short and clear..." required></textarea></br>
-            <label for="psw"><b>Web URL or Discussion Link</b></label>
+            <label for="psw"><b>Share Web URL</b></label>
             <input type="text" placeholder="Enter URL..." name="url">
             <input type="file" name="answerAttach" value="">
-            <span style="font-size: 13px"><input type="checkbox" name="anonymity" value="1">&nbsp;&nbsp;&nbsp;&nbsp;Answer Anonymously&nbsp;&nbsp;&nbsp;&nbsp;</span>
             <input id="hiddenId" type="hidden" name="discussionId"></br></br>
             <button type="submit" class="gradient-blue border-blue btn" name="postAnswer">Post Answer</button>
             

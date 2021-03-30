@@ -41,7 +41,8 @@
                 ?>
             </select>
             </div>
-            <div class="col-2-item text-white" style="font-size:14px">Attach a Photo: (optional)</div>
+            <div class="col-1-item"></div>
+            <div class="col-1-item text-white" style="font-size:14px">Attach a Photo: (optional)</div>
             <div class="col-1-item white-upload">
                 <input type="file" name="picture" id="pictureupload" value="">
             </div>
@@ -85,7 +86,7 @@
             <h2>Create an Answer</h2>
             <label for="answer"><b>Answer:</b></label>
             <textarea id="answer" name="answer" rows="3" cols="70" placeholder="Make it short and clear..." required></textarea></br>
-            <label for="psw"><b>Web URL or Discussion Link</b></label>
+            <label for="psw"><b>Share Web URL</b></label>
             <input type="text" placeholder="Enter URL..." name="url">
             <input type="file" name="answerAttach" value="">
             <span style="font-size: 13px"><input type="checkbox" name="anonymity" value="1">&nbsp;&nbsp;&nbsp;&nbsp;Answer Anonymously&nbsp;&nbsp;&nbsp;&nbsp;</span>
