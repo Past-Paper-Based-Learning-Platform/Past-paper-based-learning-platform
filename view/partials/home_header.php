@@ -24,21 +24,8 @@
     <div class="row">
         <section class = 'logohead'>
             <a href='http://localhost/Main/homeindex.php?page=home.php'><img src= 'pictures/logoPPB.png' class='logoimg'></a>
-            <h1 class="sitename">Past Paper Base Learning PlatForm</h1>
-        </section>
-        <div class="row" style="width:100%;">
-            <div class="col-1-item" style="color:white;">
-            <a href='http://localhost/Main/homeindex.php?page=home.php'class='usernametag'>Hi <?php echo $username ?></a>
-            </div>
-            <div class="col-3-item">
-                <form action="http://localhost/Main/homeindex.php?page=home.php">
-                        <div class="serchbar">
-                            <a href="http://localhost/Main/homeindex.php"><input type="text" placeholder="Search.." name="search"></a>
-                        </div>
-                        <div class='searchbtn'>
-                            <a href="http://localhost/Main/homeindex.php" ><button class="bg-white" type="submit"><i class="fa fa-search"></i></button></a>   
-                        </div>
-                </form>
+            <div class="col-2-item" style="color:white;">
+            <a href='http://localhost/Main/homeindex.php?page=home.php' class='usernametag'>Hi <?php echo $username ?></a>
             </div>
             <div class="col-1-item" style="float:right;">
                 <form action="http://localhost/Main/homeindex.php" method = "POST">
@@ -50,7 +37,8 @@
                     </button>
                 </a>
             </div>
-        </div>
+        </section>
+            
 
         <table class="hometable" style="width:100%;height:600px;table-layout: fixed;">
             <tr>
