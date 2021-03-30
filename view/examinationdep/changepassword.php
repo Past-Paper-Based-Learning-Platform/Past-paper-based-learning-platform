@@ -31,7 +31,7 @@
             </div>
             <div class="col-1-item"></div>
             <div class="col-3-item trans">
-                <form name="frmChange" method="post" action="http://localhost/Main/examindex.php?tag=user" onSubmit="return validatePassword()">
+                <form name="frmChange" method="post" action="http://localhost/Main/examindex.php?page=changepassword.php" onSubmit="return validatePassword()">
                     <div class="col-2-item strong text-white">Current Password:</div>
                     <div class="col-4-item">
                         <input type="password" name="currentpass" value="" id="currentPassword">

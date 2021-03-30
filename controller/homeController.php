@@ -264,6 +264,7 @@
 			$qcontent=trim($_POST['question']);
 			$subject_code=$_POST['subjectrelated'];
 			$attachment='';	
+			date_default_timezone_set("Asia/Colombo");
 			$timestamp=date('Y-m-d H:i:s');
 			$upload_success=true;
 			$tags=$_POST['taglist'];
@@ -327,6 +328,7 @@
 			$url=trim($_POST['url']);
 			$attachment='';	
 			$discussion_id=$_POST['discussionId'];
+			date_default_timezone_set("Asia/Colombo");
 			$timestamp=date('Y-m-d H:i:s');
 			$upload_success=true;
 			if($_SESSION['user_role']=="L"){
@@ -394,6 +396,7 @@
 			$user_id=$_SESSION['user_id'];
 			$discussion_id=$_POST['reportDiscussionId'];
 			$cause=$_POST['reportCause'];
+			date_default_timezone_set("Asia/Colombo");
 			$timestamp=date('Y-m-d H:i:s');
 			if($this->objsm->create_report($user_id, $discussion_id, $cause, $timestamp)){
 				echo "<script>alert('Report Submit - Success!'); window.location.href='view/registered user/feed.php';</script>";
