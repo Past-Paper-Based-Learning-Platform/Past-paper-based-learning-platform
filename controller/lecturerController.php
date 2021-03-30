@@ -90,6 +90,7 @@
 			$result_paper = $this->objsm->get_pastpapers();
             $result_lesson = $this->objsm->getLessons();
 			$meetingdetails = $this->objsm->getmeetingdetails($userId);
+			$image = $this->objsm->getUserImage($userId);
 
             if($page == 'pastpaper.php'){
 				$paper_result =$this->objsm->get_paperpath($userId);
@@ -398,14 +399,18 @@
 				}
 				if(!move_uploaded_file($_FILES['image']['tmp_name'],$target_dir.$target_file)){
 					$error = 3; //wrong with uploading
+					echo '<script> alert("Uploaded file is not successful! Error in target directory"); </script>';
 				}else{
 					$this->objsm->set_image($target_dir.$target_file,$_SESSION['user_id']);
+					echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=home.php")</script>';
 				}
 			}else{
 				$error = 2; //not image type
+				echo '<script> alert("Uploaded file is not an image"); </script>';
 			}
 			}else{
 				$error=3;
+				echo '<script> alert("File cannot be empty"); </script>';
 			}
 
 

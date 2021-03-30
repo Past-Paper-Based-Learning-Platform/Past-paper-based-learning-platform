@@ -726,6 +726,26 @@
         	}
         }
 
+        public function getUserImage($userId){
+            try{
+                $this->open_db();
+
+                $sql="SELECT * FROM registered_user WHERE user_id='$userId' ";
+                $result= $this->condb-> query($sql);
+                $row= mysqli_fetch_assoc($result);
+
+                if($row['image']){
+                    return $row['image'];
+                }
+                return "uploads/default.png";
+                
+                $this->close_db();
+            }catch (Exception $e) 
+			{   
+            	$this->close_db();
+            	throw $e;
+            }
+        }
 
 	}
 ?>
