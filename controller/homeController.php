@@ -68,13 +68,27 @@
 			if(isset($_POST['requestmeeting'])){
 				$this->requestMeeting();
 			}
-
+//edit and delete discussion 
 			if (isset($_POST['editDiscussion'])){
-				$this->editDiscussion();
+				if($_POST['temp']==0){
+					$this->editDiscussion();
+					echo $_POST['discussionId'];
+				}elseif($_POST['temp']==1){
+					echo $_POST['discussionId'];
+					$this->editanswer();
+				}
+				
 			}
-			
 			if (isset($_POST['deleteDiscussion'])){
-				$this->deleteDiscussion();
+				
+				if($_POST['temp']==0){
+					$this->deleteDiscussion();
+					echo $_POST['discussionId'];
+				}elseif($_POST['temp']==1){
+					echo $_POST['discussionId'];
+					$this->deleteanswer();
+				}
+				
 			}
 				
 			if(isset($_POST['setnofication'])){
@@ -242,13 +256,6 @@
 			}else{
 				echo"incurrect password";
 			}
-		}
-
-		public function deleteDiscussion(){
-			$discussionId=$_POST['discussionId'];
-			
-			$result=$this->objsm->deleteDiscussion($discussionId);
-			echo "<script>alert(Delete success!'); window.location.href='view/registered user/filter.php';</script>";
 		}
 
 		public function editDiscussion(){
@@ -490,6 +497,28 @@
 			$this->objsm->setnotification($block,$_SESSION['user_id']);
 
 			echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$_SESSION['user_id'].'$x='.$block.'")</script>';
+		}
+
+		
+		public function editanswer(){
+			$discussionId=$_POST['discussionId'];
+			$content=$_POST['content'];
+			$result=$this->objsm->updateanswer($discussionId,$content);
+			echo "<script>alert('Edit Discussion - success!'); window.location.href='view/registered user/filter.php';</script>";
+		}
+
+		public function deleteanswer(){
+			$discussionId=$_POST['discussionId'];
+		
+			$result=$this->objsm->deleteanswer($discussionId);
+			echo "<script>alert('Delete - success!'); window.location.href='view/registered user/filter.php';</script>";
+		}
+
+		public function deleteDiscussion(){
+			$discussionId=$_POST['discussionId'];
+			
+			$result=$this->objsm->deleteDiscussion($discussionId);
+			echo "<script>alert('Delete - success!'); window.location.href='view/registered user/filter.php';</script>";
 		}
     }
 ?>
