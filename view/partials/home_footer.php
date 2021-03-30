@@ -31,7 +31,6 @@
 
 <script src="libs/main.js"></script>
 <script>
-
 //drop down button
 function dropdownpaper() {
 document.getElementById("myDropdown").classList.toggle("show");

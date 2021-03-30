@@ -11,7 +11,8 @@
 </head>
 <body>
 <div class="scrollhide" style="width:100%; height:100%; overflow:auto; margin:auto">
-  <div class="posts-wrapper">
+  
+    <button class="toggle-form" style="height: 50px">Ask a Question</button>
 
     <div id="genquestion" style="background : rgba(0, 0, 0, 0.5);padding: 6px 12px;">
         
@@ -58,7 +59,6 @@
         </form>
     </div>
 
-    </div>
     
     <div style="margin:auto; overflow:auto">
     <form action="" method="post">
@@ -232,6 +232,12 @@
         for (var i=0; i< answer.length; i++){
             answer[i].style.display = "none";
         }
+        var questionform = document.getElementById("genquestion");
+        questionform.style.display = "none";
+    });
+
+    $(".toggle-form").click(function(){
+        $("#genquestion").toggle(300);
     });
 
     $('#general-form').on('keyup keypress', function(e) {
