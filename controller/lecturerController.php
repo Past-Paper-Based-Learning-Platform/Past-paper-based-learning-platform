@@ -80,6 +80,10 @@
 			if(isset($_POST['setnofication'])){
 				$this->setNotification();
 			}
+
+			if(isset($_POST['deactivate'])){
+				$this->deactivateUser();
+			}
 		}
 
         //page view
@@ -557,6 +561,18 @@
 			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=profilesetting.php&user_id='.$_SESSION['user_id'].'")</script>';
 		}
 
+		//deactivate user
+		public function deactivateUser(){
+			if(isset($_POST['checkboxslide']) && $_POST['checkboxslide']=='D'){
+				$this->objsm->deactivateUser($_SESSION['user_id']);
+				session_destroy();
+				echo '<script type="text/javascript">'; 
+				echo 'alert("Account disabled successfully");'; 
+				echo 'window.location.assign("http://localhost/Main/index.php")';	
+				echo '</script>';
+				
+			}
+		}
 		
     }
 ?>

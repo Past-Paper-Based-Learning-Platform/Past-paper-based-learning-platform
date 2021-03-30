@@ -653,6 +653,13 @@
         	}
         }
 
+        //deactivate user
+        public function deactivateUser($user_id){
+            $this->open_db();
+            $sql="UPDATE registered_user SET activeStatus = 0 WHERE user_id='$user_id'";
+            $result=$this->condb->query($sql);
+            return $result;
+        }
 
 	}
 ?>
