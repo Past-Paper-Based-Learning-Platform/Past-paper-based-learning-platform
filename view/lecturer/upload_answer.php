@@ -17,7 +17,7 @@
             <input type="file" name="answer_script" id="answer_script" class="dzone-input">   
         </div>
 
-            <button class="ansscriptbtn" name= "upload_answers" type="submit" >UPLOAD</button>
+            <button class="verticlebtn" style="width:20%" name= "upload_answers" type="submit" >UPLOAD</button>
     </form>
 
     <div class="alert alert0" style="display:none;" id="alert">
