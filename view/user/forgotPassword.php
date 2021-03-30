@@ -68,7 +68,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <div class="col-6-item">
                     <div class="col-1-item"></div>
                     <div class="col-4-item">
-                        <button class="verticlebtn" type="submit" id="sendRecoverPW" name="sendRecoverPW">Send Recovery Password</button>
+                        <button class="verticlebtn" type="submit" id="sendRecoverPW" name="sendRecoverPW">Send Recovery Mail</button>
                         <span style="float:right; margin:10px">Check your email account</span>
                     </div>
                 </div>

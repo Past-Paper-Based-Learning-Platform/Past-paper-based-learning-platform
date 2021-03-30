@@ -759,5 +759,23 @@
                 $result=$this->condb->query($sql);
                 return $result;
         }
+
+         //remove subjects from interset List
+         function removeInterestListSujects($userId,$subjects){
+            try
+			{
+                $this->open_db();
+                foreach($subjects as $subject){
+                    $query = "DELETE FROM interest_list WHERE user_id='".$userId."' and subject_code='".$subject."'";
+                    $result = mysqli_query($this->condb,$query);
+                }
+				$this->close_db();
+			}
+			catch (Exception $e)
+			{
+				$this->close_db();
+				throw $e;
+			}
+        }
     }
 ?>

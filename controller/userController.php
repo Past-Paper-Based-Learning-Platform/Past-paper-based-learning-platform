@@ -188,8 +188,8 @@
 			$mail->Host = "smtp.gmail.com";
 			$mail->Port = 587; // or 587
 			$mail->IsHTML(true);
-			$mail->Username = "janadhi.stu@gmail.com";
-			$mail->Password = "Janadhi@123";
+			$mail->Username = "solve.it.61@gmail.com";
+			$mail->Password = "Solveit@123";
 			$mail->SetFrom($_POST['email']);
 			$mail->Subject = "Recover Password";
 			$mail->Body = "Please click below link to reset your password. http://localhost/Main/index.php?page=resetPassword.php&email=".$_POST['email'];

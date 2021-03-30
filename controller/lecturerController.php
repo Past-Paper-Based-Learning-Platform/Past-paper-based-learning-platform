@@ -84,6 +84,10 @@
 			if(isset($_POST['deactivate'])){
 				$this->deactivateUser();
 			}
+
+			if(isset($_POST['rmvtintlst'])){
+				$this->removeSubjects();
+			}
 		}
 
         //page view
@@ -128,6 +132,14 @@
 			$this->objsm->updateSubjects($userId,$subjects);
 			$subjects = $this->objsm->getInterestList($userId);
 			$allSubjects = $this->objsm->getSubjects($userId);
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=profilesetting.php")</script>';
+		}
+
+		//remove subjects from interest list
+		public function removeSubjects(){
+			$subjects=$_POST['removeSubjcts'];
+            $userId = $_SESSION['user_id'];
+			$this->objsm->removeInterestListSujects($userId,$subjects);
 			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=profilesetting.php")</script>';
 		}
 

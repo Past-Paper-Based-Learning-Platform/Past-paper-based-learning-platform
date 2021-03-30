@@ -161,13 +161,22 @@
     <div class="bg-gray">
       <h3 class="topic">Interest List</h3>
       <hr>
-      <ul style="list-style-type: square;">
-        <?php
-          while($row = mysqli_fetch_assoc($subjects)) {
-            echo "<li>". $row['subject_name']. "</li>";
-          }
-        ?>
-      </ul> 
+      <div style="text-align:left; margin-top: 8px;margin-bottom: 8px;">
+        <form action="http://localhost/Main/homeindex.php?page=profilesetting.php" method="post" id="removeInterestSubs">
+          <div class="custom-select-stu" id="custom-select-stu" style="color:black">Remove Subjects</div>
+          <div id="custom-select-option-box-stu" style="height: 100px; overflow: auto;">
+            <?php 
+              foreach($subjects as $subject){
+                echo "<div class='custom-select-option checkoption'> <input onchange='toggleFillColor(this);'  class='custom-select-option-checkbox' type='checkbox' name='removeSubjcts[]' value='".$subject['subject_code']."'> ".$subject['subject_name']." </div>";  
+              }
+            ?>
+          </div>
+          <button class="bg-dblue border-dblue submitbtn" type="submit" name='rmvtintlst' >Remove</button>
+        </form>            
+      </div>
+
+      <br/><br/>
+
       <div style="text-align:left; margin-top: 8px;margin-bottom: 8px;">
         <form action="http://localhost/Main/homeindex.php?page=profilesetting.php" method="post" id="addSubjectsForm">
           <div class="custom-select-stu" id="custom-select-stu" style="color:black">Select More..</div>

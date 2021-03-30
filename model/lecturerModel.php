@@ -66,6 +66,28 @@
             }
 		}
 
+
+        function getSubjectsWithSubjectCodes($userId)
+        {
+            try
+            {
+                $this->open_db();
+                $subjects=array();
+                $query = "SELECT * FROM subject WHERE subject_code NOT IN (SELECT subject_code FROM interest_list WHERE user_id = '".$userId."')";
+                $results = mysqli_query($this->condb,$query);
+                while ($row_ah = mysqli_fetch_assoc($results)) {
+                    array_push($subjects, $row_ah);
+                }
+                return $subjects;
+                $tihs->closedb();
+            }
+            catch (Exception $e)
+            {
+                $this->close_db();
+				throw $e;
+            }
+		}
+
 		//Select all past papers
 		public function get_pastpapers()
 		{
@@ -137,6 +159,24 @@
                 $this->open_db();
                 foreach($subjects as $subject){
                     $query="INSERT INTO interest_list (user_id,subject_code) VALUES ('".$userId."','".$subject."')";
+                    $result = mysqli_query($this->condb,$query);
+                }
+				$this->close_db();
+			}
+			catch (Exception $e)
+			{
+				$this->close_db();
+				throw $e;
+			}
+        }
+
+        //remove subjects from interset List
+        function removeInterestListSujects($userId,$subjects){
+            try
+			{
+                $this->open_db();
+                foreach($subjects as $subject){
+                    $query = "DELETE FROM interest_list WHERE user_id='".$userId."' and subject_code='".$subject."'";
                     $result = mysqli_query($this->condb,$query);
                 }
 				$this->close_db();
