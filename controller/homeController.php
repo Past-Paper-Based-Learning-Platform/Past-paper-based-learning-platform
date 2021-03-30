@@ -77,7 +77,6 @@
 					echo $_POST['discussionId'];
 					$this->editanswer();
 				}
-				
 			}
 			if (isset($_POST['deleteDiscussion'])){
 				
@@ -96,6 +95,10 @@
 			}
 			if (isset($_POST['filter'])){
 				$this->filterDiscussion();
+			}
+
+			if(isset($_POST['deactivate'])){
+				$this->deactivateUser();
 			}
 		}
 
@@ -223,24 +226,11 @@
 			$last_name=$_POST['l_name'];
 			$email=$_POST['email'];
 			$password=$_POST['password'];
-			$userActive='';
-			if(isset($_POST['checkboxslide'])){
-				$userActive=$_POST['checkboxslide'];
-			}
+			
 		
-			$result=$this->objsm->user_update($user_id,$first_name,$middle_name, $last_name,$email,$password,$userActive);
-	
-			if(isset($_POST['checkboxslide']) && $_POST['checkboxslide']=='D'){
-				session_destroy();
-				echo '<script type="text/javascript">'; 
-				echo 'alert("Account disabled successfully");'; 
-				echo 'window.location.assign("http://localhost/Main/index.php")';	
-				echo '</script>';
-				
-			}else{
-				echo '<script language="javascript">window.location.assign("http://localhost/Main/homeindex.php?page=profilesetting.php&user_id='.$user_id.'")</script>';
-			}		
-		
+			$result=$this->objsm->user_update($user_id,$first_name,$middle_name, $last_name,$email,$password);
+
+			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=profilesetting.php&user_id='.$user_id.'")</script>';
 		}
 
 		public function passwordUpdate(){
@@ -535,6 +525,19 @@
 			$resultdis=$this->objsm->filteranswered($user_id);
 			}
 			require_once "./view/registered user/filterdiscussion.php";
+		}
+
+		//deactivate user
+		public function deactivateUser(){
+			if(isset($_POST['checkboxslide']) && $_POST['checkboxslide']=='D'){
+				$this->objsm->deactivateUser($_SESSION['user_id']);
+				session_destroy();
+				echo '<script type="text/javascript">'; 
+				echo 'alert("Account disabled successfully");'; 
+				echo 'window.location.assign("http://localhost/Main/index.php")';	
+				echo '</script>';
+				
+			}
 		}
     }
 ?>
