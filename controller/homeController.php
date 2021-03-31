@@ -180,7 +180,6 @@
 			//check if there is a quesion written or uploaded
 			if($question == '' && empty($check)){
 					$error = 1; //neither image nor question
-					echo '<script> alert("You\'re trying to add an invalid type to discussion"); </script>';
 			}else{
 				//check if there is a file uploaded
 				if(empty($check)){
