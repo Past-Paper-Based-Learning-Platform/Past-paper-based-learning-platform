@@ -17,7 +17,7 @@
         
                     <br><button class="bg-dblue border-dblue" type="submit" name="loginBtn" id="loginBtn">Login</button>
         
-                    <input style="background: transparent; border: none;color:red;width:100%" type="text" name="loginerr" id="loginerrId" value = "<?php echo (isset($loginerr))?$loginerr:'';?>">
+                    <input style="background: transparent; border: none;color:red;width:100%; display:none" type="text" name="loginerr" id="loginerrId" value = "<?php echo (isset($loginerr))?$loginerr:'';?>">
 
         
             </form>

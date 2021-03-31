@@ -454,7 +454,6 @@
 			$days=$this->objsm->availableDays($lecturerid);
 			}else{
 				$error = 1; //not selected a lecturer
-				echo '<script> alert("Please select a lecturer"); </script>';
 			}
 			
 			if($error == 0){
