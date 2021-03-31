@@ -7,7 +7,7 @@
             <hr style="width:90%;border: 1px solid #f1f1f1;">
             <form action="http://localhost/Main/index.php?page=login.php" method="post" id="loginFormId">
                 <div class="container">
-                    <br><label for="uname"><b>Username</b></label>
+                    <br><label for="uname"><b>Username or E-mail</b></label>
                     <input type="text" placeholder="Email/Username" id="email_un_id" name="email_un">
                     <span style="color:red; display:none;" id="unValidationId">Email/Username required</span>
 

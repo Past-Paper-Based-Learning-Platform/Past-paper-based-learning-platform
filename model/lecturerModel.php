@@ -721,5 +721,52 @@
             return $result;
         }
 
+        public function updateDiscussion($discussionId,$content){
+            $this->open_db();
+            $sql="UPDATE discussion SET content='$content' WHERE discussion_id=$discussionId";
+            $result= $this->condb-> query($sql);
+           
+            
+            $this->close_db();
+        }
+
+        public function deleteDiscussion($discussion_id){
+            $this->open_db();
+             
+                
+                $sql1="DELETE FROM discussion Where discussion_id='$discussion_id'";
+                $result1= $this->condb-> query($sql1);
+                $sql2="DELETE FROM discussion_feedback Where discussion_id='$discussion_id'";
+                $result2= $this->condb-> query($sql2);
+                $sql3="DELETE FROM answer Where discussion_id='$discussion_id'";
+                $result3= $this->condb-> query($sql3);
+                $sql4="DELETE FROM answer_feedback Where discussion_id='$discussion_id'";
+                $result4= $this->condb-> query($sql4);
+                $sql5="DELETE FROM anonymous_names Where discussion_id='$discussion_id'";
+                $result5= $this->condb-> query($sql5);
+                 $this->close_db();
+        }
+
+        public function updateanswer($discussionId,$content){
+            $this->open_db();
+            
+                $sql="UPDATE answer SET content='$content' WHERE answer_id=$discussionId";
+                $result= $this->condb-> query($sql);
+               
+                
+                $this->close_db();
+        }
+    
+        public function deleteanswer($discussionId){
+            $this->open_db();
+           
+                $sql="DELETE FROM answer Where answer_id='$discussionId'";
+                $result= $this->condb-> query($sql);
+               
+                
+                $this->close_db();
+        }
+
+
 	}
 ?>

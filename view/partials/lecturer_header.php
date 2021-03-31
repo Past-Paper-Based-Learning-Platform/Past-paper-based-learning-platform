@@ -54,7 +54,7 @@
 
                         <!--profile-->
                         <div>
-                            <a href=""><button class="verticlebtn" >My Contributions</button></a>
+                            <a href="http://localhost/Main/lecturerindex.php?page=filterpage.php"><button class="verticlebtn" >My Contributions</button></a>
                             <a href='http://localhost/Main/lecturerindex.php?page=lecturerHome.php'><button class="verticlebtn" >Go to Feed</button></a>
 
                         <!-- Ask a Quesion From Past Paper -->

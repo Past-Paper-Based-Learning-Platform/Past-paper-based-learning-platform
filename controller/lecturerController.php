@@ -88,6 +88,28 @@
 			if(isset($_POST['rmvtintlst'])){
 				$this->removeSubjects();
 			}
+
+			//edit and delete discussion 
+			if (isset($_POST['editDiscussion'])){
+				if($_POST['temp']==0){
+					$this->editDiscussion();
+					echo $_POST['discussionId'];
+				}elseif($_POST['temp']==1){
+					echo $_POST['discussionId'];
+					$this->editanswer();
+				}
+			}
+			if (isset($_POST['deleteDiscussion'])){
+				
+				if($_POST['temp']==0){
+					$this->deleteDiscussion();
+					echo $_POST['discussionId'];
+				}elseif($_POST['temp']==1){
+					echo $_POST['discussionId'];
+					$this->deleteanswer();
+				}
+				
+			}
 		}
 
         //page view
@@ -314,24 +336,34 @@
 			}
         }
         
-        public function deleteDiscussion(){
-			$resource_id=$_POST['uid'];
-			$discusssion_id=$_POST['dis_id'];
-			$parent_resource_id=$_POST['res_id'];
-			$paper_id=$_POST['paper_id'];
-			
-			$result=$this->objsm->delete_data($resource_id,$discusssion_id,$parent_resource_id);
-			echo '<script language="javascript">window.location.assign("http://localhost/Main/lecturerindex.php?page=discussion.php&paper_id='.$paper_id.'")</script>';
-        }
-        
+      
         public function editDiscussion(){
-			$user_id=$_POST['uid'];
-			$discussion_id=$_POST['discussion_id'];
-			$paper_id=$_POST['paper_id'];
-			$content=$_POST['message'];
-			$result=$this->objsm->get_question_details($discussion_id);
-			$result2=$this->objsm->get_lesson_details($result['question_id'],$paper_id);
-			require_once "./view/lecturer/pastpaperedit.php";
+
+			$discussionId=$_POST['discussionId'];
+			$content=$_POST['content'];
+			$result=$this->objsm->updateDiscussion($discussionId,$content);
+			echo "<script>alert('Edit Discussion - success!'); window.location.href='view/lecturer/filter.php';</script>";
+		}
+
+		public function deleteDiscussion(){
+			$discussionId=$_POST['discussionId'];
+			
+			$result=$this->objsm->deleteDiscussion($discussionId);
+			echo "<script>alert('Delete - success!'); window.location.href='view/lecturer/filter.php';</script>";
+		}
+
+		public function deleteanswer(){
+			$discussionId=$_POST['discussionId'];
+		
+			$result=$this->objsm->deleteanswer($discussionId);
+			echo "<script>alert('Delete - success!'); window.location.href='view/lecturer/filter.php';</script>";
+		}
+
+		public function editanswer(){
+			$discussionId=$_POST['discussionId'];
+			$content=$_POST['content'];
+			$result=$this->objsm->updateanswer($discussionId,$content);
+			echo "<script>alert('Edit Discussion - success!'); window.location.href='view/lecturer/filter.php';</script>";
 		}
 
 		public function setAvailable(){
